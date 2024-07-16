@@ -1,0 +1,19 @@
+name: Docker Compose
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Docker Compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "compose.yml"
+
+      - name: Docker Compose Up
+        run: |
+          docker-compose up --remove-orphans
