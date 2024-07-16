@@ -1,19 +1,25 @@
-name: Docker Compose
+name: Docker
 
-on: [push]
+on:
+  push:
+    branches:
+    - '**'
+  pull_request:
+    branches:
+    - main
 
 jobs:
-  build:
+  docker:
+    # timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v1
 
-      - name: Setup Docker Compose
-        uses: hoverkraft-tech/compose-action@v2.0.1
-        with:
-          compose-file: "compose.yml"
+    - name: Compose Containers
+      run: docker compose -f up -d --build
 
-      - name: Docker Compose Up
-        run: |
-          docker-compose up --remove-orphans
+    - name: Stop containers
+      if: always()
+      run: docker compose -f down
