@@ -3,10 +3,10 @@ name: Docker
 on:
   push:
     branches:
-    - '**'
+      - "**"
   pull_request:
     branches:
-    - main
+      - main
 
 jobs:
   docker:
@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Compose Containers
-      run: docker compose up -d --build --remove-orphans
+      - name: Compose Containers
+        run: docker compose up -d --build --remove-orphans
 
-    - name: Stop containers
-      if: always()
-      run: docker compose down
+      - name: Stop containers
+        if: always()
+        run: docker compose down
