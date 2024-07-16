@@ -10,7 +10,6 @@ on:
 
 jobs:
   docker:
-    # timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +18,19 @@ jobs:
 
     - name: Compose Containers
       run: docker compose up -d --build --remove-orphans
+
+    - name: Run Make Clean
+      run: docker exec chess make clean
+
+    - name: Run Make
+      run: docker exec chess make
+
+# TODO: run tests instead
+    - name: Run Chess
+      run: docker exec chess ./out/chess
+
+    - name: Run Make Clean
+      run: docker exec chess make clean
 
     - name: Stop containers
       if: always()

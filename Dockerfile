@@ -27,8 +27,4 @@ RUN git clone https://github.com/google/googletest.git \
 # Copy current working directory into container
 COPY . .
 
-# Build the project
-RUN make
-
-# Run executable
-CMD ["./chess"]
+CMD ["tail", "-f", "/dev/null"]
