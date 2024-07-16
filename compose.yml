@@ -6,3 +6,10 @@ services:
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
+
+  github-action:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    command: make && ./chess
+    working_dir: /usr/src/app
