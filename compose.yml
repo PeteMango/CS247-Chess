@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  chess:
+    build: .
+    container_name: chess
+    volumes:
+      - .:/usr/src/app
+    command: make && ./chess
+    working_dir: /usr/src/app
