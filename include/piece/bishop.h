@@ -6,7 +6,7 @@
 class Bishop : public Piece {
 
 public:
-    Bishop();
+    Bishop(Color color, Coordinate location, PieceType type);
     bool is_valid_move(Coordinate square) override;
 };
 

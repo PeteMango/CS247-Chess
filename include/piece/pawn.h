@@ -7,7 +7,7 @@ class Pawn : public Piece {
     int double_move_number;
 
 public:
-    Pawn();
+    Pawn(Color color, Coordinate location, PieceType type);
     bool is_valid_move(Coordinate square) override;
 };
 

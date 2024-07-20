@@ -10,7 +10,8 @@ class GraphicsDisplay : public Display {
     std::shared_ptr<XWindow> display;
 
 public:
-    GraphicsDisplay();
+    GraphicsDisplay(std::shared_ptr<Chess> chess,
+        std::shared_ptr<XWindow> display);
     void show() override;
 };
 

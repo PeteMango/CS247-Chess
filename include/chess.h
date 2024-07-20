@@ -20,7 +20,8 @@ public:
     Chess();
     void resign();
     void setup_board(std::istream& in);
-    void start_game(Player white, Player black);
+    void start_game(std::unique_ptr<Player> white,
+        std::unique_ptr<Player> black);
     bool is_valid_move(Coordinate start, Coordinate end);
     void make_move(Coordinate start, Coordinate end,
         PromotionType promotion);

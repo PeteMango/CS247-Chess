@@ -5,7 +5,7 @@
 
 class TextDisplay : public Display {
 public:
-    TextDisplay();
+    TextDisplay(std::shared_ptr<Chess> chess);
     void show() override;
 };
 

@@ -10,6 +10,7 @@ class Piece {
     PieceType type;
 
 public:
+    Piece(Color color, Coordinate location, PieceType type);
     virtual ~Piece();
     virtual bool is_valid_move(Coordinate square) = 0;
 };

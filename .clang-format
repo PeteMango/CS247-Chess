@@ -1,3 +1,4 @@
 BasedOnStyle: WebKit
 ColumnLimit: 65
 InsertNewlineAtEOF: true
+KeepEmptyLinesAtEOF: true

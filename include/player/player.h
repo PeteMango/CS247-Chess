@@ -12,6 +12,8 @@ class Player {
     std::shared_ptr<Game> game;
 
 public:
+    Player(std::shared_ptr<Player> opponent,
+        std::shared_ptr<Game> game);
     virtual ~Player();
     virtual void make_move(Coordinate start, Coordinate end,
         PromotionType promotion)

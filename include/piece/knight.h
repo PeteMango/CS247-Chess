@@ -6,7 +6,7 @@
 class Knight : public Piece {
 
 public:
-    Knight();
+    Knight(Color color, Coordinate location, PieceType type);
     bool is_valid_move(Coordinate square) override;
 };
 

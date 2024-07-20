@@ -6,7 +6,7 @@
 class Queen : public Piece {
 
 public:
-    Queen();
+    Queen(Color color, Coordinate location, PieceType type);
     bool is_valid_move(Coordinate square) override;
 };
 

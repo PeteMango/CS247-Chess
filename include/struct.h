@@ -14,8 +14,8 @@ struct Coordinate {
 };
 
 struct Players {
-    std::shared_ptr<Player> white;
-    std::shared_ptr<Player> black;
+    std::unique_ptr<Player> white;
+    std::unique_ptr<Player> black;
     Players(std::unique_ptr<Player> white,
         std::unique_ptr<Player> black);
 };
@@ -25,6 +25,8 @@ struct Move {
     Coordinate start;
     Coordinate end;
     PromotionType promotion;
+    Move(std::shared_ptr<Piece> piece, Coordinate start,
+        Coordinate end, PromotionType promotion);
 };
 
 #endif
