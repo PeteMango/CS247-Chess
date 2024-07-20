@@ -2,7 +2,8 @@
 #define BOARD_H
 
 #include "enum.h"
-#include "struct.h"
+#include "struct/coordinate.h"
+#include "struct/move.h"
 #include <unordered_set>
 #include <vector>
 

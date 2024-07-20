@@ -1,11 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "board.h"
 #include "enum.h"
-#include "struct.h"
+#include "struct/move.h"
 #include <vector>
-
-class Board;
 
 class Game {
     std::unique_ptr<Board> board;

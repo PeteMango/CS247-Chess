@@ -2,7 +2,7 @@
 #define PIECE_H
 
 #include "../enum.h"
-#include "../struct.h"
+#include "../struct/coordinate.h"
 
 class Piece {
     Color color;

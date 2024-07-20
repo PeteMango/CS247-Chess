@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include "../enum.h"
-#include "../struct.h"
+#include "../struct/coordinate.h"
 #include <memory>
 
 class Game;

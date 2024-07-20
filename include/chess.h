@@ -3,7 +3,7 @@
 
 #include "display/display.h"
 #include "player/player.h"
-#include "struct.h"
+#include "struct/players.h"
 #include <utility>
 #include <vector>
 
