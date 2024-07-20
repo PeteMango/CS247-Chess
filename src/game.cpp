@@ -10,7 +10,7 @@ void Game::resign() { }
 
 bool Game::is_valid_move(Move m) { }
 
-void Game::make_move(Move m) { }
+std::string Game::make_move(Move m) { }
 
 void Game::setup_board(std::istream& in) { }
 
