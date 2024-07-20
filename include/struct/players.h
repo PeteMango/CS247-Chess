@@ -1,9 +1,8 @@
 #ifndef PLAYERS_H
 #define PLAYERS_H
 
+#include "../player/player.h"
 #include <memory>
-
-class Player;
 
 struct Players {
     std::unique_ptr<Player> white;
