@@ -2,7 +2,7 @@
 
 Human::Human(
     std::shared_ptr<Player> opponent, std::shared_ptr<Game> game)
-    : Player(opponent, game)
+    : Player(opponent, game, true)
 {
 }
 

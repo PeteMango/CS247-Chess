@@ -10,14 +10,16 @@ class Game;
 class Player {
     std::shared_ptr<Player> opponent;
     std::shared_ptr<Game> game;
+    bool is_human;
 
 public:
     Player(std::shared_ptr<Player> opponent,
-        std::shared_ptr<Game> game);
+        std::shared_ptr<Game> game, bool is_human);
     virtual ~Player();
     virtual void make_move(Coordinate start, Coordinate end,
         PromotionType promotion)
         = 0;
+    bool player_is_human();
 };
 
 #endif
