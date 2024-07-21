@@ -5,12 +5,13 @@ TEST_EXEC = out/run_tests
 SRC_DIR = src
 TEST_DIR = tests
 OUT_DIR = build
-CFILES = $(wildcard $(SRC_DIR)/*.cpp)
-TEST_FILES = $(wildcard $(TEST_DIR)/*.cpp)
+CFILES = $(shell find $(SRC_DIR) -name '*.cpp')
+TEST_FILES = $(shell find $(TEST_DIR) -name '*.cpp')
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(OUT_DIR)/%.o,$(CFILES))
 TEST_OBJECTS = $(patsubst $(TEST_DIR)/%.cpp,$(OUT_DIR)/test_%.o,$(TEST_FILES))
 TEST_DEPS = $(TEST_OBJECTS:.o=.d)
 SRC_DEPS = $(OBJECTS:.o=.d)
+DIRS = $(sort $(dir $(OBJECTS)) $(dir $(TEST_OBJECTS)))
 
 all: $(EXEC) $(TEST_EXEC)
 
@@ -23,14 +24,14 @@ $(TEST_EXEC): $(TEST_OBJECTS)
 -include $(SRC_DEPS)
 -include $(TEST_DEPS)
 
-$(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OUT_DIR)
+$(OUT_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OUT_DIR)/dirs
 	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
-$(OUT_DIR)/test_%.o: $(TEST_DIR)/%.cpp | $(OUT_DIR)
+$(OUT_DIR)/test_%.o: $(TEST_DIR)/%.cpp | $(OUT_DIR)/dirs
 	$(CXX) $(CXXFLAGS) -MMD -MP -c $< -o $@
 
-$(OUT_DIR):
-	mkdir -p $(OUT_DIR)
+$(OUT_DIR)/dirs:
+	mkdir -p $(DIRS)
 
 .PHONY: clean
 clean:
