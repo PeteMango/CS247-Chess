@@ -3,6 +3,25 @@
 
 #include "enum.h"
 #include <string>
+#include <unordered_map>
+
+extern const std::unordered_map<PromotionType, std::string>
+    PromotionTypeToString;
+
+extern const std::unordered_map<std::string, PromotionType>
+    StringToPromotionType;
+
+extern const std::unordered_map<PieceType, std::string>
+    PieceTypeToString;
+
+extern const std::unordered_map<std::string, PieceType>
+    StringToPieceType;
+
+extern const std::unordered_map<Color, std::string>
+    ColorToString;
+
+extern const std::unordered_map<std::string, Color>
+    StringToColor;
 
 bool validate_player(std::string player);
 

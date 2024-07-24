@@ -27,6 +27,8 @@ public:
     bool is_next_move_human();
     void notify_displays();
     bool is_game_not_running();
+    bool has_game();
+    std::shared_ptr<Game> get_last_game();
 };
 
 #endif

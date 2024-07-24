@@ -27,7 +27,12 @@ void Chess::make_move(
 
 void Chess::get_scores() { }
 
-void Chess::notify_displays() { }
+void Chess::notify_displays()
+{
+    for (int i = 0; i < this->displays.size(); i++) {
+        displays[i].show();
+    }
+}
 
 bool Chess::is_next_move_human() { }
 
@@ -37,3 +42,11 @@ bool Chess::is_game_not_running()
         || this->games[this->games.size() - 1]
                ->is_game_complete();
 }
+
+bool Chess::has_game() { return !this->games.empty(); }
+
+std::shared_ptr<Game> Chess::get_last_game()
+{
+    return this->games[this->games.size() - 1];
+}
+
