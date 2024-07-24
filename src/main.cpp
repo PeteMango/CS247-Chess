@@ -7,12 +7,14 @@
 
 int main()
 {
-    Chess CHESS;
+    std::shared_ptr<Chess> CHESS = std::make_shared<Chess>();
     std::string line;
+
+    bool is_eof_given = false;
 
     while (true) {
         std::getline(std::cin, line);
-        if (std::cin.eof()) {
+        if (std::cin.eof() || is_eof_given) {
             std::cout << "CTRL-D detected" << std::endl;
             break;
         }
@@ -21,6 +23,7 @@ int main()
         std::string cmd;
         ss >> cmd;
         if (cmd == "game") {
+            throw std::logic_error("unimplemented");
             std::string white;
             std::string black;
             ss >> white >> black;
@@ -29,11 +32,13 @@ int main()
                 throw std::invalid_argument(
                     "invalid player inputted");
             }
-            CHESS.start_game(white, black);
+            CHESS->start_game(white, black);
         } else if (cmd == "resign") {
-            CHESS.resign();
+            throw std::logic_error("unimplemented");
+            CHESS->resign();
         } else if (cmd == "move") {
-            if (CHESS.is_next_move_human()) {
+            throw std::logic_error("unimplemented");
+            if (CHESS->is_next_move_human()) {
                 std::string start;
                 std::string end;
                 std::string promotion;
@@ -47,24 +52,26 @@ int main()
                     throw std::invalid_argument(
                         "invalid promotion");
                 }
-                Coordinate start_coordinate(
-                    start[1] - '0', start[0]);
-                Coordinate end_coordinate(
-                    end[1] - '0', start[0]);
+                Coordinate start_coordinate(start);
+                Coordinate end_coordinate(end);
                 PromotionType promotion_type
                     = string_to_promotiontype(promotion);
-                CHESS.make_move(start_coordinate, end_coordinate,
-                    promotion_type);
+                CHESS->make_move(start_coordinate,
+                    end_coordinate, promotion_type);
             } else {
                 Coordinate start_coordinate;
                 Coordinate end_coordinate;
                 PromotionType promotion_type
                     = string_to_promotiontype("");
-                CHESS.make_move(start_coordinate, end_coordinate,
-                    promotion_type);
+                CHESS->make_move(start_coordinate,
+                    end_coordinate, promotion_type);
             }
         } else if (cmd == "setup") {
-            CHESS.setup_board(std::cin);
+            if (!CHESS->is_game_not_running()) {
+                throw std::invalid_argument(
+                    "setup run when game in progress");
+            }
+            CHESS->setup_board(std::cin, is_eof_given);
         } else {
             throw std::invalid_argument("invalid input command");
         }

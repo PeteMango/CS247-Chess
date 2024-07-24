@@ -1,6 +1,34 @@
 #include "../include/board.h"
 
-Board::Board() { }
+// empty
+Board::Board()
+    : board { 8,
+        std::vector<std::shared_ptr<Piece>>(8, nullptr) }
+    , active_color { Color::WHITE }
+    , white_king { nullptr }
+    , black_king { nullptr }
+    , en_passant_targets()
+    , halfmove_clock { 0 }
+    , fullmove_clock { 0 }
+{
+    this->white_pieces = std::set<std::shared_ptr<Piece>>();
+    this->black_pieces = std::set<std::shared_ptr<Piece>>();
+
+    this->castle_rights[Color::WHITE][CastleSide::KINGSIDE]
+        = true;
+    this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE]
+        = true;
+    this->castle_rights[Color::BLACK][CastleSide::KINGSIDE]
+        = true;
+    this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE]
+        = true;
+}
+
+// default
+Board::Board(int i) { }
+
+// position
+Board::Board(std::string fen) { }
 
 bool Board::is_valid_move(Move m) { }
 
