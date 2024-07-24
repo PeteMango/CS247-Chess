@@ -2,8 +2,7 @@
 
 // empty
 Board::Board()
-    : board { 8,
-        std::vector<std::shared_ptr<Piece>>(8, nullptr) }
+    : grid { 8, std::vector<std::shared_ptr<Piece>>(8, nullptr) }
     , active_color { Color::WHITE }
     , white_king { nullptr }
     , black_king { nullptr }
@@ -63,3 +62,8 @@ void Board::remove_piece(Coordinate square) { }
 
 std::string Board::deserialize() { }
 
+std::vector<std::vector<std::shared_ptr<Piece>>>&
+Board::get_grid()
+{
+    return this->grid;
+}

@@ -9,7 +9,7 @@
 #include <vector>
 
 class Game {
-    std::unique_ptr<Board> board;
+    std::shared_ptr<Board> board;
     std::vector<std::string> moves;
     bool is_complete;
     bool is_started;
@@ -25,5 +25,6 @@ public:
     bool is_valid_move(Move m);
     std::string make_move(Move m);
     void setup_board(std::istream& in, bool& is_eof_given);
+    std::shared_ptr<Board> get_board();
 };
 #endif

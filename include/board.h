@@ -12,7 +12,7 @@ class Piece;
 
 class Board {
     // https://www.chess.com/terms/fen-chess
-    std::vector<std::vector<std::shared_ptr<Piece>>> board;
+    std::vector<std::vector<std::shared_ptr<Piece>>> grid;
     Color active_color;
     std::set<std::shared_ptr<Piece>> white_pieces;
     std::set<std::shared_ptr<Piece>> black_pieces;
@@ -42,6 +42,7 @@ public:
     void place_piece(
         Color color, Coordinate square, PieceType type);
     void remove_piece(Coordinate square);
+    std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
 };
 
 #endif

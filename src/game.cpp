@@ -3,7 +3,7 @@
 #include <sstream>
 
 Game::Game(std::shared_ptr<Chess> chess)
-    : board { std::make_unique<Board>() }
+    : board { std::make_shared<Board>() }
     , is_complete { false }
     , is_started { false }
     , chess { chess }
@@ -80,4 +80,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
         }
     }
 }
+
+std::shared_ptr<Board> Game::get_board() { return this->board; }
 
