@@ -6,10 +6,14 @@ King::King(Color color, Coordinate location, PieceType type)
 {
 }
 
-bool King::is_valid_move(Coordinate square) { }
+bool King::is_valid_move(Coordinate square) { return true; }
 
-bool King::is_check(std::set<Coordinate>& attacked_squares) { }
+bool King::is_check(std::set<Coordinate>& attacked_squares)
+{
+    return true;
+}
 
 bool King::is_checkmate(std::set<Coordinate>& attacked_squares)
 {
+    return true;
 }

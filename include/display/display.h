@@ -6,6 +6,7 @@
 class Chess;
 
 class Display {
+protected:
     std::shared_ptr<Chess> chess;
 
 public:

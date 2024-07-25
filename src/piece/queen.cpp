@@ -5,4 +5,4 @@ Queen::Queen(Color color, Coordinate location, PieceType type)
 {
 }
 
-bool Queen::is_valid_move(Coordinate square) { }
+bool Queen::is_valid_move(Coordinate square) { return true; }

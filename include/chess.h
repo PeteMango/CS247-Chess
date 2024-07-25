@@ -4,27 +4,33 @@
 #include "display/display.h"
 #include "player/player.h"
 #include "struct/players.h"
+#include <memory>
 #include <utility>
 #include <vector>
 
 class Game;
 
-class Chess {
+class Chess : public std::enable_shared_from_this<Chess> {
     std::vector<std::shared_ptr<Game>> games;
     std::vector<Players> players;
-    std::vector<Display> displays;
+    std::vector<std::unique_ptr<Display>> displays;
     void get_scores();
-    void notify_displays();
 
 public:
     Chess();
     void resign();
-    void setup_board(std::istream& in);
+    void setup_board(std::istream& in, bool& is_eof_given);
     void start_game(std::string white, std::string black);
     bool is_valid_move(Coordinate start, Coordinate end);
     void make_move(Coordinate start, Coordinate end,
         PromotionType promotion);
     bool is_next_move_human();
+    void notify_displays();
+    bool is_game_not_running();
+    bool has_game();
+    std::shared_ptr<Game> get_last_game();
+    void init();
 };
 
+std::shared_ptr<Chess> createChess();
 #endif
