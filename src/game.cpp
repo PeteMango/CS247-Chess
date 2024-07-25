@@ -38,7 +38,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
         ss >> cmd;
 
         if (cmd == "+") {
-            throw std::logic_error("+ unimplemented");
             std::string piece;
             std::string coordinate;
             ss >> piece >> coordinate;

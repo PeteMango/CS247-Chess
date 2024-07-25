@@ -24,6 +24,8 @@ class Board {
     int fullmove_clock;
     bool verify_board();
     std::string serialize();
+    std::shared_ptr<Piece> create_piece(
+        Color color, Coordinate square, PieceType type);
 
 public:
     Board(bool default_board = true);

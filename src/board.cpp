@@ -1,4 +1,11 @@
 #include "../include/board.h"
+#include "../include/piece/bishop.h"
+#include "../include/piece/king.h"
+#include "../include/piece/knight.h"
+#include "../include/piece/pawn.h"
+#include "../include/piece/queen.h"
+#include "../include/piece/rook.h"
+#include <stdexcept>
 
 // empty
 Board::Board(bool default_board)
@@ -122,7 +129,42 @@ bool Board::verify_board() { return true; }
 void Board::place_piece(
     Color color, Coordinate square, PieceType type)
 {
-    return;
+    std::shared_ptr<Piece> p
+        = this->create_piece(color, square, type);
+    if (color == Color::WHITE) {
+        this->white_pieces.insert(p);
+        if (type == PieceType::KING) {
+            this->white_king = p;
+        }
+    } else {
+        this->black_pieces.insert(p);
+        if (type == PieceType::KING) {
+            this->black_king = p;
+        }
+    }
+    this->grid[8 - square.row][square.column - 'a'] = p;
+}
+
+std::shared_ptr<Piece> Board::create_piece(
+    Color color, Coordinate square, PieceType type)
+{
+    switch (type) {
+    case PieceType::KING:
+        return std::make_shared<King>(color, square, type);
+    case PieceType::QUEEN:
+        return std::make_shared<King>(color, square, type);
+    case PieceType::ROOK:
+        return std::make_shared<King>(color, square, type);
+    case PieceType::BISHOP:
+        return std::make_shared<King>(color, square, type);
+    case PieceType::KNIGHT:
+        return std::make_shared<King>(color, square, type);
+    case PieceType::PAWN:
+        return std::make_shared<King>(color, square, type);
+    default:
+        throw std::logic_error(
+            "cant create a piece that doesnt exist");
+    }
 }
 
 void Board::remove_piece(Coordinate square) { return; }
