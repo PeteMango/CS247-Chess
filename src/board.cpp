@@ -64,7 +64,8 @@ Board::Board(const std::string& fen)
 
     if (empassant != "-") {
         this->en_passant_targets
-            = { empassant[1] - '0', empassant[0] };
+            = new Coordinate { empassant[1] - '0',
+                  empassant[0] };
     }
 
     /* half/full move clocks */
@@ -174,7 +175,7 @@ std::string Board::serialize()
     fen.append(" ");
 
     /* en passant possible */
-    if (this->en_passant_targets.row == -1) {
+    if (this->en_passant_targets == nullptr) {
         fen.append(" - ");
     }
 
