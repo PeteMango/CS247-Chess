@@ -6,4 +6,4 @@ Rook::Rook(Color color, Coordinate location, PieceType type)
 {
 }
 
-bool Rook::is_valid_move(Coordinate square) { }
+bool Rook::is_valid_move(Coordinate square) { return true; }

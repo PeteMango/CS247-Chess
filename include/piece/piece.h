@@ -11,8 +11,12 @@ class Piece {
 
 public:
     Piece(Color color, Coordinate location, PieceType type);
+    Piece(const char& c);
     virtual ~Piece();
     virtual bool is_valid_move(Coordinate square) = 0;
+
+    Color getColor();
+    PieceType getPieceType();
 };
 
 #endif

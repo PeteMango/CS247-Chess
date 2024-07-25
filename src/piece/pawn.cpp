@@ -6,4 +6,4 @@ Pawn::Pawn(Color color, Coordinate location, PieceType type)
 {
 }
 
-bool Pawn::is_valid_move(Coordinate square) { }
+bool Pawn::is_valid_move(Coordinate square) { return true; }

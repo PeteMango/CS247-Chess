@@ -9,3 +9,6 @@ Piece::Piece(Color color, Coordinate location, PieceType type)
 
 Piece::~Piece() { }
 
+Color Piece::getColor() { return this->color; }
+PieceType Piece::getPieceType() { return this->type; }
+
