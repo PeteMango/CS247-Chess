@@ -2,6 +2,7 @@
 #define UTIL_H
 
 #include "enum.h"
+#include "struct/coordinate.h"
 #include <string>
 #include <unordered_map>
 
@@ -40,5 +41,7 @@ PromotionType string_to_promotiontype(std::string promotion);
 PieceType string_to_piecetype(std::string piece);
 
 Color string_to_color(std::string color);
+
+std::pair<int, int> get_grid_indexes(Coordinate c);
 
 #endif

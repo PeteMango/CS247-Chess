@@ -1,10 +1,7 @@
 #include "../include/board.h"
-#include "../include/piece/bishop.h"
 #include "../include/piece/king.h"
-#include "../include/piece/knight.h"
-#include "../include/piece/pawn.h"
-#include "../include/piece/queen.h"
-#include "../include/piece/rook.h"
+#include "../include/util.h"
+#include <iostream>
 #include <stdexcept>
 
 // empty
@@ -126,25 +123,6 @@ void Board::get_possible_moves_by_color(
 
 bool Board::verify_board() { return true; }
 
-void Board::place_piece(
-    Color color, Coordinate square, PieceType type)
-{
-    std::shared_ptr<Piece> p
-        = this->create_piece(color, square, type);
-    if (color == Color::WHITE) {
-        this->white_pieces.insert(p);
-        if (type == PieceType::KING) {
-            this->white_king = p;
-        }
-    } else {
-        this->black_pieces.insert(p);
-        if (type == PieceType::KING) {
-            this->black_king = p;
-        }
-    }
-    this->grid[square.row - 1][square.column - 'a'] = p;
-}
-
 std::shared_ptr<Piece> Board::create_piece(
     Color color, Coordinate square, PieceType type)
 {
@@ -167,7 +145,50 @@ std::shared_ptr<Piece> Board::create_piece(
     }
 }
 
-void Board::remove_piece(Coordinate square) { return; }
+void Board::place_piece(
+    Color color, Coordinate square, PieceType type)
+{
+    // check if something is there already
+    std::pair<int, int> idx = get_grid_indexes(square);
+    if (this->grid[idx.first][idx.second] != nullptr) {
+        this->remove_piece(square);
+    }
+    std::shared_ptr<Piece> p
+        = this->create_piece(color, square, type);
+    if (color == Color::WHITE) {
+        this->white_pieces.insert(p);
+        if (type == PieceType::KING) {
+            this->white_king = p;
+        }
+    } else {
+        this->black_pieces.insert(p);
+        if (type == PieceType::KING) {
+            this->black_king = p;
+        }
+    }
+    this->grid[idx.first][idx.second] = p;
+}
+
+void Board::remove_piece(Coordinate square)
+{
+    std::pair<int, int> idx = get_grid_indexes(square);
+    if (this->grid[idx.first][idx.second] == nullptr) {
+        return;
+    }
+    std::shared_ptr<Piece> p = this->grid[idx.first][idx.second];
+    if (p->get_color() == Color::WHITE) {
+        if (p->get_piece_type() == PieceType::KING) {
+            this->white_king = nullptr;
+        }
+        this->white_pieces.erase(p);
+    } else {
+        if (p->get_piece_type() == PieceType::KING) {
+            this->black_king = nullptr;
+        }
+        this->black_pieces.erase(p);
+    }
+    this->grid[idx.first][idx.second] = nullptr;
+}
 
 std::string Board::serialize()
 {

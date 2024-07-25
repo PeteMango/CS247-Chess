@@ -54,7 +54,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             this->board->place_piece(color, coord, p);
             this->chess->notify_displays();
         } else if (cmd == "-") {
-            throw std::logic_error("- unimplemented");
             std::string coordinate;
             ss >> coordinate;
             if (!validate_coordinate(coordinate)) {
