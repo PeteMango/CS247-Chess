@@ -142,7 +142,7 @@ void Board::place_piece(
             this->black_king = p;
         }
     }
-    this->grid[8 - square.row][square.column - 'a'] = p;
+    this->grid[square.row - 1][square.column - 'a'] = p;
 }
 
 std::shared_ptr<Piece> Board::create_piece(

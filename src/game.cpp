@@ -1,5 +1,6 @@
 #include "../include/game.h"
 #include "../include/util.h"
+#include <iostream>
 #include <sstream>
 
 Game::Game(std::shared_ptr<Chess> chess, bool default_board)
@@ -64,7 +65,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             this->board->remove_piece(coord);
             this->chess->notify_displays();
         } else if (cmd == "=") {
-            throw std::logic_error("= unimplemented");
             std::string col;
             ss >> col;
             if (!validate_color(col)) {
