@@ -26,8 +26,7 @@ class Board {
     std::string deserialize();
 
 public:
-    Board();
-    Board(int i);
+    Board(bool default_board = true);
     // serialize
     Board(std::string fen);
     bool is_valid_move(Move m);

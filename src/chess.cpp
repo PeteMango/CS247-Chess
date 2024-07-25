@@ -27,7 +27,7 @@ void Chess::setup_board(std::istream& in, bool& is_eof_given)
 {
     // empty game
     std::shared_ptr<Game> game
-        = std::make_shared<Game>(shared_from_this());
+        = std::make_shared<Game>(shared_from_this(), false);
     this->games.push_back(game);
     this->games[this->games.size() - 1]->setup_board(
         in, is_eof_given);

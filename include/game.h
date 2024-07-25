@@ -17,7 +17,8 @@ class Game {
     std::shared_ptr<Chess> chess;
 
 public:
-    Game(std::shared_ptr<Chess> chess);
+    Game(
+        std::shared_ptr<Chess> chess, bool default_board = true);
     bool is_game_complete();
     bool is_game_started();
     Color get_winner();

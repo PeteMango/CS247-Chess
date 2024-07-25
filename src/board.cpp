@@ -1,7 +1,7 @@
 #include "../include/board.h"
 
 // empty
-Board::Board()
+Board::Board(bool default_board)
     : grid { 8, std::vector<std::shared_ptr<Piece>>(8, nullptr) }
     , active_color { Color::WHITE }
     , white_king { nullptr }
@@ -12,7 +12,6 @@ Board::Board()
 {
     this->white_pieces = std::set<std::shared_ptr<Piece>>();
     this->black_pieces = std::set<std::shared_ptr<Piece>>();
-
     this->castle_rights[Color::WHITE][CastleSide::KINGSIDE]
         = true;
     this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE]
@@ -21,10 +20,11 @@ Board::Board()
         = true;
     this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE]
         = true;
-}
 
-// default
-Board::Board(int i) { }
+    if (default_board) {
+        // TODO:
+    }
+}
 
 // position
 Board::Board(std::string fen) { }

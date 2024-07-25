@@ -2,8 +2,8 @@
 #include "../include/util.h"
 #include <sstream>
 
-Game::Game(std::shared_ptr<Chess> chess)
-    : board { std::make_shared<Board>() }
+Game::Game(std::shared_ptr<Chess> chess, bool default_board)
+    : board { std::make_shared<Board>(default_board) }
     , is_complete { false }
     , is_started { false }
     , chess { chess }
