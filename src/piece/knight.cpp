@@ -5,4 +5,4 @@ Knight::Knight(Color color, Coordinate location, PieceType type)
 {
 }
 
-bool Knight::is_valid_move(Coordinate square) { }
+bool Knight::is_valid_move(Coordinate square) { return true; }

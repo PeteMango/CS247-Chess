@@ -1,37 +1,34 @@
 name: Docker
 
 on:
-  push:
-    branches:
-    - '**'
   pull_request:
     branches:
-    - main
+      - main
 
 jobs:
   docker:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Compose Containers
-      run: docker compose up -d --build --remove-orphans
+      - name: Compose Containers
+        run: docker compose up -d --build --remove-orphans
 
-    - name: Run Make Clean
-      run: docker exec chess make clean
+      - name: Run Make Clean
+        run: docker exec chess make clean
 
-    - name: Run Make
-      run: docker exec chess make
+      - name: Run Make
+        run: docker exec chess make
 
-# TODO: run tests instead
-    - name: Run Chess
-      run: docker exec chess ./out/chess
+      # TODO: run tests instead
+      - name: Run Chess
+        run: docker exec chess ./out/chess
 
-    - name: Run Make Clean
-      run: docker exec chess make clean
+      - name: Run Make Clean
+        run: docker exec chess make clean
 
-    - name: Stop containers
-      if: always()
-      run: docker compose down
+      - name: Stop containers
+        if: always()
+        run: docker compose down
