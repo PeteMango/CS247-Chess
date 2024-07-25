@@ -16,7 +16,7 @@ class Board {
     Color active_color;
 
     std::map<Color, std::map<CastleSide, bool>> castle_rights;
-    Coordinate* en_passant_targets;
+    std::unique_ptr<Coordinate> en_passant_targets;
 
     int halfmove_clock;
     int fullmove_clock;

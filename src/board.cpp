@@ -63,9 +63,8 @@ Board::Board(const std::string& fen)
     fenStream >> empassant;
 
     if (empassant != "-") {
-        this->en_passant_targets
-            = new Coordinate { empassant[1] - '0',
-                  empassant[0] };
+        this->en_passant_targets = std::make_unique<Coordinate>(
+            empassant[1] - '0', empassant[0] - 'a' + 1);
     }
 
     /* half/full move clocks */
