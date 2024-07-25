@@ -139,15 +139,15 @@ std::string Board::serialize()
     std::string fen = "";
 
     for (const std::vector<std::shared_ptr<Piece>>& pc :
-        this->board) {
+        this->grid) {
         int numEmpty = 0;
         for (std::shared_ptr<Piece> p : pc) {
             if (p == nullptr) {
                 numEmpty += 1;
                 continue;
             }
-            if (p->getColor() == Color::WHITE) {
-                PieceType pt = p->getPieceType();
+            if (p->get_color() == Color::WHITE) {
+                PieceType pt = p->get_piece_type();
 
                 /* if there are empty spaces before */
                 if (numEmpty > 0) {
