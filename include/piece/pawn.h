@@ -4,7 +4,6 @@
 #include "piece.h"
 
 class Pawn : public Piece {
-    int double_move_number;
 
 public:
     Pawn(Color color, Coordinate location, PieceType type);

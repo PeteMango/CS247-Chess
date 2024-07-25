@@ -2,7 +2,6 @@
 
 Pawn::Pawn(Color color, Coordinate location, PieceType type)
     : Piece(color, location, type)
-    , double_move_number { -1 }
 {
 }
 

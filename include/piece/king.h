@@ -5,7 +5,6 @@
 #include <set>
 
 class King : public Piece {
-    bool has_moved;
 
 public:
     King(Color color, Coordinate location, PieceType type);
