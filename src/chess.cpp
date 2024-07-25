@@ -1,8 +1,25 @@
 #include "../include/chess.h"
+#include "../include/display/textdisplay.h"
 #include "../include/game.h"
+#include <iostream>
 
 // implemented
 Chess::Chess() { }
+
+void Chess::init()
+{
+    auto self = shared_from_this();
+    std::unique_ptr<TextDisplay> t
+        = std::make_unique<TextDisplay>(self);
+    this->displays.push_back(std::move(t));
+}
+
+std::shared_ptr<Chess> createChess()
+{
+    std::shared_ptr<Chess> c = std::make_shared<Chess>();
+    c->init();
+    return c;
+}
 
 void Chess::resign() { }
 
@@ -30,7 +47,7 @@ void Chess::get_scores() { }
 void Chess::notify_displays()
 {
     for (int i = 0; i < this->displays.size(); i++) {
-        displays[i].show();
+        displays[i]->show();
     }
 }
 

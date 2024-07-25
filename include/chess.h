@@ -13,7 +13,7 @@ class Game;
 class Chess : public std::enable_shared_from_this<Chess> {
     std::vector<std::shared_ptr<Game>> games;
     std::vector<Players> players;
-    std::vector<Display> displays;
+    std::vector<std::unique_ptr<Display>> displays;
     void get_scores();
 
 public:
@@ -29,6 +29,8 @@ public:
     bool is_game_not_running();
     bool has_game();
     std::shared_ptr<Game> get_last_game();
+    void init();
 };
 
+std::shared_ptr<Chess> createChess();
 #endif

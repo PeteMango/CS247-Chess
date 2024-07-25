@@ -28,10 +28,18 @@ const std::unordered_map<Color,
 
 void TextDisplay::show()
 {
+    std::cout << "in textdisplay show" << std::endl;
+    if (!this->chess->has_game()) {
+        std::cout << "in textdisplay show error" << std::endl;
+        return;
+    }
     std::shared_ptr<Game> g = this->chess->get_last_game();
+    std::cout << 1 << std::endl;
     std::shared_ptr<Board> b = g->get_board();
+    std::cout << 2 << std::endl;
     std::vector<std::vector<std::shared_ptr<Piece>>>& grid
         = b->get_grid();
+    std::cout << 3 << std::endl;
     for (int row = 7; row >= 0; row--) {
         std::cout << row + 1 << " ";
         for (int col = 0; col < 8; col++) {
