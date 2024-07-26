@@ -1,6 +1,7 @@
-#include "../include/chess.h"
-#include "../include/display/textdisplay.h"
-#include "../include/game.h"
+#include "chess.h"
+#include "display/graphicsdisplay.h"
+#include "display/textdisplay.h"
+#include "game.h"
 #include "../include/player/computer.h"
 #include "../include/player/human.h"
 #include <iostream>
