@@ -1,6 +1,7 @@
-#include "../include/chess.h"
-#include "../include/display/textdisplay.h"
-#include "../include/game.h"
+#include "chess.h"
+#include "display/graphicsdisplay.h"
+#include "display/textdisplay.h"
+#include "game.h"
 #include "../include/player/computer.h"
 #include "../include/player/human.h"
 #include <iostream>
@@ -12,9 +13,13 @@ Chess::Chess() { }
 void Chess::init()
 {
     auto self = shared_from_this();
-    std::unique_ptr<TextDisplay> t
-        = std::make_unique<TextDisplay>(self);
+    std::unique_ptr<TextDisplay> t = std::make_unique<TextDisplay>(self);
+
+    std::unique_ptr<GraphicsDisplay> g
+        = std::make_unique<GraphicsDisplay>(self);
+
     this->displays.push_back(std::move(t));
+    this->displays.push_back(std::move(g));
 }
 
 std::shared_ptr<Chess> createChess()
@@ -29,8 +34,7 @@ void Chess::resign() { }
 void Chess::setup_board(std::istream& in, bool& is_eof_given)
 {
     // empty game
-    std::shared_ptr<Game> game
-        = std::make_shared<Game>(shared_from_this(), false);
+    std::shared_ptr<Game> game = std::make_shared<Game>(shared_from_this(), false);
     this->games.push_back(game);
     this->get_last_game()->setup_board(in, is_eof_given);
 }
@@ -94,10 +98,7 @@ void Chess::start_game(PlayerType white, PlayerType black)
 
 bool Chess::is_valid_move(Coordinate start, Coordinate end) { }
 
-void Chess::make_move(
-    Coordinate start, Coordinate end, PromotionType promotion)
-{
-}
+void Chess::make_move(Coordinate start, Coordinate end, PromotionType promotion) { }
 
 void Chess::get_scores() { }
 
@@ -143,4 +144,3 @@ std::shared_ptr<Game> Chess::get_last_game()
 {
     return this->games[this->games.size() - 1];
 }
-
