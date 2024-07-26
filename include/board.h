@@ -20,7 +20,7 @@ class Board : public std::enable_shared_from_this<Board> {
     std::set<std::shared_ptr<Piece>> black_pieces;
     std::shared_ptr<Piece> white_king;
     std::shared_ptr<Piece> black_king;
-    std::map<Color, std::map<CastleSide , bool>> castle_rights;
+    std::map<Color, std::map<CastleSide, bool>> castle_rights;
     int halfmove_clock;
     int fullmove_clock;
     std::string serialize();
@@ -37,11 +37,9 @@ public:
     bool is_check(Color c);
     bool is_stalemate();
     bool is_checkmate();
-    void get_attacked_squares_by_color(
-        std::set<Coordinate>& s, Color c);
+    void get_attacked_squares_by_color(std::set<Coordinate>& s, Color c);
     void get_possible_moves_by_color(std::set<Move>& m, Color c);
-    void place_piece(
-        Color color, Coordinate square, PieceType type);
+    void place_piece(Color color, Coordinate square, PieceType type);
     void remove_piece(Coordinate square);
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     void verify_board();
