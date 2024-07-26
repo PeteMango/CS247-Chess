@@ -45,6 +45,8 @@ public:
     void remove_piece(Coordinate square);
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     void verify_board();
+    void setup_default_board();
+    void clean_board();
 };
 
 #endif

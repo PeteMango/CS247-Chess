@@ -10,6 +10,9 @@ Game::Game(std::shared_ptr<Chess> chess, bool default_board)
     , is_started { false }
     , chess { chess }
 {
+    if (default_board) {
+        this->board->setup_default_board();
+    }
 }
 
 bool Game::is_game_complete() { return this->is_complete; }

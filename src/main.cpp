@@ -38,6 +38,8 @@ int main()
 
             CHESS->start_game(string_to_playertype(white),
                 string_to_playertype(black));
+            // TODO: remove
+            CHESS->notify_displays();
         } else if (cmd == "resign") {
             throw std::logic_error("unimplemented");
             CHESS->resign();

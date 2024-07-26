@@ -44,6 +44,74 @@ Board::Board(bool default_board)
     }
 }
 
+void Board::clean_board()
+{
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (this->grid[i][j] == nullptr) {
+                continue;
+            }
+            this->grid[i][j] = nullptr;
+        }
+    }
+    this->white_king = nullptr;
+    this->black_king = nullptr;
+    this->white_pieces.clear();
+    this->black_pieces.clear();
+    // TODO: en passant, castle rights, clocks
+}
+
+void Board::setup_default_board()
+{
+    this->clean_board();
+    // kings
+    this->place_piece(
+        Color::WHITE, Coordinate("e1"), PieceType::KING);
+    this->place_piece(
+        Color::BLACK, Coordinate("e8"), PieceType::KING);
+    // queens
+    this->place_piece(
+        Color::WHITE, Coordinate("d1"), PieceType::QUEEN);
+    this->place_piece(
+        Color::BLACK, Coordinate("d8"), PieceType::QUEEN);
+    // rooks
+    this->place_piece(
+        Color::WHITE, Coordinate("a1"), PieceType::ROOK);
+    this->place_piece(
+        Color::WHITE, Coordinate("h1"), PieceType::ROOK);
+    this->place_piece(
+        Color::BLACK, Coordinate("a8"), PieceType::ROOK);
+    this->place_piece(
+        Color::BLACK, Coordinate("h8"), PieceType::ROOK);
+    // bishops
+    this->place_piece(
+        Color::WHITE, Coordinate("c1"), PieceType::BISHOP);
+    this->place_piece(
+        Color::WHITE, Coordinate("f1"), PieceType::BISHOP);
+    this->place_piece(
+        Color::BLACK, Coordinate("c8"), PieceType::BISHOP);
+    this->place_piece(
+        Color::BLACK, Coordinate("f8"), PieceType::BISHOP);
+    // knights
+    this->place_piece(
+        Color::WHITE, Coordinate("b1"), PieceType::KNIGHT);
+    this->place_piece(
+        Color::WHITE, Coordinate("g1"), PieceType::KNIGHT);
+    this->place_piece(
+        Color::BLACK, Coordinate("b8"), PieceType::KNIGHT);
+    this->place_piece(
+        Color::BLACK, Coordinate("g8"), PieceType::KNIGHT);
+    // pawns
+    for (int i = 0; i < 8; i++) {
+        char col = static_cast<char>(i + 'a');
+        this->place_piece(
+            Color::WHITE, Coordinate(2, col), PieceType::PAWN);
+        this->place_piece(
+            Color::BLACK, Coordinate(7, col), PieceType::PAWN);
+    }
+    this->verify_board();
+}
+
 Board::Board(const std::string& fen)
     : halfmove_clock { 0 }
     , fullmove_clock { 0 }
