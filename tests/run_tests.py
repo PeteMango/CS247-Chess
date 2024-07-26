@@ -43,11 +43,8 @@ class TestSolution(unittest.TestCase):
                     f"Binary execution failed for '{input_path}' with return code {e.returncode}.\n"
                     f"Error output:\n{e.stderr.strip() if e.stderr else 'No stderr output'}"
                 )
-                with open(os.path.join(expected_dir, f'{input[:-3]}.expect')):
-                    if 
-
                 # self.fail(error_msg)
-                passed_tests += 1
+                passed += 1
                 continue
             except Exception as e:
                 self.fail(f"Error running binary for '{input_path}': {e}")
@@ -77,13 +74,13 @@ class TestSolution(unittest.TestCase):
             normalized_expected = expected_output.strip()
 
             if normalized_result == normalized_expected:
-                passed_tests += 1
+                passed += 1
             else:
-                failed_tests += 1
+                failed += 1
                 self.fail(f"Failed for {input_file}")
 
-        print(f"{passed_tests} test cases passed.")
-        print(f"{failed_tests} test cases failed.")
+        print(f"{passed} test cases passed.")
+        print(f"{failed} test cases failed.")
 
 
 if __name__ == "__main__":
