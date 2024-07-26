@@ -5,8 +5,6 @@
 
 class Pawn : public Piece {
 
-    std::vector<std::pair<int, int>> directions;
-
 public:
     Pawn(Color color, Coordinate location, PieceType type,
         std::shared_ptr<Board> board);

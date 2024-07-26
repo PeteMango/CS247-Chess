@@ -4,8 +4,6 @@
 #include "piece.h"
 
 class Bishop : public Piece {
-    std::vector<std::pair<int, int>> directions
-        = { { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 } };
 
 public:
     Bishop(Color color, Coordinate location, PieceType type,
