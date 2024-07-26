@@ -35,28 +35,28 @@ void Chess::setup_board(std::istream& in, bool& is_eof_given)
     this->get_last_game()->setup_board(in, is_eof_given);
 }
 
-std::unique_ptr<Player> Chess::create_player(
+std::shared_ptr<Player> Chess::create_player(
     PlayerType type, Color color)
 {
     switch (type) {
     case PlayerType::HUMAN:
-        return std::make_unique<Human>(
+        return std::make_shared<Human>(
             this->get_last_game(), color);
     case PlayerType::LEVEL1:
-        return std::make_unique<Computer>(
+        return std::make_shared<Computer>(
             this->get_last_game(), color);
     // TODO: add subclasses to computer
     case PlayerType::LEVEL2:
         throw std::invalid_argument("not implemented");
-        return std::make_unique<Computer>(
+        return std::make_shared<Computer>(
             this->get_last_game(), color);
     case PlayerType::LEVEL3:
         throw std::invalid_argument("not implemented");
-        return std::make_unique<Computer>(
+        return std::make_shared<Computer>(
             this->get_last_game(), color);
     case PlayerType::LEVEL4:
         throw std::invalid_argument("not implemented");
-        return std::make_unique<Computer>(
+        return std::make_shared<Computer>(
             this->get_last_game(), color);
     default:
         throw std::logic_error(
@@ -82,18 +82,18 @@ void Chess::start_game(PlayerType white, PlayerType black)
     // g now is the current game
 
     // create players
-    std::unique_ptr<Player> w
+    std::shared_ptr<Player> w
         = this->create_player(white, Color::WHITE);
-    std::unique_ptr<Player> b
+    std::shared_ptr<Player> b
         = this->create_player(black, Color::BLACK);
-    std::unique_ptr<Players> p
-        = std::make_unique<Players>(std::move(w), std::move(b));
+    std::shared_ptr<Players> p = std::make_shared<Players>(w, b);
     this->players.push_back(std::move(p));
     g->update_start(true);
 }
 
 bool Chess::is_valid_move(Coordinate start, Coordinate end) { }
 
+// TODO: maybe not
 void Chess::make_move(
     Coordinate start, Coordinate end, PromotionType promotion)
 {
@@ -108,7 +108,23 @@ void Chess::notify_displays()
     }
 }
 
-bool Chess::is_next_move_human() { }
+bool Chess::is_next_move_human()
+{
+    std::shared_ptr<Game> g = this->get_last_game();
+    std::shared_ptr<Board> b = g->get_board();
+    std::shared_ptr<Players> p = this->get_last_game_players();
+    if (b->get_active_color() == Color::WHITE) {
+        return p->white->player_is_human();
+    }
+    return p->black->player_is_human();
+}
+
+Color Chess::get_current_active_color()
+{
+    std::shared_ptr<Game> g = this->get_last_game();
+    std::shared_ptr<Board> b = g->get_board();
+    return b->get_active_color();
+}
 
 bool Chess::is_game_not_running()
 {
@@ -144,3 +160,17 @@ std::shared_ptr<Game> Chess::get_last_game()
     return this->games[this->games.size() - 1];
 }
 
+bool Chess::has_players() { return !this->players.empty(); }
+
+std::shared_ptr<Players> Chess::get_last_game_players()
+{
+    return this->players[this->players.size() - 1];
+}
+
+// call has players, etc
+bool Chess::can_move() { return true; }
+
+bool Chess::is_promotion(Coordinate start, Coordinate end)
+{
+    return true;
+}

@@ -44,34 +44,73 @@ int main()
             throw std::logic_error("unimplemented");
             CHESS->resign();
         } else if (cmd == "move") {
-            throw std::logic_error("unimplemented");
+            if (!CHESS->can_move()) {
+                throw std::invalid_argument("cannot call move");
+            }
+
+            std::string start;
+            std::string end;
+            std::string promotion;
+            ss >> start >> end >> promotion;
+            if (!validate_coordinate(start)
+                || !validate_coordinate(end)) {
+                throw std::invalid_argument(
+                    "invalid coordinates");
+            }
+            Coordinate start_coordinate(start);
+            Coordinate end_coordinate(end);
+            std::shared_ptr<Players> p
+                = CHESS->get_last_game_players();
+
             if (CHESS->is_next_move_human()) {
-                std::string start;
-                std::string end;
-                std::string promotion;
-                ss >> start >> end >> promotion;
-                if (!validate_coordinate(start)
-                    || !validate_coordinate(end)) {
+                if (!CHESS->is_valid_move(
+                        start_coordinate, end_coordinate)) {
+                    throw std::invalid_argument("invalid move");
+                }
+                if (CHESS->is_promotion(
+                        start_coordinate, end_coordinate)
+                    && promotion.empty()) {
                     throw std::invalid_argument(
-                        "invalid coordinates");
+                        "promotion without specifying promotion "
+                        "piece");
+                } else if (!CHESS->is_promotion(
+                               start_coordinate, end_coordinate)
+                    && !promotion.empty()) {
+                    throw std::invalid_argument(
+                        "non promotion specifying promotion "
+                        "piece");
+                }
+
+                if (promotion.empty()) {
+                    promotion = "Q";
                 }
                 if (!validate_possible_promotion(promotion)) {
                     throw std::invalid_argument(
                         "invalid promotion");
                 }
-                Coordinate start_coordinate(start);
-                Coordinate end_coordinate(end);
                 PromotionType promotion_type
                     = string_to_promotiontype(promotion);
-                CHESS->make_move(start_coordinate,
-                    end_coordinate, promotion_type);
+                if (CHESS->get_current_active_color()
+                    == Color::WHITE) {
+                    p->white->make_move(start_coordinate,
+                        end_coordinate, promotion_type);
+                } else {
+                    p->black->make_move(start_coordinate,
+                        end_coordinate, promotion_type);
+                }
+            } else if (start.empty() && end.empty()
+                && promotion.empty()) {
+                if (CHESS->get_current_active_color()
+                    == Color::WHITE) {
+                    p->white->move();
+                } else {
+                    p->black->move();
+                }
+
             } else {
-                Coordinate start_coordinate;
-                Coordinate end_coordinate;
-                PromotionType promotion_type
-                    = string_to_promotiontype("");
-                CHESS->make_move(start_coordinate,
-                    end_coordinate, promotion_type);
+                throw std::invalid_argument(
+                    "no other arguments other than move for a "
+                    "computer move");
             }
         } else if (cmd == "setup") {
             if (!CHESS->is_game_not_running()) {

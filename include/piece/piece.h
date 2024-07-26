@@ -27,6 +27,7 @@ public:
     Coordinate get_coordinate();
     virtual void get_attacking_squares(std::set<Coordinate>& s)
         = 0;
+    void update_location(Coordinate square);
 };
 
 #endif

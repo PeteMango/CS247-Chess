@@ -124,3 +124,18 @@ bool coordinate_in_bounds(std::pair<int, int> a)
         && a.second < 8;
 }
 
+PieceType PromotionTypeToPieceType(PromotionType pt)
+{
+    switch (pt) {
+    case PromotionType::QUEEN:
+        return PieceType::QUEEN;
+    case PromotionType::ROOK:
+        return PieceType::ROOK;
+    case PromotionType::BISHOP:
+        return PieceType::BISHOP;
+    case PromotionType::KNIGHT:
+        return PieceType::KNIGHT;
+    default:
+        throw std::logic_error("not possible");
+    }
+}

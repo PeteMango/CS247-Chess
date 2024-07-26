@@ -12,10 +12,10 @@ class Game;
 
 class Chess : public std::enable_shared_from_this<Chess> {
     std::vector<std::shared_ptr<Game>> games;
-    std::vector<std::unique_ptr<Players>> players;
+    std::vector<std::shared_ptr<Players>> players;
     std::vector<std::unique_ptr<Display>> displays;
     void get_scores();
-    std::unique_ptr<Player> create_player(
+    std::shared_ptr<Player> create_player(
         PlayerType type, Color color);
 
 public:
@@ -32,7 +32,12 @@ public:
     bool can_start_game();
     bool has_game();
     std::shared_ptr<Game> get_last_game();
+    bool has_players();
+    std::shared_ptr<Players> get_last_game_players();
+    Color get_current_active_color();
     void init();
+    bool is_promotion(Coordinate start, Coordinate end);
+    bool can_move();
 };
 
 std::shared_ptr<Chess> createChess();

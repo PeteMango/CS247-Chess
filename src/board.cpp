@@ -422,3 +422,16 @@ Board::get_grid()
 {
     return this->grid;
 }
+
+Color Board::get_active_color() { return this->active_color; }
+
+void Board::delete_piece(std::shared_ptr<Piece> p, Color color)
+{
+}
+
+void Board::add_piece(std::shared_ptr<Piece> p, Color color) { }
+
+bool Board::is_promotion(Coordinate start, Coordinate end)
+{
+    return true;
+}

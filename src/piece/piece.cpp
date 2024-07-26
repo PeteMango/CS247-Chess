@@ -13,3 +13,7 @@ Piece::~Piece() { }
 Color Piece::get_color() { return this->color; }
 PieceType Piece::get_piece_type() { return this->type; }
 Coordinate Piece::get_coordinate() { return this->location; }
+void Piece::update_location(Coordinate square)
+{
+    this->location = square;
+}

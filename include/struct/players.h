@@ -5,10 +5,10 @@
 #include <memory>
 
 struct Players {
-    std::unique_ptr<Player> white;
-    std::unique_ptr<Player> black;
-    Players(std::unique_ptr<Player> white,
-        std::unique_ptr<Player> black);
+    std::shared_ptr<Player> white;
+    std::shared_ptr<Player> black;
+    Players(std::shared_ptr<Player> white,
+        std::shared_ptr<Player> black);
 };
 
 #endif

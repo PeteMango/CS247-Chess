@@ -24,8 +24,6 @@ class Board : public std::enable_shared_from_this<Board> {
     int halfmove_clock;
     int fullmove_clock;
     std::string serialize();
-    std::shared_ptr<Piece> create_piece(
-        Color color, Coordinate square, PieceType type);
 
 public:
     Board(bool default_board = true);
@@ -47,6 +45,13 @@ public:
     void verify_board();
     void setup_default_board();
     void clean_board();
+    Color get_active_color();
+    void toggle_active_color();
+    void delete_piece(std::shared_ptr<Piece> p, Color color);
+    void add_piece(std::shared_ptr<Piece> p, Color color);
+    bool is_promotion(Coordinate start, Coordinate end);
+    std::shared_ptr<Piece> create_piece(
+        Color color, Coordinate square, PieceType type);
 };
 
 #endif
