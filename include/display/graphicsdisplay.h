@@ -3,11 +3,12 @@
 
 #include "display/displayboard.h"
 
-class Xwindow;
+class xwindow;
 
 class GraphicsDisplay : public DisplayBoard {
-    std::shared_ptr<Xwindow> xwin_display;
-    const int SQUARE_SIZE = 50;
+    std::shared_ptr<xwindow> xwin_display;
+    bool isSetup = false;
+    void setupBoard();
 
 public:
     GraphicsDisplay(std::shared_ptr<Chess> chess);

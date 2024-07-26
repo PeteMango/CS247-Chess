@@ -13,7 +13,7 @@ class Game;
 class Chess : public std::enable_shared_from_this<Chess> {
     std::vector<std::shared_ptr<Game>> games;
     std::vector<std::unique_ptr<Players>> players;
-    std::vector<std::unique_ptr<Display>> displays;
+    std::vector<std::unique_ptr<DisplayBoard>> displays;
     void get_scores();
     std::unique_ptr<Player> create_player(
         PlayerType type, Color color);

@@ -3,27 +3,28 @@
 #include <X11/Xlib.h>
 #include <iostream>
 #include <string>
+#include <vector>
 
-class Xwindow {
+class xwindow {
     Display* d;
     Window w;
     int s;
     GC gc;
     unsigned long colours[10];
+    std::vector<std::vector<char>> rendered_board;
+    const int SQUARE_SIZE = 60;
+    const int STRING_OFFSET = 8;
 
 public:
-    Xwindow(int width = 500, int height = 500); // Constructor; displays the window.
-    ~Xwindow(); // Destructor; destroys the window.
-    Xwindow(const Xwindow&) = delete;
-    Xwindow& operator=(const Xwindow&) = delete;
+    xwindow();
+    ~xwindow();
+    xwindow(const xwindow&) = delete;
+    xwindow& operator=(const xwindow&) = delete;
 
-    enum { White = 0, Black, Red, Green, Blue }; // Available colours.
+    enum { White = 0, Black, Red, Green, Blue };
 
-    // Draws a rectangle
-    void fillRectangle(int x, int y, int width, int height, int colour = Black);
-
-    // Draws a string
-    void drawString(int x, int y, std::string msg);
+    void fillGrid(int x, int y, int colour = Black);
+    void drawPiece(int x, int y, char piece);
 };
 
 #endif

@@ -8,8 +8,12 @@
 
 using namespace std;
 
-Xwindow::Xwindow(int width, int height)
+xwindow::xwindow()
+    : rendered_board { 8, std::vector<char>(8, '0') }
 {
+    int width = SQUARE_SIZE * 9;
+    int height = SQUARE_SIZE * 9;
+
     d = XOpenDisplay(NULL);
     if (d == NULL) {
         cerr << "Cannot open display" << endl;
@@ -31,7 +35,7 @@ Xwindow::Xwindow(int width, int height)
     // Set up colours.
     XColor xcolour;
     Colormap cmap;
-    char color_vals[7][10] = { "white", "black", "red", "green", "blue" };
+    char color_vals[7][10] = { "white", "black", "red", "#006400", "blue" };
 
     cmap = DefaultColormap(d, DefaultScreen(d));
     for (int i = 0; i < 5; ++i) {
@@ -54,20 +58,43 @@ Xwindow::Xwindow(int width, int height)
     usleep(1000);
 }
 
-Xwindow::~Xwindow()
+xwindow::~xwindow()
 {
     XFreeGC(d, gc);
     XCloseDisplay(d);
 }
 
-void Xwindow::fillRectangle(int x, int y, int width, int height, int colour)
+void xwindow::fillGrid(int col, int row, int colour)
 {
+    col = (col + 1) * SQUARE_SIZE;
+    row = (7 - row) * SQUARE_SIZE;
+
     XSetForeground(d, gc, colours[colour]);
-    XFillRectangle(d, w, gc, x, y, width, height);
+    XFillRectangle(d, w, gc, col, row, SQUARE_SIZE, SQUARE_SIZE);
     XSetForeground(d, gc, colours[Black]);
 }
 
-void Xwindow::drawString(int x, int y, string msg)
+void xwindow::drawPiece(int col, int row, char piece)
 {
-    XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
+    if (col >= 0 && row >= 0 && rendered_board[col][row] == piece)
+        return;
+
+    int x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
+    int y = (7 - row) * SQUARE_SIZE + SQUARE_SIZE / 2 + STRING_OFFSET;
+
+    const char* draw = &piece;
+
+    Font font;
+
+    if (col == -1 || row == -1)
+        font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*");
+    else if (islower(piece)) {
+        font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*");
+    } else {
+        font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*");
+    }
+
+    XSetFont(d, gc, font);
+    XDrawString(d, w, gc, x, y, draw, 1);
+    XUnloadFont(d, font);
 }
