@@ -135,12 +135,12 @@ void Board::get_attacked_squares_by_color(std::set<Coordinate>& s, Color c)
     if (c == Color::WHITE) {
         for (auto it = this->white_pieces.begin(); it != this->white_pieces.end();
              ++it) {
-            (*it)->get_attacking_squares(s);
+            (*it)->get_threatened_squares(s);
         }
     } else {
         for (auto it = this->black_pieces.begin(); it != this->black_pieces.end();
              ++it) {
-            (*it)->get_attacking_squares(s);
+            (*it)->get_threatened_squares(s);
         }
     }
 }
@@ -222,7 +222,7 @@ void Board::place_piece(Color color, Coordinate square, PieceType type)
     }
     std::shared_ptr<Piece> p = this->create_piece(color, square, type);
     this->grid[idx.first][idx.second] = p;
-    // p->print_attacking();
+    p->print_attacking();
 }
 
 void Board::remove_piece(Coordinate square)

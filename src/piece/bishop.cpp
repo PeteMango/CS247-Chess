@@ -9,22 +9,7 @@ Bishop::Bishop(
         this->directions.end(), { { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 } });
 }
 
-bool Bishop::is_valid_move(Coordinate square)
+void Bishop::get_threatened_squares(std::set<Coordinate>& s)
 {
-    /* check if the space is occupied */
-    std::pair<int, int> grid_index = get_grid_indexes(square);
-    if (this->board->get_grid()[grid_index.first][grid_index.second]->get_color()
-        == this->color) {
-        return false;
-    }
-
-    /* check if we can get there */
-    std::set<Coordinate> s;
-    this->get_attacking_squares(s);
-    return (s.find(square) != s.end());
-}
-
-void Bishop::get_attacking_squares(std::set<Coordinate>& s)
-{
-    return this->multiple_moves(this->directions, s);
+    return this->single_move(this->directions, s);
 };
