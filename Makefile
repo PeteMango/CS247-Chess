@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -g
+CXXFLAGS = -std=c++14 -Wall -g -Iinclude
 EXEC = out/chess
 TEST_EXEC = out/run_tests
 SRC_DIR = src
@@ -17,7 +17,7 @@ DIRS = $(sort $(dir $(OBJECTS)) $(dir $(TEST_OBJECTS)))
 all: $(EXEC) $(TEST_EXEC)
 
 $(EXEC): $(OBJECTS) | $(OUT_DIR)
-	$(CXX) $(OBJECTS) -o $(EXEC)
+	$(CXX) $(OBJECTS) -o $(EXEC) -lX11
 
 $(TEST_EXEC): $(TEST_OBJECTS) | $(OUT_DIR)
 	$(CXX) $(TEST_OBJECTS) -lgtest -lgtest_main -pthread -o $(TEST_EXEC)

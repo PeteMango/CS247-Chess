@@ -1,7 +1,7 @@
-#include "../../include/display/textdisplay.h"
-#include "../../include/chess.h"
-#include "../../include/game.h"
-#include "../../include/piece/piece.h"
+#include "display/textdisplay.h"
+#include "chess.h"
+#include "game.h"
+#include "piece/piece.h"
 #include <iostream>
 
 TextDisplay::TextDisplay(std::shared_ptr<Chess> chess)
@@ -35,6 +35,7 @@ void TextDisplay::show()
     std::shared_ptr<Board> b = g->get_board();
     std::vector<std::vector<std::shared_ptr<Piece>>>& grid
         = b->get_grid();
+
     for (int row = 7; row >= 0; row--) {
         std::cout << row + 1 << " ";
         for (int col = 0; col < 8; col++) {
@@ -54,11 +55,13 @@ void TextDisplay::show()
         }
         std::cout << std::endl;
     }
+
     std::cout << std::endl;
     std::cout << "  ";
+
     for (int col = 0; col < 8; col++) {
         std::cout << (char)(col + 'a');
     }
+
     std::cout << std::endl;
 }
-

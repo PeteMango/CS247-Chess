@@ -1,4 +1,4 @@
-#include "../../include/display/display.h"
+#include "display/display.h"
 
 Display::Display(std::shared_ptr<Chess> chess)
     : chess { chess }
@@ -6,4 +6,3 @@ Display::Display(std::shared_ptr<Chess> chess)
 }
 
 Display::~Display() { }
-

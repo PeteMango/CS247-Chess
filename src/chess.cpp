@@ -1,6 +1,6 @@
-#include "../include/chess.h"
-#include "../include/display/textdisplay.h"
-#include "../include/game.h"
+#include "chess.h"
+#include "display/textdisplay.h"
+#include "game.h"
 #include <iostream>
 
 // implemented
@@ -66,4 +66,3 @@ std::shared_ptr<Game> Chess::get_last_game()
 {
     return this->games[this->games.size() - 1];
 }
-
