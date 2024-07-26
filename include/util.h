@@ -6,26 +6,21 @@
 #include <string>
 #include <unordered_map>
 
-extern const std::unordered_map<PromotionType, std::string>
-    PromotionTypeToString;
+extern const std::unordered_map<PromotionType, std::string> PromotionTypeToString;
 
-extern const std::unordered_map<std::string, PromotionType>
-    StringToPromotionType;
+extern const std::unordered_map<std::string, PromotionType> StringToPromotionType;
 
-extern const std::unordered_map<PieceType, std::string>
-    PieceTypeToString;
+extern const std::unordered_map<PieceType, std::string> PieceTypeToString;
 
-extern const std::unordered_map<std::string, PieceType>
-    StringToPieceType;
+extern const std::unordered_map<std::string, PieceType> StringToPieceType;
 
-extern const std::unordered_map<Color, std::string>
-    ColorToString;
+extern const std::unordered_map<Color, std::string> ColorToString;
 
-extern const std::unordered_map<std::string, Color>
-    StringToColor;
+extern const std::unordered_map<std::string, Color> StringToColor;
 
-extern const std::unordered_map<std::string, PlayerType>
-    StringToPlayer;
+extern const std::unordered_map<std::string, PlayerType> StringToPlayer;
+
+extern const std::unordered_map<Color, std::unordered_map<PieceType, char>> pieces;
 
 bool validate_player(std::string player);
 
@@ -51,8 +46,7 @@ std::pair<int, int> get_grid_indexes(Coordinate c);
 
 std::pair<int, int> get_grid_indexes(std::pair<int, int> a);
 
-std::pair<int, int> add_pairs(
-    std::pair<int, int> a, std::pair<int, int> b);
+std::pair<int, int> add_pairs(std::pair<int, int> a, std::pair<int, int> b);
 
 bool coordinate_in_bounds(std::pair<int, int> a);
 

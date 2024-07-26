@@ -2,22 +2,13 @@
 #include "chess.h"
 #include "game.h"
 #include "piece/piece.h"
+#include "util.h"
 #include <iostream>
 
 TextDisplay::TextDisplay(std::shared_ptr<Chess> chess)
     : DisplayBoard(chess)
 {
 }
-
-const std::unordered_map<Color, std::unordered_map<PieceType, char>> pieces
-    = { { Color::WHITE,
-            { { PieceType::PAWN, 'P' }, { PieceType::KNIGHT, 'N' },
-                { PieceType::BISHOP, 'B' }, { PieceType::ROOK, 'R' },
-                { PieceType::QUEEN, 'Q' }, { PieceType::KING, 'K' } } },
-          { Color::BLACK,
-              { { PieceType::PAWN, 'p' }, { PieceType::KNIGHT, 'n' },
-                  { PieceType::BISHOP, 'b' }, { PieceType::ROOK, 'r' },
-                  { PieceType::QUEEN, 'q' }, { PieceType::KING, 'k' } } } };
 
 void TextDisplay::show()
 {
