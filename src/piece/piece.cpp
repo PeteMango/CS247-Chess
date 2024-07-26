@@ -46,12 +46,13 @@ void Piece::multiple_moves(
     }
 }
 
-void Piece::print_attacking() {
+void Piece::print_attacking()
+{
     std::set<Coordinate> s;
     this->get_attacking_squares(s);
 
     std::cout << "can attack: " << std::endl;
-    for(const Coordinate &c : s) {
+    for (const Coordinate& c : s) {
         std::cout << c.row << c.column << std::endl;
     }
 }

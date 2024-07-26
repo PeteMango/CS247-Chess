@@ -1,6 +1,6 @@
 #include "../../include/piece/king.h"
-#include "../../include/piece/rook.h"
 #include "../../include/board.h"
+#include "../../include/piece/rook.h"
 
 King::King(
     Color color, Coordinate location, PieceType type, std::shared_ptr<Board> board)
@@ -15,11 +15,11 @@ bool King::is_valid_move(Coordinate square)
 {
     /* check if the space is occupied */
     std::pair<int, int> grid_index = get_grid_indexes(square);
-    
+
     /* check for castle from the rook's castleable flag */
     auto piece = this->board->get_grid()[grid_index.first][grid_index.second];
-    if (piece->get_piece_type() == PieceType::ROOK &&
-        piece->get_color() == this->color) {
+    if (piece->get_piece_type() == PieceType::ROOK
+        && piece->get_color() == this->color) {
 
         auto rookPtr = std::dynamic_pointer_cast<Rook>(piece);
         if (rookPtr && rookPtr->castleable) {
@@ -33,8 +33,9 @@ bool King::is_valid_move(Coordinate square)
         return false;
     }
 
-    /* TODO: handle if the new square is not attacked because it is blocked by the king */
-    if(this->in_check(square)) {
+    /* TODO: handle if the new square is not attacked because it is blocked by the
+     * king */
+    if (this->in_check(square)) {
         return false;
     }
 

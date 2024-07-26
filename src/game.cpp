@@ -47,8 +47,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
                 throw std::invalid_argument("invalid piece");
             }
             if (!validate_coordinate(coordinate)) {
-                throw std::invalid_argument(
-                    "invalid coordinate");
+                throw std::invalid_argument("invalid coordinate");
             }
             Coordinate coord(coordinate);
             PieceType p = string_to_piecetype(piece);
@@ -59,8 +58,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             std::string coordinate;
             ss >> coordinate;
             if (!validate_coordinate(coordinate)) {
-                throw std::invalid_argument(
-                    "invalid coordinate");
+                throw std::invalid_argument("invalid coordinate");
             }
             Coordinate coord(coordinate);
             this->board->remove_piece(coord);
@@ -84,7 +82,4 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
 
 std::shared_ptr<Board> Game::get_board() { return this->board; }
 
-void Game::update_start(bool started)
-{
-    this->is_started = started;
-}
+void Game::update_start(bool started) { this->is_started = started; }

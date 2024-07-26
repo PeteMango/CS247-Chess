@@ -4,10 +4,10 @@
 #include "../enum.h"
 #include "../struct/coordinate.h"
 #include "../util.h"
+#include <iostream>
 #include <memory>
 #include <set>
 #include <vector>
-#include <iostream>
 
 class Board;
 class Piece {
