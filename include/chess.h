@@ -1,7 +1,7 @@
 #ifndef CHESS_H
 #define CHESS_H
 
-#include "display/display.h"
+#include "display/displayboard.h"
 #include "player/player.h"
 #include "struct/players.h"
 #include <memory>
@@ -13,7 +13,7 @@ class Game;
 class Chess : public std::enable_shared_from_this<Chess> {
     std::vector<std::shared_ptr<Game>> games;
     std::vector<Players> players;
-    std::vector<std::unique_ptr<Display>> displays;
+    std::vector<std::unique_ptr<DisplayBoard>> displays;
     void get_scores();
 
 public:

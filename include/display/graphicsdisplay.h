@@ -1,17 +1,16 @@
 #ifndef GRAPHICSDISPLAY_H
 #define GRAPHICSDISPLAY_H
 
-#include "display.h"
+#include "display/displayboard.h"
 
-class XWindow;
+class Xwindow;
 
-class GraphicsDisplay : public Display {
-    // TODO: add graphics display
-    std::shared_ptr<XWindow> display;
+class GraphicsDisplay : public DisplayBoard {
+    std::shared_ptr<Xwindow> xwin_display;
+    const int SQUARE_SIZE = 50;
 
 public:
-    GraphicsDisplay(std::shared_ptr<Chess> chess,
-        std::shared_ptr<XWindow> display);
+    GraphicsDisplay(std::shared_ptr<Chess> chess);
     void show() override;
 };
 

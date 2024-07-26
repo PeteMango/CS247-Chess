@@ -5,26 +5,19 @@
 #include <iostream>
 
 TextDisplay::TextDisplay(std::shared_ptr<Chess> chess)
-    : Display(chess)
+    : DisplayBoard(chess)
 {
 }
 
-const std::unordered_map<Color,
-    std::unordered_map<PieceType, char>>
-    pieces = { { Color::WHITE,
-                   { { PieceType::PAWN, 'P' },
-                       { PieceType::KNIGHT, 'N' },
-                       { PieceType::BISHOP, 'B' },
-                       { PieceType::ROOK, 'R' },
-                       { PieceType::QUEEN, 'Q' },
-                       { PieceType::KING, 'K' } } },
-        { Color::BLACK,
-            { { PieceType::PAWN, 'p' },
-                { PieceType::KNIGHT, 'n' },
-                { PieceType::BISHOP, 'b' },
-                { PieceType::ROOK, 'r' },
-                { PieceType::QUEEN, 'q' },
-                { PieceType::KING, 'k' } } } };
+const std::unordered_map<Color, std::unordered_map<PieceType, char>> pieces
+    = { { Color::WHITE,
+            { { PieceType::PAWN, 'P' }, { PieceType::KNIGHT, 'N' },
+                { PieceType::BISHOP, 'B' }, { PieceType::ROOK, 'R' },
+                { PieceType::QUEEN, 'Q' }, { PieceType::KING, 'K' } } },
+          { Color::BLACK,
+              { { PieceType::PAWN, 'p' }, { PieceType::KNIGHT, 'n' },
+                  { PieceType::BISHOP, 'b' }, { PieceType::ROOK, 'r' },
+                  { PieceType::QUEEN, 'q' }, { PieceType::KING, 'k' } } } };
 
 void TextDisplay::show()
 {
@@ -33,8 +26,7 @@ void TextDisplay::show()
     }
     std::shared_ptr<Game> g = this->chess->get_last_game();
     std::shared_ptr<Board> b = g->get_board();
-    std::vector<std::vector<std::shared_ptr<Piece>>>& grid
-        = b->get_grid();
+    std::vector<std::vector<std::shared_ptr<Piece>>>& grid = b->get_grid();
 
     for (int row = 7; row >= 0; row--) {
         std::cout << row + 1 << " ";
@@ -48,8 +40,7 @@ void TextDisplay::show()
                 }
             } else {
                 Color color = grid[row][col]->get_color();
-                PieceType type
-                    = grid[row][col]->get_piece_type();
+                PieceType type = grid[row][col]->get_piece_type();
                 std::cout << pieces.at(color).at(type);
             }
         }
