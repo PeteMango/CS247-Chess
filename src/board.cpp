@@ -255,17 +255,6 @@ void Board::place_piece(
     }
     std::shared_ptr<Piece> p
         = this->create_piece(color, square, type);
-    /* if (color == Color::WHITE) { */
-    /*     this->white_pieces.insert(p); */
-    /*     if (type == PieceType::KING) { */
-    /*         this->white_king = p; */
-    /*     } */
-    /* } else { */
-    /*     this->black_pieces.insert(p); */
-    /*     if (type == PieceType::KING) { */
-    /*         this->black_king = p; */
-    /*     } */
-    /* } */
     this->grid[idx.first][idx.second] = p;
 }
 
@@ -275,19 +264,6 @@ void Board::remove_piece(Coordinate square)
     if (this->grid[idx.first][idx.second] == nullptr) {
         return;
     }
-    /* std::shared_ptr<Piece> p =
-     * this->grid[idx.first][idx.second]; */
-    /* if (p->get_color() == Color::WHITE) { */
-    /*     if (p->get_piece_type() == PieceType::KING) { */
-    /*         this->white_king = nullptr; */
-    /*     } */
-    /*     this->white_pieces.erase(p); */
-    /* } else { */
-    /*     if (p->get_piece_type() == PieceType::KING) { */
-    /*         this->black_king = nullptr; */
-    /*     } */
-    /*     this->black_pieces.erase(p); */
-    /* } */
     this->grid[idx.first][idx.second] = nullptr;
 }
 
