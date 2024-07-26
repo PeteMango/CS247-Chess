@@ -20,7 +20,7 @@ class Board : public std::enable_shared_from_this<Board> {
     std::set<std::shared_ptr<Piece>> black_pieces;
     std::shared_ptr<Piece> white_king;
     std::shared_ptr<Piece> black_king;
-    std::map<Color, std::map<CastleSide, bool>> castle_rights;
+    std::map<Color, std::map<CastleSide , bool>> castle_rights;
     int halfmove_clock;
     int fullmove_clock;
     std::string serialize();
