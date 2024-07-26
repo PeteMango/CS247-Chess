@@ -1,4 +1,4 @@
-#include "display/window.h"
+#include "display/xwindow.h"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <cstdlib>
@@ -21,8 +21,8 @@ Xwindow::Xwindow(int width, int height)
     XSelectInput(d, w, ExposureMask | KeyPressMask);
     XMapRaised(d, w);
 
-    Pixmap pix = XCreatePixmap(d, w, width,
-        height, DefaultDepth(d, DefaultScreen(d)));
+    Pixmap pix
+        = XCreatePixmap(d, w, width, height, DefaultDepth(d, DefaultScreen(d)));
     gc = XCreateGC(d, pix, 0, (XGCValues*)0);
 
     XFlush(d);

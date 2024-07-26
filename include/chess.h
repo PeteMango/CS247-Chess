@@ -1,7 +1,7 @@
 #ifndef CHESS_H
 #define CHESS_H
 
-#include "display/display.h"
+#include "display/displayboard.h"
 #include "player/player.h"
 #include "struct/players.h"
 #include <memory>
