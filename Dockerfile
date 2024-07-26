@@ -14,15 +14,11 @@ RUN apt-get update && apt-get install -y \
     make \
     cmake \
     git \
+    libx11-dev \
+    python3 \
+    python3-pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Google Test
-RUN git clone https://github.com/google/googletest.git \
-    && cd googletest \
-    && cmake . \
-    && make \
-    && make install
 
 # Copy current working directory into container
 COPY . .

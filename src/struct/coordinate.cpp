@@ -19,3 +19,17 @@ Coordinate::Coordinate(int row, char column)
     , column { column }
 {
 }
+
+Coordinate::Coordinate(int row, int column)
+    : row { row + 1 }
+    , column { static_cast<char>(column + 'a') }
+{
+}
+
+bool Coordinate::operator<(const Coordinate& other) const
+{
+    if (row == other.row) {
+        return column < other.column;
+    }
+    return row < other.row;
+}

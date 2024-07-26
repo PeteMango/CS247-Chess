@@ -90,3 +90,22 @@ Color string_to_color(std::string color)
     return StringToColor.at(color);
 }
 
+std::pair<int, int> get_grid_indexes(Coordinate c)
+{
+    return std::make_pair<int, int>(c.row - 1, c.column - 'a');
+}
+
+std::pair<int, int> add_pairs(
+    std::pair<int, int> a, std::pair<int, int> b)
+{
+    a.first += b.first;
+    a.second += b.second;
+    return a;
+}
+
+bool coordinate_in_bounds(std::pair<int, int> a)
+{
+    return 0 <= a.first && a.first < 8 && 0 <= a.second
+        && a.second < 8;
+}
+

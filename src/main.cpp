@@ -72,7 +72,6 @@ int main()
                     "setup run when game in progress");
             }
             CHESS->setup_board(std::cin, is_eof_given);
-            CHESS->notify_displays();
         } else {
             throw std::invalid_argument("invalid input command");
         }

@@ -10,10 +10,11 @@
 #include <sstream>
 #include <vector>
 
-class Board {
+class Board : public std::enable_shared_from_this<Board> {
     // https://www.chess.com/terms/fen-chess
     std::vector<std::vector<std::shared_ptr<Piece>>> grid;
     Color active_color;
+    bool en_passant_enabled;
     std::unique_ptr<Coordinate> en_passant_targets;
     std::set<std::shared_ptr<Piece>> white_pieces;
     std::set<std::shared_ptr<Piece>> black_pieces;
@@ -22,8 +23,9 @@ class Board {
     std::map<Color, std::map<CastleSide, bool>> castle_rights;
     int halfmove_clock;
     int fullmove_clock;
-    bool verify_board();
     std::string serialize();
+    std::shared_ptr<Piece> create_piece(
+        Color color, Coordinate square, PieceType type);
 
 public:
     Board(bool default_board = true);
@@ -32,7 +34,7 @@ public:
     bool is_valid_move(Move m);
     std::string make_move(Move m);
     void setup_board(std::istream& in);
-    bool is_check();
+    bool is_check(Color c);
     bool is_stalemate();
     bool is_checkmate();
     void get_attacked_squares_by_color(
@@ -42,6 +44,7 @@ public:
         Color color, Coordinate square, PieceType type);
     void remove_piece(Coordinate square);
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
+    void verify_board();
 };
 
 #endif

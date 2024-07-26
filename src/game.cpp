@@ -1,6 +1,8 @@
 #include "../include/game.h"
 #include "../include/util.h"
+#include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 Game::Game(std::shared_ptr<Chess> chess, bool default_board)
     : board { std::make_shared<Board>(default_board) }
@@ -38,7 +40,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
         ss >> cmd;
 
         if (cmd == "+") {
-            throw std::logic_error("+ unimplemented");
             std::string piece;
             std::string coordinate;
             ss >> piece >> coordinate;
@@ -54,7 +55,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             this->board->place_piece(color, coord, p);
             this->chess->notify_displays();
         } else if (cmd == "-") {
-            throw std::logic_error("- unimplemented");
             std::string coordinate;
             ss >> coordinate;
             if (!validate_coordinate(coordinate)) {
@@ -65,7 +65,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             this->board->remove_piece(coord);
             this->chess->notify_displays();
         } else if (cmd == "=") {
-            throw std::logic_error("= unimplemented");
             std::string col;
             ss >> col;
             if (!validate_color(col)) {
@@ -74,6 +73,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             Color c = string_to_color(col);
             color = c;
         } else if (cmd == "done") {
+            this->board->verify_board();
             break;
         } else {
             std::invalid_argument("invalid setup command");
