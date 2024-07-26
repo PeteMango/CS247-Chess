@@ -9,4 +9,6 @@ enum class PromotionType { KNIGHT, BISHOP, ROOK, QUEEN };
 
 enum class CastleSide { KINGSIDE, QUEENSIDE };
 
+enum class PlayerType { HUMAN, LEVEL1, LEVEL2, LEVEL3, LEVEL4 };
+
 #endif

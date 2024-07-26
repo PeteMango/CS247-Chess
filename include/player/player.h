@@ -8,18 +8,19 @@
 class Game;
 
 class Player {
-    std::shared_ptr<Player> opponent;
     std::shared_ptr<Game> game;
     bool is_human;
+    Color color;
 
 public:
-    Player(std::shared_ptr<Player> opponent,
-        std::shared_ptr<Game> game, bool is_human);
+    Player(
+        std::shared_ptr<Game> game, bool is_human, Color color);
     virtual ~Player();
     virtual void make_move(Coordinate start, Coordinate end,
         PromotionType promotion)
         = 0;
     bool player_is_human();
+    Color get_color();
 };
 
 #endif

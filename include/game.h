@@ -27,5 +27,6 @@ public:
     std::string make_move(Move m);
     void setup_board(std::istream& in, bool& is_eof_given);
     std::shared_ptr<Board> get_board();
+    void update_start(bool started);
 };
 #endif

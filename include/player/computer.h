@@ -4,11 +4,9 @@
 #include "player.h"
 
 class Computer : public Player {
-    int level;
 
 public:
-    Computer(std::shared_ptr<Player> opponent,
-        std::shared_ptr<Game> game, int level);
+    Computer(std::shared_ptr<Game> game, Color color);
     void make_move(Coordinate start, Coordinate end,
         PromotionType promotion) override;
 };

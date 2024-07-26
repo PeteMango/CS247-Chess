@@ -24,6 +24,9 @@ extern const std::unordered_map<Color, std::string>
 extern const std::unordered_map<std::string, Color>
     StringToColor;
 
+extern const std::unordered_map<std::string, PlayerType>
+    StringToPlayer;
+
 bool validate_player(std::string player);
 
 bool validate_coordinate(std::string coordinate);
@@ -41,6 +44,8 @@ PromotionType string_to_promotiontype(std::string promotion);
 PieceType string_to_piecetype(std::string piece);
 
 Color string_to_color(std::string color);
+
+PlayerType string_to_playertype(std::string player);
 
 std::pair<int, int> get_grid_indexes(Coordinate c);
 

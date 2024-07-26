@@ -5,8 +5,7 @@
 
 class Human : public Player {
 public:
-    Human(std::shared_ptr<Player> opponent,
-        std::shared_ptr<Game> game);
+    Human(std::shared_ptr<Game> game, Color color);
     void make_move(Coordinate start, Coordinate end,
         PromotionType promotion) override;
     void resign();

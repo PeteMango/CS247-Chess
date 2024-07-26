@@ -1,13 +1,15 @@
 #include "../../include/player/player.h"
 
-Player::Player(std::shared_ptr<Player> opponent,
-    std::shared_ptr<Game> game, bool is_human)
-    : opponent { opponent }
-    , game { game }
+Player::Player(
+    std::shared_ptr<Game> game, bool is_human, Color color)
+    : game { game }
     , is_human { is_human }
+    , color { color }
 {
 }
 
 Player::~Player() { }
 
-bool Player::player_is_human() { }
+bool Player::player_is_human() { return this->is_human; }
+
+Color Player::get_color() { return this->color; }
