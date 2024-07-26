@@ -51,12 +51,23 @@ void Piece::multiple_moves(
     }
 }
 
-void Piece::print_attacking()
+void Piece::print_attack()
 {
     std::set<Coordinate> s;
     this->get_threatened_squares(s);
 
     std::cout << "can attack: " << std::endl;
+    for (const Coordinate& c : s) {
+        std::cout << c.row << c.column << std::endl;
+    }
+}
+
+void Piece::print_move()
+{
+    std::set<Coordinate> s;
+    this->get_valid_moves(s);
+
+    std::cout << "can move: " << std::endl;
     for (const Coordinate& c : s) {
         std::cout << c.row << c.column << std::endl;
     }

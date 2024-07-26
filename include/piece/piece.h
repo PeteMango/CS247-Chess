@@ -45,7 +45,8 @@ public:
     Coordinate get_coordinate();
 
     /* debugging */
-    void print_attacking();
+    void print_attack();
+    void print_move();
 };
 
 #endif

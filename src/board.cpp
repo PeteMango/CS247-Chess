@@ -222,7 +222,8 @@ void Board::place_piece(Color color, Coordinate square, PieceType type)
     }
     std::shared_ptr<Piece> p = this->create_piece(color, square, type);
     this->grid[idx.first][idx.second] = p;
-    p->print_attacking();
+    p->print_attack();
+    p->print_move();
 }
 
 void Board::remove_piece(Coordinate square)
