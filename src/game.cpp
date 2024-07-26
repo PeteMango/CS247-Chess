@@ -2,6 +2,7 @@
 #include "../include/util.h"
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 
 Game::Game(std::shared_ptr<Chess> chess, bool default_board)
     : board { std::make_shared<Board>(default_board) }
@@ -72,6 +73,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             Color c = string_to_color(col);
             color = c;
         } else if (cmd == "done") {
+            this->board->verify_board();
             break;
         } else {
             std::invalid_argument("invalid setup command");

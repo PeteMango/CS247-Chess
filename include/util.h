@@ -44,4 +44,11 @@ Color string_to_color(std::string color);
 
 std::pair<int, int> get_grid_indexes(Coordinate c);
 
+std::pair<int, int> get_grid_indexes(std::pair<int, int> a);
+
+std::pair<int, int> add_pairs(
+    std::pair<int, int> a, std::pair<int, int> b);
+
+bool coordinate_in_bounds(std::pair<int, int> a);
+
 #endif

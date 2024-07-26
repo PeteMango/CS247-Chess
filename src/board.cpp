@@ -1,5 +1,10 @@
 #include "../include/board.h"
+#include "../include/piece/bishop.h"
 #include "../include/piece/king.h"
+#include "../include/piece/knight.h"
+#include "../include/piece/pawn.h"
+#include "../include/piece/queen.h"
+#include "../include/piece/rook.h"
 #include "../include/util.h"
 #include <iostream>
 #include <stdexcept>
@@ -16,23 +21,33 @@ Board::Board(bool default_board)
 {
     this->white_pieces = std::set<std::shared_ptr<Piece>>();
     this->black_pieces = std::set<std::shared_ptr<Piece>>();
-    this->castle_rights[Color::WHITE][CastleSide::KINGSIDE]
-        = true;
-    this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE]
-        = true;
-    this->castle_rights[Color::BLACK][CastleSide::KINGSIDE]
-        = true;
-    this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE]
-        = true;
-
     if (default_board) {
-        // TODO:
+        this->en_passant_enabled = true;
+        this->castle_rights[Color::WHITE][CastleSide::KINGSIDE]
+            = true;
+        this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE]
+            = true;
+        this->castle_rights[Color::BLACK][CastleSide::KINGSIDE]
+            = true;
+        this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE]
+            = true;
+    } else {
+        this->en_passant_enabled = false;
+        this->castle_rights[Color::WHITE][CastleSide::KINGSIDE]
+            = false;
+        this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE]
+            = false;
+        this->castle_rights[Color::BLACK][CastleSide::KINGSIDE]
+            = false;
+        this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE]
+            = false;
     }
 }
 
 Board::Board(const std::string& fen)
     : halfmove_clock { 0 }
     , fullmove_clock { 0 }
+    , en_passant_enabled { true }
 {
     std::istringstream fenStream(fen);
     std::string curLine;
@@ -105,7 +120,25 @@ std::string Board::make_move(Move m) { return ""; }
 
 void Board::setup_board(std::istream& in) { return; }
 
-bool Board::is_check() { return true; }
+// returns whether c is in check
+bool Board::is_check(Color c)
+{
+    if (c == Color::WHITE && this->white_king == nullptr) {
+        return false;
+    } else if (c == Color::BLACK
+        && this->black_king == nullptr) {
+        return false;
+    }
+    std::set<Coordinate> s;
+
+    if (c == Color::WHITE) {
+        get_attacked_squares_by_color(s, Color::BLACK);
+        return s.find(this->white_king->get_coordinate())
+            != s.end();
+    }
+    get_attacked_squares_by_color(s, Color::WHITE);
+    return s.find(this->black_king->get_coordinate()) != s.end();
+}
 
 bool Board::is_stalemate() { return true; }
 
@@ -114,6 +147,17 @@ bool Board::is_checkmate() { return true; }
 void Board::get_attacked_squares_by_color(
     std::set<Coordinate>& s, Color c)
 {
+    if (c == Color::WHITE) {
+        for (auto it = this->white_pieces.begin();
+             it != this->white_pieces.end(); ++it) {
+            (*it)->get_attacking_squares(s);
+        }
+    } else {
+        for (auto it = this->black_pieces.begin();
+             it != this->black_pieces.end(); ++it) {
+            (*it)->get_attacking_squares(s);
+        }
+    }
 }
 
 void Board::get_possible_moves_by_color(
@@ -121,24 +165,80 @@ void Board::get_possible_moves_by_color(
 {
 }
 
-bool Board::verify_board() { return true; }
+void Board::verify_board()
+{
+    // no pawns in the last rows
+    for (int i = 0; i < 8; i++) {
+        if (this->grid[0][i]
+            && this->grid[0][i]->get_piece_type()
+                == PieceType::PAWN) {
+            throw std::invalid_argument(
+                "pawn in the outer rows");
+        }
+        if (this->grid[7][i]
+            && this->grid[7][i]->get_piece_type()
+                == PieceType::PAWN) {
+            throw std::invalid_argument(
+                "pawn in the outer rows");
+        }
+    }
+    // one of each king
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (this->grid[i][j] == nullptr) {
+                continue;
+            }
+            std::shared_ptr<Piece> p = this->grid[i][j];
+            if (p->get_color() == Color::WHITE) {
+                this->white_pieces.insert(p);
+                if (p->get_piece_type() == PieceType::KING) {
+                    if (this->white_king != nullptr) {
+                        throw std::invalid_argument(
+                            "multiple white kings");
+                    }
+                    this->white_king = p;
+                }
+            } else {
+                this->black_pieces.insert(p);
+                if (p->get_piece_type() == PieceType::KING) {
+                    if (this->black_king != nullptr) {
+                        throw std::invalid_argument(
+                            "multiple black kings");
+                    }
+                    this->black_king = p;
+                }
+            }
+        }
+    }
+    // neither king in check
+    if (this->is_check(Color::WHITE)
+        || this->is_check(Color::BLACK)) {
+        throw std::invalid_argument("king in check");
+    }
+}
 
 std::shared_ptr<Piece> Board::create_piece(
     Color color, Coordinate square, PieceType type)
 {
     switch (type) {
     case PieceType::KING:
-        return std::make_shared<King>(color, square, type);
+        return std::make_shared<King>(
+            color, square, type, shared_from_this());
     case PieceType::QUEEN:
-        return std::make_shared<King>(color, square, type);
+        return std::make_shared<Queen>(
+            color, square, type, shared_from_this());
     case PieceType::ROOK:
-        return std::make_shared<King>(color, square, type);
+        return std::make_shared<Rook>(
+            color, square, type, shared_from_this());
     case PieceType::BISHOP:
-        return std::make_shared<King>(color, square, type);
+        return std::make_shared<Bishop>(
+            color, square, type, shared_from_this());
     case PieceType::KNIGHT:
-        return std::make_shared<King>(color, square, type);
+        return std::make_shared<Knight>(
+            color, square, type, shared_from_this());
     case PieceType::PAWN:
-        return std::make_shared<King>(color, square, type);
+        return std::make_shared<Pawn>(
+            color, square, type, shared_from_this());
     default:
         throw std::logic_error(
             "cant create a piece that doesnt exist");
@@ -155,17 +255,17 @@ void Board::place_piece(
     }
     std::shared_ptr<Piece> p
         = this->create_piece(color, square, type);
-    if (color == Color::WHITE) {
-        this->white_pieces.insert(p);
-        if (type == PieceType::KING) {
-            this->white_king = p;
-        }
-    } else {
-        this->black_pieces.insert(p);
-        if (type == PieceType::KING) {
-            this->black_king = p;
-        }
-    }
+    /* if (color == Color::WHITE) { */
+    /*     this->white_pieces.insert(p); */
+    /*     if (type == PieceType::KING) { */
+    /*         this->white_king = p; */
+    /*     } */
+    /* } else { */
+    /*     this->black_pieces.insert(p); */
+    /*     if (type == PieceType::KING) { */
+    /*         this->black_king = p; */
+    /*     } */
+    /* } */
     this->grid[idx.first][idx.second] = p;
 }
 
@@ -175,18 +275,19 @@ void Board::remove_piece(Coordinate square)
     if (this->grid[idx.first][idx.second] == nullptr) {
         return;
     }
-    std::shared_ptr<Piece> p = this->grid[idx.first][idx.second];
-    if (p->get_color() == Color::WHITE) {
-        if (p->get_piece_type() == PieceType::KING) {
-            this->white_king = nullptr;
-        }
-        this->white_pieces.erase(p);
-    } else {
-        if (p->get_piece_type() == PieceType::KING) {
-            this->black_king = nullptr;
-        }
-        this->black_pieces.erase(p);
-    }
+    /* std::shared_ptr<Piece> p =
+     * this->grid[idx.first][idx.second]; */
+    /* if (p->get_color() == Color::WHITE) { */
+    /*     if (p->get_piece_type() == PieceType::KING) { */
+    /*         this->white_king = nullptr; */
+    /*     } */
+    /*     this->white_pieces.erase(p); */
+    /* } else { */
+    /*     if (p->get_piece_type() == PieceType::KING) { */
+    /*         this->black_king = nullptr; */
+    /*     } */
+    /*     this->black_pieces.erase(p); */
+    /* } */
     this->grid[idx.first][idx.second] = nullptr;
 }
 
