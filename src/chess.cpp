@@ -143,4 +143,3 @@ std::shared_ptr<Game> Chess::get_last_game()
 {
     return this->games[this->games.size() - 1];
 }
-

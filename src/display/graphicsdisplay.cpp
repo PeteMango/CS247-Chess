@@ -1,4 +1,4 @@
-#include "../../include/display/graphicsdisplay.h"
+#include "display/graphicsdisplay.h"
 
 GraphicsDisplay::GraphicsDisplay(std::shared_ptr<Chess> chess,
     std::shared_ptr<XWindow> display)
@@ -7,5 +7,7 @@ GraphicsDisplay::GraphicsDisplay(std::shared_ptr<Chess> chess,
 {
 }
 
-void GraphicsDisplay::show() { }
-
+void GraphicsDisplay::show()
+{
+    
+}
