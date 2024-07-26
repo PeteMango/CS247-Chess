@@ -1,7 +1,7 @@
 #ifndef CHESS_H
 #define CHESS_H
 
-#include "display/display.h"
+#include "display/displayboard.h"
 #include "player/player.h"
 #include "struct/players.h"
 #include <memory>
@@ -13,10 +13,9 @@ class Game;
 class Chess : public std::enable_shared_from_this<Chess> {
     std::vector<std::shared_ptr<Game>> games;
     std::vector<std::shared_ptr<Players>> players;
-    std::vector<std::unique_ptr<Display>> displays;
+    std::vector<std::unique_ptr<DisplayBoard>> displays;
     void get_scores();
-    std::shared_ptr<Player> create_player(
-        PlayerType type, Color color);
+    std::shared_ptr<Player> create_player(PlayerType type, Color color);
 
 public:
     Chess();
@@ -24,8 +23,7 @@ public:
     void setup_board(std::istream& in, bool& is_eof_given);
     void start_game(PlayerType white, PlayerType black);
     bool is_valid_move(Coordinate start, Coordinate end);
-    void make_move(Coordinate start, Coordinate end,
-        PromotionType promotion);
+    void make_move(Coordinate start, Coordinate end, PromotionType promotion);
     bool is_next_move_human();
     void notify_displays();
     bool is_game_not_running();

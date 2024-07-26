@@ -35,11 +35,9 @@ public:
     bool is_check(Color c);
     bool is_stalemate();
     bool is_checkmate();
-    void get_attacked_squares_by_color(
-        std::set<Coordinate>& s, Color c);
+    void get_attacked_squares_by_color(std::set<Coordinate>& s, Color c);
     void get_possible_moves_by_color(std::set<Move>& m, Color c);
-    void place_piece(
-        Color color, Coordinate square, PieceType type);
+    void place_piece(Color color, Coordinate square, PieceType type);
     void remove_piece(Coordinate square);
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     void verify_board();
