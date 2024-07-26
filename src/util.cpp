@@ -43,7 +43,17 @@ const std::unordered_map<std::string, Color> StringToColor {
     { "white", Color::WHITE }, { "black", Color::BLACK }
 };
 
-bool validate_player(std::string player) { }
+const std::unordered_map<std::string, PlayerType>
+    StringToPlayer { { "human", PlayerType::HUMAN },
+        { "computer1", PlayerType::LEVEL1 },
+        { "computer2", PlayerType::LEVEL2 },
+        { "computer3", PlayerType::LEVEL3 },
+        { "computer4", PlayerType::LEVEL4 } };
+
+bool validate_player(std::string player)
+{
+    return StringToPlayer.find(player) != StringToPlayer.end();
+}
 
 bool validate_coordinate(std::string coordinate)
 {
@@ -88,6 +98,11 @@ PieceType string_to_piecetype(std::string piece)
 Color string_to_color(std::string color)
 {
     return StringToColor.at(color);
+}
+
+PlayerType string_to_playertype(std::string player)
+{
+    return StringToPlayer.at(player);
 }
 
 std::pair<int, int> get_grid_indexes(Coordinate c)

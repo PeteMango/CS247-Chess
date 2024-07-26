@@ -83,3 +83,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
 
 std::shared_ptr<Board> Game::get_board() { return this->board; }
 
+void Game::update_start(bool started)
+{
+    this->is_started = started;
+}

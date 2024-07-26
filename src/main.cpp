@@ -23,7 +23,10 @@ int main()
         std::string cmd;
         ss >> cmd;
         if (cmd == "game") {
-            throw std::logic_error("unimplemented");
+            if (!CHESS->can_start_game()) {
+                throw std::invalid_argument(
+                    "game run when game in progress");
+            }
             std::string white;
             std::string black;
             ss >> white >> black;
@@ -32,7 +35,9 @@ int main()
                 throw std::invalid_argument(
                     "invalid player inputted");
             }
-            CHESS->start_game(white, black);
+
+            CHESS->start_game(string_to_playertype(white),
+                string_to_playertype(black));
         } else if (cmd == "resign") {
             throw std::logic_error("unimplemented");
             CHESS->resign();
