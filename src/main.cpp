@@ -1,5 +1,6 @@
 #include "../include/chess.h"
 #include "../include/util.h"
+#include "game.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -24,27 +25,24 @@ int main()
         ss >> cmd;
         if (cmd == "game") {
             if (!CHESS->can_start_game()) {
-                throw std::invalid_argument(
-                    "game run when game in progress");
+                throw std::invalid_argument("game run when game in progress");
             }
             std::string white;
             std::string black;
             ss >> white >> black;
-            if (!validate_player(white)
-                || !validate_player(black)) {
-                throw std::invalid_argument(
-                    "invalid player inputted");
+            if (!validate_player(white) || !validate_player(black)) {
+                throw std::invalid_argument("invalid player inputted");
             }
 
-            CHESS->start_game(string_to_playertype(white),
-                string_to_playertype(black));
+            CHESS->start_game(
+                string_to_playertype(white), string_to_playertype(black));
             // TODO: remove
             CHESS->notify_displays();
         } else if (cmd == "resign") {
             throw std::logic_error("unimplemented");
             CHESS->resign();
         } else if (cmd == "move") {
-            if (!CHESS->can_move()) {
+            if (!CHESS->can_make_move()) {
                 throw std::invalid_argument("cannot call move");
             }
 
@@ -52,56 +50,46 @@ int main()
             std::string end;
             std::string promotion;
             ss >> start >> end >> promotion;
-            if (!validate_coordinate(start)
-                || !validate_coordinate(end)) {
-                throw std::invalid_argument(
-                    "invalid coordinates");
+            if (!validate_coordinate(start) || !validate_coordinate(end)) {
+                throw std::invalid_argument("invalid coordinates");
             }
             Coordinate start_coordinate(start);
             Coordinate end_coordinate(end);
-            std::shared_ptr<Players> p
-                = CHESS->get_last_game_players();
+            std::shared_ptr<Game> g = CHESS->get_last_game();
+            std::shared_ptr<Board> b = g->get_board();
+            std::shared_ptr<Players> p = CHESS->get_last_game_players();
 
             if (CHESS->is_next_move_human()) {
-                if (!CHESS->is_valid_move(
-                        start_coordinate, end_coordinate)) {
+                if (!CHESS->is_valid_move(start_coordinate, end_coordinate)) {
                     throw std::invalid_argument("invalid move");
                 }
-                if (CHESS->is_promotion(
-                        start_coordinate, end_coordinate)
+                if (b->is_promotion(start_coordinate, end_coordinate)
                     && promotion.empty()) {
                     throw std::invalid_argument(
                         "promotion without specifying promotion "
                         "piece");
-                } else if (!CHESS->is_promotion(
-                               start_coordinate, end_coordinate)
+                } else if (!b->is_promotion(start_coordinate, end_coordinate)
                     && !promotion.empty()) {
-                    throw std::invalid_argument(
-                        "non promotion specifying promotion "
-                        "piece");
+                    throw std::invalid_argument("non promotion specifying promotion "
+                                                "piece");
                 }
 
                 if (promotion.empty()) {
                     promotion = "Q";
                 }
                 if (!validate_possible_promotion(promotion)) {
-                    throw std::invalid_argument(
-                        "invalid promotion");
+                    throw std::invalid_argument("invalid promotion");
                 }
-                PromotionType promotion_type
-                    = string_to_promotiontype(promotion);
-                if (CHESS->get_current_active_color()
-                    == Color::WHITE) {
-                    p->white->make_move(start_coordinate,
-                        end_coordinate, promotion_type);
+                PromotionType promotion_type = string_to_promotiontype(promotion);
+                if (b->get_active_color() == Color::WHITE) {
+                    p->white->make_move(
+                        start_coordinate, end_coordinate, promotion_type);
                 } else {
-                    p->black->make_move(start_coordinate,
-                        end_coordinate, promotion_type);
+                    p->black->make_move(
+                        start_coordinate, end_coordinate, promotion_type);
                 }
-            } else if (start.empty() && end.empty()
-                && promotion.empty()) {
-                if (CHESS->get_current_active_color()
-                    == Color::WHITE) {
+            } else if (start.empty() && end.empty() && promotion.empty()) {
+                if (b->get_active_color() == Color::WHITE) {
                     p->white->move();
                 } else {
                     p->black->move();
@@ -113,9 +101,8 @@ int main()
                     "computer move");
             }
         } else if (cmd == "setup") {
-            if (!CHESS->is_game_not_running()) {
-                throw std::invalid_argument(
-                    "setup run when game in progress");
+            if (!CHESS->can_setup_board()) {
+                throw std::invalid_argument("setup run when game in progress");
             }
             CHESS->setup_board(std::cin, is_eof_given);
         } else {
