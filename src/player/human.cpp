@@ -18,12 +18,23 @@ void Human::make_move(Coordinate start, Coordinate end, PromotionType promotion)
     std::shared_ptr<Piece> p = grid[starting_idx.first][starting_idx.second];
 
     // capture
-    if (grid[ending_idx.first][ending_idx.second] != nullptr) {
+    if (grid[ending_idx.first][ending_idx.second]) {
         std::shared_ptr<Piece> taken = grid[ending_idx.first][ending_idx.second];
         board->delete_piece(taken);
+    } else if (grid[starting_idx.first][starting_idx.second]
+        and grid[starting_idx.first][starting_idx.second]->get_piece_type()
+            == PieceType::PAWN
+        and ((this->color == Color::WHITE and start.row == 2)
+            or (this->color == Color::BLACK and start.row == 7))
+        and std::abs(end.row - start.row) == 2) {
+        /*
+            since we only worry about enpassant if its a non-custom chessboard, we
+            can just assume that if the pieces are in the starting row, they are
+            en-passantable
+        */
+        this->game->get_board()->add_enpassant(end);
     }
-    // elif en passant
-    // castle???
+    /* TODO: add castle logic here */
 
     board->delete_piece(p);
     std::shared_ptr<Piece> new_p = nullptr;

@@ -425,3 +425,13 @@ bool Board::is_promotion(Coordinate start, Coordinate end)
     }
     return end.row == 1;
 }
+
+void Board::add_enpassant(Coordinate c)
+{
+    /* delete the older unique pointer */
+    if (this->en_passant_targets) {
+        this->en_passant_targets.reset();
+    }
+    /* set the new en passant coordinate */
+    this->en_passant_targets = std::make_unique<Coordinate>(c.row, c.column);
+}

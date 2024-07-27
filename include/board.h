@@ -59,6 +59,8 @@ public:
     bool is_checkmate();
     void get_attacked_squares_by_color(std::set<Coordinate>& s, Color c);
     void get_possible_moves_by_color(std::set<Move>& m, Color c);
+
+    void add_enpassant(Coordinate c);
 };
 
 #endif
