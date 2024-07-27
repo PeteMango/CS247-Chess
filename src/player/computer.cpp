@@ -5,7 +5,4 @@ Computer::Computer(std::shared_ptr<Game> game, Color color)
 {
 }
 
-void Computer::make_move(
-    Coordinate start, Coordinate end, PromotionType promotion)
-{
-}
+void Computer::move() { }

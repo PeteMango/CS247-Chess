@@ -7,7 +7,6 @@ class Computer : public Player {
 
 public:
     Computer(std::shared_ptr<Game> game, Color color);
-    void make_move(Coordinate start, Coordinate end,
-        PromotionType promotion) override;
+    void move() override;
 };
 #endif

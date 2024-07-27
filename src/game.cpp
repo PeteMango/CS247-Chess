@@ -19,13 +19,15 @@ bool Game::is_game_complete() { return this->is_complete; }
 
 bool Game::is_game_started() { return this->is_started; }
 
-Color Game::get_winner() { }
+Color Game::get_winner() { return this->winner; }
 
-void Game::resign() { }
+void Game::resign() { throw std::invalid_argument("unimplemented"); }
 
-bool Game::is_valid_move(Move m) { }
-
-std::string Game::make_move(Move m) { }
+std::string Game::make_move(
+    Coordinate start, Coordinate end, PromotionType promotion)
+{
+    throw std::invalid_argument("unimplemented");
+}
 
 void Game::setup_board(std::istream& in, bool& is_eof_given)
 {
@@ -50,19 +52,18 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
                 throw std::invalid_argument("invalid piece");
             }
             if (!validate_coordinate(coordinate)) {
-                throw std::invalid_argument(
-                    "invalid coordinate");
+                throw std::invalid_argument("invalid coordinate");
             }
             Coordinate coord(coordinate);
             PieceType p = string_to_piecetype(piece);
             this->board->place_piece(color, coord, p);
+
             this->chess->notify_displays();
         } else if (cmd == "-") {
             std::string coordinate;
             ss >> coordinate;
             if (!validate_coordinate(coordinate)) {
-                throw std::invalid_argument(
-                    "invalid coordinate");
+                throw std::invalid_argument("invalid coordinate");
             }
             Coordinate coord(coordinate);
             this->board->remove_piece(coord);
@@ -86,7 +87,4 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
 
 std::shared_ptr<Board> Game::get_board() { return this->board; }
 
-void Game::update_start(bool started)
-{
-    this->is_started = started;
-}
+void Game::update_start(bool started) { this->is_started = started; }

@@ -85,7 +85,7 @@ bool validate_color(std::string color)
     return StringToColor.find(color) != StringToColor.end();
 }
 
-bool validate_setup() { }
+bool validate_setup() { throw std::logic_error("not implemented"); }
 
 PromotionType string_to_promotiontype(std::string promotion)
 {
@@ -121,3 +121,18 @@ bool coordinate_in_bounds(std::pair<int, int> a)
     return 0 <= a.first && a.first < 8 && 0 <= a.second && a.second < 8;
 }
 
+PieceType PromotionTypeToPieceType(PromotionType pt)
+{
+    switch (pt) {
+    case PromotionType::QUEEN:
+        return PieceType::QUEEN;
+    case PromotionType::ROOK:
+        return PieceType::ROOK;
+    case PromotionType::BISHOP:
+        return PieceType::BISHOP;
+    case PromotionType::KNIGHT:
+        return PieceType::KNIGHT;
+    default:
+        throw std::logic_error("not possible");
+    }
+}

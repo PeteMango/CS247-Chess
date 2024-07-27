@@ -50,4 +50,6 @@ std::pair<int, int> add_pairs(std::pair<int, int> a, std::pair<int, int> b);
 
 bool coordinate_in_bounds(std::pair<int, int> a);
 
+PieceType PromotionTypeToPieceType(PromotionType pt);
+
 #endif
