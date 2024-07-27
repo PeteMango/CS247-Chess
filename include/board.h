@@ -43,7 +43,8 @@ public:
     void clean_board();
 
     // make move helpers
-    bool is_valid_move(Move m);
+    /* bool is_valid_move(Move m); */
+    bool is_valid_move(Coordinate start, Coordinate end);
     std::string make_move(Move m);
     void add_piece(std::shared_ptr<Piece> p, Color color);
     void delete_piece(std::shared_ptr<Piece> p, Color color);

@@ -32,6 +32,8 @@ public:
     /* get all the coordinate that the square is protecting */
     virtual void get_threatened_squares(std::set<Coordinate>& s) = 0;
 
+    bool is_valid_move(Coordinate c);
+
     /* move helper, not abstract */
     void single_move(
         std::vector<std::pair<int, int>> directions, std::set<Coordinate>& s);

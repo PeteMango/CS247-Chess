@@ -60,7 +60,7 @@ int main()
             std::shared_ptr<Players> p = CHESS->get_last_game_players();
 
             if (CHESS->is_next_move_human()) {
-                if (!CHESS->is_valid_move(start_coordinate, end_coordinate)) {
+                if (!b->is_valid_move(start_coordinate, end_coordinate)) {
                     throw std::invalid_argument("invalid move");
                 }
                 if (b->is_promotion(start_coordinate, end_coordinate)

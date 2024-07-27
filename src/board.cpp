@@ -57,49 +57,31 @@ void Board::setup_default_board()
 {
     this->clean_board();
     // kings
-    this->place_piece(
-        Color::WHITE, Coordinate("e1"), PieceType::KING);
-    this->place_piece(
-        Color::BLACK, Coordinate("e8"), PieceType::KING);
+    this->place_piece(Color::WHITE, Coordinate("e1"), PieceType::KING);
+    this->place_piece(Color::BLACK, Coordinate("e8"), PieceType::KING);
     // queens
-    this->place_piece(
-        Color::WHITE, Coordinate("d1"), PieceType::QUEEN);
-    this->place_piece(
-        Color::BLACK, Coordinate("d8"), PieceType::QUEEN);
+    this->place_piece(Color::WHITE, Coordinate("d1"), PieceType::QUEEN);
+    this->place_piece(Color::BLACK, Coordinate("d8"), PieceType::QUEEN);
     // rooks
-    this->place_piece(
-        Color::WHITE, Coordinate("a1"), PieceType::ROOK);
-    this->place_piece(
-        Color::WHITE, Coordinate("h1"), PieceType::ROOK);
-    this->place_piece(
-        Color::BLACK, Coordinate("a8"), PieceType::ROOK);
-    this->place_piece(
-        Color::BLACK, Coordinate("h8"), PieceType::ROOK);
+    this->place_piece(Color::WHITE, Coordinate("a1"), PieceType::ROOK);
+    this->place_piece(Color::WHITE, Coordinate("h1"), PieceType::ROOK);
+    this->place_piece(Color::BLACK, Coordinate("a8"), PieceType::ROOK);
+    this->place_piece(Color::BLACK, Coordinate("h8"), PieceType::ROOK);
     // bishops
-    this->place_piece(
-        Color::WHITE, Coordinate("c1"), PieceType::BISHOP);
-    this->place_piece(
-        Color::WHITE, Coordinate("f1"), PieceType::BISHOP);
-    this->place_piece(
-        Color::BLACK, Coordinate("c8"), PieceType::BISHOP);
-    this->place_piece(
-        Color::BLACK, Coordinate("f8"), PieceType::BISHOP);
+    this->place_piece(Color::WHITE, Coordinate("c1"), PieceType::BISHOP);
+    this->place_piece(Color::WHITE, Coordinate("f1"), PieceType::BISHOP);
+    this->place_piece(Color::BLACK, Coordinate("c8"), PieceType::BISHOP);
+    this->place_piece(Color::BLACK, Coordinate("f8"), PieceType::BISHOP);
     // knights
-    this->place_piece(
-        Color::WHITE, Coordinate("b1"), PieceType::KNIGHT);
-    this->place_piece(
-        Color::WHITE, Coordinate("g1"), PieceType::KNIGHT);
-    this->place_piece(
-        Color::BLACK, Coordinate("b8"), PieceType::KNIGHT);
-    this->place_piece(
-        Color::BLACK, Coordinate("g8"), PieceType::KNIGHT);
+    this->place_piece(Color::WHITE, Coordinate("b1"), PieceType::KNIGHT);
+    this->place_piece(Color::WHITE, Coordinate("g1"), PieceType::KNIGHT);
+    this->place_piece(Color::BLACK, Coordinate("b8"), PieceType::KNIGHT);
+    this->place_piece(Color::BLACK, Coordinate("g8"), PieceType::KNIGHT);
     // pawns
     for (int i = 0; i < 8; i++) {
         char col = static_cast<char>(i + 'a');
-        this->place_piece(
-            Color::WHITE, Coordinate(2, col), PieceType::PAWN);
-        this->place_piece(
-            Color::BLACK, Coordinate(7, col), PieceType::PAWN);
+        this->place_piece(Color::WHITE, Coordinate(2, col), PieceType::PAWN);
+        this->place_piece(Color::BLACK, Coordinate(7, col), PieceType::PAWN);
     }
     this->verify_board();
 }
@@ -170,7 +152,7 @@ Board::Board(const std::string& fen)
     fenStream >> this->halfmove_clock >> this->fullmove_clock;
 }
 
-bool Board::is_valid_move(Move m) { return true; }
+bool Board::is_valid_move(Coordinate start, Coordinate end) { return true; }
 
 std::string Board::make_move(Move m) { return ""; }
 
@@ -387,13 +369,8 @@ std::vector<std::vector<std::shared_ptr<Piece>>>& Board::get_grid()
 
 Color Board::get_active_color() { return this->active_color; }
 
-void Board::delete_piece(std::shared_ptr<Piece> p, Color color)
-{
-}
+void Board::delete_piece(std::shared_ptr<Piece> p, Color color) { }
 
 void Board::add_piece(std::shared_ptr<Piece> p, Color color) { }
 
-bool Board::is_promotion(Coordinate start, Coordinate end)
-{
-    return true;
-}
+bool Board::is_promotion(Coordinate start, Coordinate end) { return true; }

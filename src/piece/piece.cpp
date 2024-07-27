@@ -96,11 +96,15 @@ void Piece::get_valid_moves(std::set<Coordinate>& s)
     this->filter_moves(s);
 }
 
+bool Piece::is_valid_move(Coordinate c)
+{
+    std::set<Coordinate> s;
+    this->get_valid_moves(s);
+    return s.find(c) != s.end();
+}
+
 /* getter methods */
 Color Piece::get_color() { return this->color; }
 PieceType Piece::get_piece_type() { return this->type; }
 Coordinate Piece::get_coordinate() { return this->location; }
-void Piece::update_location(Coordinate square)
-{
-    this->location = square;
-}
+void Piece::update_location(Coordinate square) { this->location = square; }
