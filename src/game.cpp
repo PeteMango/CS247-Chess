@@ -23,28 +23,6 @@ Color Game::get_winner() { return this->winner; }
 
 void Game::resign() { throw std::invalid_argument("unimplemented"); }
 
-bool Game::is_valid_move(Coordinate start, Coordinate end)
-{
-    // TODO: finish/integrate
-    std::pair<int, int> start_idx = get_grid_indexes(start);
-    std::vector<std::vector<std::shared_ptr<Piece>>> grid = this->board->get_grid();
-    if (grid[start_idx.first][start_idx.second] == nullptr) {
-        return false;
-    }
-    std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
-    if (!p->is_valid_move(end)) {
-        return false;
-    }
-    // taking, en passant
-    if (p->get_piece_type() == PieceType::PAWN) {
-
-    }
-    // castling
-    else if (p->get_piece_type() == PieceType::KING) {
-    }
-    return true;
-}
-
 std::string Game::make_move(
     Coordinate start, Coordinate end, PromotionType promotion)
 {

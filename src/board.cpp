@@ -151,7 +151,25 @@ Board::Board(const std::string& fen)
     fenStream >> this->halfmove_clock >> this->fullmove_clock;
 }
 
-bool Board::is_valid_move(Coordinate start, Coordinate end) { return true; }
+bool Board::is_valid_move(Coordinate start, Coordinate end)
+{
+    std::pair<int, int> start_idx = get_grid_indexes(start);
+    if (this->grid[start_idx.first][start_idx.second] == nullptr) {
+        return false;
+    }
+    std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
+    if (!p->is_valid_move(end)) {
+        return false;
+    }
+    // taking, en passant
+    if (p->get_piece_type() == PieceType::PAWN) {
+
+    }
+    // castling
+    else if (p->get_piece_type() == PieceType::KING) {
+    }
+    return true;
+}
 
 std::string Board::make_move(Move m) { return ""; }
 
@@ -271,8 +289,8 @@ void Board::place_piece(Color color, Coordinate square, PieceType type)
     }
     std::shared_ptr<Piece> p = this->create_piece(color, square, type);
     this->grid[idx.first][idx.second] = p;
-    p->print_attack();
-    p->print_move();
+    /* p->print_attack(); */
+    /* p->print_move(); */
 }
 
 void Board::remove_piece(Coordinate square)
@@ -368,8 +386,42 @@ std::vector<std::vector<std::shared_ptr<Piece>>>& Board::get_grid()
 
 Color Board::get_active_color() { return this->active_color; }
 
-void Board::delete_piece(std::shared_ptr<Piece> p, Color color) { }
+void Board::delete_piece(std::shared_ptr<Piece> p)
+{
+    // we cannot be deleting a king, so we don't check
+    std::pair<int, int> idx = get_grid_indexes(p->get_coordinate());
+    this->grid[idx.first][idx.second] = nullptr;
+    if (p->get_color() == Color::WHITE) {
+        this->white_pieces.erase(p);
+    } else {
+        this->black_pieces.erase(p);
+    }
+}
 
-void Board::add_piece(std::shared_ptr<Piece> p, Color color) { }
+void Board::add_piece(std::shared_ptr<Piece> p)
+{
+    // we cannot be adding a king, so we don't check
+    std::pair<int, int> idx = get_grid_indexes(p->get_coordinate());
+    this->grid[idx.first][idx.second] = p;
+    if (p->get_color() == Color::WHITE) {
+        this->white_pieces.insert(p);
+    } else {
+        this->black_pieces.insert(p);
+    }
+}
 
-bool Board::is_promotion(Coordinate start, Coordinate end) { return true; }
+bool Board::is_promotion(Coordinate start, Coordinate end)
+{
+    std::pair<int, int> start_idx = get_grid_indexes(start);
+    std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
+    if (!p) {
+        return false;
+    }
+    if (p->get_piece_type() != PieceType::PAWN) {
+        return false;
+    }
+    if (p->get_color() == Color::WHITE) {
+        return end.row == 8;
+    }
+    return end.row == 1;
+}

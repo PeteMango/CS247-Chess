@@ -100,6 +100,7 @@ int main()
                     "no other arguments other than move for a "
                     "computer move");
             }
+            CHESS->notify_displays();
         } else if (cmd == "setup") {
             if (!CHESS->can_setup_board()) {
                 throw std::invalid_argument("setup run when game in progress");

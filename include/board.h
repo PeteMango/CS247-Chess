@@ -46,8 +46,8 @@ public:
     /* bool is_valid_move(Move m); */
     bool is_valid_move(Coordinate start, Coordinate end);
     std::string make_move(Move m);
-    void add_piece(std::shared_ptr<Piece> p, Color color);
-    void delete_piece(std::shared_ptr<Piece> p, Color color);
+    void add_piece(std::shared_ptr<Piece> p);
+    void delete_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
 
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
