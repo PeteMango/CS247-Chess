@@ -88,7 +88,7 @@ void Chess::get_scores() { throw std::invalid_argument("unimplemented"); }
 
 void Chess::notify_displays()
 {
-    for (int i = 0; i < this->displays.size(); i++) {
+    for (long unsigned int i = 0; i < this->displays.size(); i++) {
         displays[i]->show();
     }
 }

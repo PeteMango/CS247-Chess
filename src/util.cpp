@@ -85,7 +85,7 @@ bool validate_color(std::string color)
     return StringToColor.find(color) != StringToColor.end();
 }
 
-bool validate_setup() { }
+bool validate_setup() { throw std::logic_error("not implemented"); }
 
 PromotionType string_to_promotiontype(std::string promotion)
 {

@@ -13,22 +13,21 @@
 Board::Board(bool default_board)
     : grid { 8, std::vector<std::shared_ptr<Piece>>(8, nullptr) }
     , active_color { Color::WHITE }
-    , white_king { nullptr }
-    , black_king { nullptr }
+    , en_passant_enabled { default_board }
     , en_passant_targets()
     , halfmove_clock { 0 }
     , fullmove_clock { 0 }
+    , white_king { nullptr }
+    , black_king { nullptr }
 {
     this->white_pieces = std::set<std::shared_ptr<Piece>>();
     this->black_pieces = std::set<std::shared_ptr<Piece>>();
     if (default_board) {
-        this->en_passant_enabled = true;
         this->castle_rights[Color::WHITE][CastleSide::KINGSIDE] = true;
         this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE] = true;
         this->castle_rights[Color::BLACK][CastleSide::KINGSIDE] = true;
         this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE] = true;
     } else {
-        this->en_passant_enabled = false;
         this->castle_rights[Color::WHITE][CastleSide::KINGSIDE] = false;
         this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE] = false;
         this->castle_rights[Color::BLACK][CastleSide::KINGSIDE] = false;
@@ -87,9 +86,9 @@ void Board::setup_default_board()
 }
 
 Board::Board(const std::string& fen)
-    : halfmove_clock { 0 }
+    : en_passant_enabled { true }
+    , halfmove_clock { 0 }
     , fullmove_clock { 0 }
-    , en_passant_enabled { true }
 {
     std::istringstream fenStream(fen);
     std::string curLine;

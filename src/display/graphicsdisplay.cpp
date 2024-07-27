@@ -18,7 +18,6 @@ void GraphicsDisplay::setupBoard()
 
     const int BLACK_SQUARE_COLOR = xwindow::Green;
     const int WHITE_SQUARE_COLOR = xwindow::White;
-    const int TEXT_COLOR = xwindow::Red;
 
     // draw squares
     for (int row = 7, color; row >= 0; row--)
@@ -48,7 +47,7 @@ void GraphicsDisplay::show()
         isSetup = true;
     }
 
-    for (int row = 7, color; row >= 0; row--)
+    for (int row = 7; row >= 0; row--)
         for (int col = 0; col < 8; col++)
             if (grid[row][col] != nullptr) {
                 Color pieceColor = grid[row][col]->get_color();

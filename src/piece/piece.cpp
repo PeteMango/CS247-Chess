@@ -81,9 +81,9 @@ void Piece::filter_moves(std::set<Coordinate>& s)
             = get_grid_indexes(c); /* filter out the piece that coordinates that
                                       already has an allied piece */
         if (!this->board->get_grid()[index.first][index.second]
-            or this->board->get_grid()[index.first][index.second]
+            or (this->board->get_grid()[index.first][index.second]
                 and this->board->get_grid()[index.first][index.second]->get_color()
-                    != this->color) {
+                    != this->color)) {
             good.insert(c);
         }
     }
