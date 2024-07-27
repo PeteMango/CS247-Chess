@@ -1,0 +1,11 @@
+setup
++ N a1
+= black
++ K h8
+done
+game human human
+move a1 b3
+move h8 h7
+move b3 d4
+move h7 h8
+move d4 f3
