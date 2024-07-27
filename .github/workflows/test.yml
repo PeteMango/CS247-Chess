@@ -19,7 +19,7 @@ jobs:
           ./start.sh
 
       - name: Run Tests in Docker Container
-        run: docker exec chess /bin/bash -c "cd scripts"
+        run: docker exec chess /bin/bash -c "./scripts/test.sh"
 
       - name: Stop containers
         if: always()
