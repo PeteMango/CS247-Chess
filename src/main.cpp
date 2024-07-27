@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
     if (debug_mode) {
         DEBUG = true;
         std::cout << "debug mode enabled" << std::endl;
-        debug("debug mode print\n");
     }
+    debug("debug mode print\n");
     if (graphics_mode) {
         std::cout << "graphics mode enabled" << std::endl;
     }
