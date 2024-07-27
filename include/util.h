@@ -54,4 +54,6 @@ PieceType PromotionTypeToPieceType(PromotionType pt);
 
 Color toggle_color(Color c);
 
+void debug(std::string s);
+
 #endif

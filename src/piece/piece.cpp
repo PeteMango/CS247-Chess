@@ -100,7 +100,6 @@ bool Piece::is_valid_move(Coordinate c)
 {
     std::set<Coordinate> s;
     this->get_valid_moves(s);
-    std::cout << "size of moves: " << s.size() << std::endl;
     return s.find(c) != s.end();
 }
 

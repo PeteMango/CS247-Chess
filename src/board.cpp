@@ -186,8 +186,6 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         && s.find(this->black_king->get_coordinate()) != s.end()) {
         invalid = true;
     }
-    std::cout << "k: " << this->white_king->get_coordinate().column
-              << this->white_king->get_coordinate().row << std::endl;
     this->delete_piece(new_p);
     this->add_piece(p);
     if (taken_piece) {
@@ -195,9 +193,6 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     }
     if (invalid) {
         return false;
-    }
-    for (auto i : s) {
-        std::cout << "s: " << i.column << i.row << std::endl;
     }
 
     // taking, en passant

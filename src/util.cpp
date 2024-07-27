@@ -1,4 +1,6 @@
 #include "util.h"
+#include "globals.h"
+#include <iostream>
 
 const std::unordered_map<PromotionType, std::string> PromotionTypeToString = {
     { PromotionType::KNIGHT, "N" },
@@ -143,4 +145,11 @@ Color toggle_color(Color c)
         return Color::BLACK;
     }
     return Color::WHITE;
+}
+
+void debug(std::string s)
+{
+    if (DEBUG) {
+        std::cout << s;
+    }
 }

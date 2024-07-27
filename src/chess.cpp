@@ -9,21 +9,21 @@
 
 Chess::Chess() { }
 
-void Chess::init()
+void Chess::init(bool graphics_mode)
 {
     auto self = shared_from_this();
     std::unique_ptr<TextDisplay> t = std::make_unique<TextDisplay>(self);
-    /* std::unique_ptr<GraphicsDisplay> g = std::make_unique<GraphicsDisplay>(self);
-     */
-
     this->displays.push_back(std::move(t));
-    /* this->displays.push_back(std::move(g)); */
+    if (graphics_mode) {
+        std::unique_ptr<GraphicsDisplay> g = std::make_unique<GraphicsDisplay>(self);
+        this->displays.push_back(std::move(g));
+    }
 }
 
-std::shared_ptr<Chess> createChess()
+std::shared_ptr<Chess> createChess(bool graphics_mode)
 {
     std::shared_ptr<Chess> c = std::make_shared<Chess>();
-    c->init();
+    c->init(graphics_mode);
     return c;
 }
 
