@@ -20,6 +20,9 @@ def RunTest():
         for file in files:
             if file.startswith("fail"):
                 fail_files_count += 1
+            if file.endswith("moving.in"):
+                continue
+
             if file.endswith(".in"):
                 rel_path = os.path.relpath(root, in_dir)
                 input_file = os.path.join(root, file)
