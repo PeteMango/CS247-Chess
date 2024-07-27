@@ -164,9 +164,10 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     }
     bool valid_enpassant = false;
     if (!p->is_valid_move(end)) {
+        std::cout << "was here" << std::endl;
         valid_enpassant = this->is_valid_enpassant(start, end);
         bool valid_castle = this->is_valid_castle(start, end);
-        if (!valid_enpassant && !valid_castle) {
+        if (!valid_enpassant and !valid_castle) {
             return false;
         }
     }
@@ -274,7 +275,7 @@ std::string Board::make_move(
 
     // revoke castle rights
     if (p->get_piece_type() == PieceType::KING) {
-        for (auto i : this->castle_rights[p->get_color()]) {
+        for (auto& i : this->castle_rights[p->get_color()]) {
             i.second = false;
         }
     } else if (p->get_piece_type() == PieceType::ROOK) {
@@ -616,6 +617,9 @@ bool Board::is_valid_enpassant(Coordinate start, Coordinate end)
 bool Board::is_valid_castle(Coordinate start, Coordinate end)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start);
+    if (!is_double_king_move(start, end)) {
+        return false;
+    }
     std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
     if (!p) {
         return false;
@@ -708,11 +712,13 @@ bool Board::is_double_king_move(Coordinate start, Coordinate end)
     if (p->get_piece_type() != PieceType::KING) {
         return false;
     }
-    bool valid = (end.column == 'g' || end.column == 'b') && start.row == end.row
-        && start.column == 'e';
+
+    bool valid = (end.column == 'g' || end.column == 'c') and (start.row == end.row)
+        and (start.column == 'e');
     if (!valid) {
         return false;
     }
+    std::cout << "was here after all these checks" << std::endl;
 
     if (p->get_color() == Color::WHITE) {
         return start.row == 1;
