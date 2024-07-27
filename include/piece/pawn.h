@@ -11,6 +11,7 @@ public:
         std::shared_ptr<Board> board);
     void get_valid_moves(std::set<Coordinate>& s) override;
     void get_threatened_squares(std::set<Coordinate>& s) override;
+    std::vector<std::pair<int, int>>& get_captures();
 };
 
 #endif

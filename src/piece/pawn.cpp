@@ -59,3 +59,6 @@ void Pawn::get_threatened_squares(std::set<Coordinate>& s)
         }
     }
 }
+
+std::vector<std::pair<int, int>>& Pawn::get_captures() { return this->captures; }
+

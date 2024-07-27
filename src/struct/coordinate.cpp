@@ -33,3 +33,8 @@ bool Coordinate::operator<(const Coordinate& other) const
     }
     return row < other.row;
 }
+
+bool Coordinate::operator==(const Coordinate& other) const
+{
+    return row == other.row && column == other.column;
+}

@@ -15,7 +15,7 @@ class Board : public std::enable_shared_from_this<Board> {
     std::vector<std::vector<std::shared_ptr<Piece>>> grid;
     Color active_color;
     bool en_passant_enabled;
-    std::unique_ptr<Coordinate> en_passant_targets;
+    std::shared_ptr<Coordinate> en_passant_target;
     std::map<Color, std::map<CastleSide, bool>> castle_rights;
     int halfmove_clock;
     int fullmove_clock;
@@ -45,11 +45,18 @@ public:
     // make move helpers
     /* bool is_valid_move(Move m); */
     bool is_valid_move(Coordinate start, Coordinate end);
-    std::string make_move(Move m);
+    std::string make_move(Coordinate start, Coordinate end, PromotionType promotion);
     void add_piece(std::shared_ptr<Piece> p);
     void delete_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
     void get_threatened_squares_by_color(std::set<Coordinate>& s, Color c);
+    bool is_enpassant_possible();
+    Coordinate get_enpassant_coordinate();
+    bool is_enpassant(Coordinate start, Coordinate end);
+    bool is_double_move(Coordinate start, Coordinate end);
+    void add_enpassant_target(std::shared_ptr<Coordinate> c);
+    Coordinate get_enpassant_taken_piece_coordinate();
+    std::shared_ptr<Coordinate> get_enpassant_square_coordinate(Coordinate c);
 
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     Color get_active_color();
@@ -60,7 +67,6 @@ public:
     bool is_check(Color c);
     bool is_stalemate();
     bool is_checkmate();
-    void get_attacked_squares_by_color(std::set<Coordinate>& s, Color c);
     void get_possible_moves_by_color(std::set<Move>& m, Color c);
 };
 

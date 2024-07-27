@@ -15,7 +15,7 @@ Board::Board(bool default_board)
     : grid { 8, std::vector<std::shared_ptr<Piece>>(8, nullptr) }
     , active_color { Color::WHITE }
     , en_passant_enabled { default_board }
-    , en_passant_targets()
+    , en_passant_target()
     , halfmove_clock { 0 }
     , fullmove_clock { 0 }
     , white_king { nullptr }
@@ -144,7 +144,7 @@ Board::Board(const std::string& fen)
     fenStream >> empassant;
 
     if (empassant != "-") {
-        this->en_passant_targets = std::make_unique<Coordinate>(
+        this->en_passant_target = std::make_unique<Coordinate>(
             empassant[1] - '0', empassant[0] - 'a' + 1);
     }
 
@@ -163,7 +163,13 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         return false;
     }
     if (!p->is_valid_move(end)) {
-        return false;
+        // en passant
+        if (!this->is_enpassant(start, end)) {
+            return false;
+        }
+        // castling
+        else if (p->get_piece_type() == PieceType::KING) {
+        }
     }
     // check for checks here
     std::pair<int, int> end_idx = get_grid_indexes(end);
@@ -194,14 +200,59 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     if (invalid) {
         return false;
     }
-
-    // taking, en passant
-    if (p->get_piece_type() == PieceType::PAWN) {
-    }
-    // castling
-    else if (p->get_piece_type() == PieceType::KING) {
-    }
     return true;
+}
+
+std::string Board::make_move(
+    Coordinate start, Coordinate end, PromotionType promotion)
+{
+    std::pair<int, int> starting_idx = get_grid_indexes(start);
+    std::pair<int, int> ending_idx = get_grid_indexes(end);
+    std::shared_ptr<Piece> p = this->grid[starting_idx.first][starting_idx.second];
+
+    // capture
+    if (this->grid[ending_idx.first][ending_idx.second] != nullptr) {
+        std::shared_ptr<Piece> taken
+            = this->grid[ending_idx.first][ending_idx.second];
+        this->delete_piece(taken);
+    } else if (this->is_enpassant(start, end)) {
+        Coordinate c = this->get_enpassant_taken_piece_coordinate();
+        std::pair<int, int> enpassant_taken_piece_idx = get_grid_indexes(c);
+        std::shared_ptr<Piece> enpassant_taken_piece
+            = this->grid[enpassant_taken_piece_idx.first]
+                        [enpassant_taken_piece_idx.second];
+        this->delete_piece(enpassant_taken_piece);
+    }
+    // elif en passant
+
+    // if its a double move it can't be an en passant
+    if (is_double_move(start, end)) {
+        std::shared_ptr<Coordinate> enpassant
+            = this->get_enpassant_square_coordinate(end);
+        debug("adding to en passant target\n");
+        this->add_enpassant_target(enpassant);
+    } else {
+        this->add_enpassant_target(nullptr);
+    }
+
+    // castle???
+
+    std::shared_ptr<Piece> new_p = nullptr;
+    if (this->is_promotion(start, end)) {
+        new_p = this->create_piece(
+            p->get_color(), end, PromotionTypeToPieceType(promotion));
+    } else {
+        new_p = this->create_piece(p->get_color(), end, p->get_piece_type());
+    }
+    this->delete_piece(p);
+    this->add_piece(new_p);
+
+    if (this->get_active_color() == Color::BLACK) {
+        this->increment_halfmove_clock();
+    }
+    this->increment_fullmove_clock();
+    this->toggle_active_color();
+    return "";
 }
 
 void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
@@ -218,8 +269,6 @@ void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
         }
     }
 }
-
-std::string Board::make_move(Move m) { return ""; }
 
 void Board::setup_board(std::istream& in) { return; }
 
@@ -242,31 +291,16 @@ bool Board::is_check(Color c)
     std::set<Coordinate> s;
 
     if (c == Color::WHITE) {
-        get_attacked_squares_by_color(s, Color::BLACK);
+        get_threatened_squares_by_color(s, Color::BLACK);
         return s.find(this->white_king->get_coordinate()) != s.end();
     }
-    get_attacked_squares_by_color(s, Color::WHITE);
+    get_threatened_squares_by_color(s, Color::WHITE);
     return s.find(this->black_king->get_coordinate()) != s.end();
 }
 
 bool Board::is_stalemate() { return true; }
 
 bool Board::is_checkmate() { return true; }
-
-void Board::get_attacked_squares_by_color(std::set<Coordinate>& s, Color c)
-{
-    if (c == Color::WHITE) {
-        for (auto it = this->white_pieces.begin(); it != this->white_pieces.end();
-             ++it) {
-            (*it)->get_threatened_squares(s);
-        }
-    } else {
-        for (auto it = this->black_pieces.begin(); it != this->black_pieces.end();
-             ++it) {
-            (*it)->get_threatened_squares(s);
-        }
-    }
-}
 
 void Board::get_possible_moves_by_color(std::set<Move>& m, Color c) { }
 
@@ -424,7 +458,7 @@ std::string Board::serialize()
     fen.append(" ");
 
     /* en passant possible */
-    if (this->en_passant_targets == nullptr) {
+    if (this->en_passant_target == nullptr) {
         fen.append(" - ");
     }
 
@@ -488,7 +522,96 @@ bool Board::is_promotion(Coordinate start, Coordinate end)
         return false;
     }
     if (p->get_color() == Color::WHITE) {
-        return end.row == 8;
+        return end.row == 8 && start.row == 7;
     }
-    return end.row == 1;
+    return end.row == 1 && start.row == 2;
+}
+
+bool Board::is_enpassant_possible()
+{
+    if (!this->en_passant_enabled) {
+        return false;
+    }
+    return this->en_passant_target != nullptr;
+}
+
+Coordinate Board::get_enpassant_coordinate() { return *this->en_passant_target; }
+
+bool Board::is_enpassant(Coordinate start, Coordinate end)
+{
+    // theres implicitly no piece there
+    if (!this->en_passant_enabled) {
+        return false;
+    }
+    if (this->en_passant_target == nullptr) {
+        return false;
+    }
+    if (!(*this->en_passant_target == end)) {
+        return false;
+    }
+    std::pair<int, int> start_idx = get_grid_indexes(start);
+    std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
+    if (!p) {
+        return false;
+    }
+    if (p->get_piece_type() != PieceType::PAWN) {
+        return false;
+    }
+    std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(p);
+    for (auto i : pawn->get_captures()) {
+        std::pair<int, int> square = add_pairs(start_idx, i);
+        if (Coordinate(square.first, square.second) == end) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Board::is_double_move(Coordinate start, Coordinate end)
+{
+    std::pair<int, int> start_idx = get_grid_indexes(start);
+    std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
+    if (!p) {
+        return false;
+    }
+    if (p->get_piece_type() != PieceType::PAWN) {
+        return false;
+    }
+    if (p->get_color() == Color::WHITE) {
+        return start.row == 2 && end.row == 4 && start.column == end.column;
+    }
+    return start.row == 7 && end.row == 5 && start.column == end.column;
+}
+
+void Board::add_enpassant_target(std::shared_ptr<Coordinate> c)
+{
+    if (!this->en_passant_enabled) {
+        return;
+    }
+    if (this->en_passant_target) {
+        this->en_passant_target = nullptr;
+    }
+    this->en_passant_target = c;
+}
+
+Coordinate Board::get_enpassant_taken_piece_coordinate()
+{
+    if ((*this->en_passant_target).row == 3) {
+        return Coordinate(4, (*this->en_passant_target).column);
+
+    } else if ((*this->en_passant_target).row == 6) {
+        return Coordinate(5, (*this->en_passant_target).column);
+    }
+    throw std::logic_error("enpassant target not on row 3 or 6");
+}
+
+std::shared_ptr<Coordinate> Board::get_enpassant_square_coordinate(Coordinate c)
+{
+    if (c.row == 4) {
+        return std::make_shared<Coordinate>(3, c.column);
+
+    } else if (c.row == 5) {
+        return std::make_shared<Coordinate>(6, c.column);
+    }
+    throw std::logic_error("enpassant move not on row 4 or 5");
 }
