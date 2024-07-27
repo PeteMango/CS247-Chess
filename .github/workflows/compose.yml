@@ -1,4 +1,4 @@
-name: Docker
+name: Compilation
 
 on:
   pull_request:
@@ -13,21 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Compose Containers
-        run: docker compose up -d --build --remove-orphans
+      - name: Run Start Script
+        run: |
+          cd scripts
+          ./start.sh
 
-      - name: Run Make Clean
-        run: docker exec chess make clean
-
-      - name: Run Make
-        run: docker exec chess make
-
-      # TODO: run tests instead
-      - name: Run Chess
-        run: docker exec chess ./out/chess
-
-      - name: Run Make Clean
-        run: docker exec chess make clean
+      - name: Run Tests in Docker Container
+        run: docker exec chess /bin/bash -c "make"
 
       - name: Stop containers
         if: always()
