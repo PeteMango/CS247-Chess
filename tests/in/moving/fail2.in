@@ -1,0 +1,10 @@
+Failure: Moving a pawn off of a square that is blocking a potential check.
+!
+setup
++ K e1
++ P d2
+= black
++ Q a5
+done
+game human human
+move d2 d4

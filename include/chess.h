@@ -21,7 +21,7 @@ class Chess : public std::enable_shared_from_this<Chess> {
 
 public:
     Chess();
-    void init();
+    void init(bool graphics_mode);
     void notify_displays();
     // command functions
     void setup_board(std::istream& in, bool& is_eof_given);
@@ -41,5 +41,5 @@ public:
     std::shared_ptr<Players> get_last_game_players();
 };
 
-std::shared_ptr<Chess> createChess();
+std::shared_ptr<Chess> createChess(bool graphics_mode);
 #endif

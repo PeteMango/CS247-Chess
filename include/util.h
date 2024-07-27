@@ -52,4 +52,8 @@ bool coordinate_in_bounds(std::pair<int, int> a);
 
 PieceType PromotionTypeToPieceType(PromotionType pt);
 
+Color toggle_color(Color c);
+
+void debug(std::string s);
+
 #endif

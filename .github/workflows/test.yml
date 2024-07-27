@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run Start Script
+        run: |
+          cd scripts
+          ./start.sh
+
+      - name: Run Tests in Docker Container
+        run: docker exec chess /bin/bash -c "./scripts/test.sh"
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down

@@ -1,14 +1,34 @@
 #include "../include/chess.h"
 #include "../include/util.h"
 #include "game.h"
+#include "globals.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::shared_ptr<Chess> CHESS = createChess();
+    bool debug_mode = false;
+    bool graphics_mode = false;
+    for (int i = 1; i < argc; i++) {
+        std::string arg = argv[i];
+        if (arg == "--debug" || arg == "-d") {
+            debug_mode = true;
+        } else if (arg == "--graphics" || arg == "-g") {
+            graphics_mode = true;
+        }
+    }
+    if (debug_mode) {
+        DEBUG = true;
+        std::cout << "debug mode enabled" << std::endl;
+    }
+    debug("debug mode print\n");
+    if (graphics_mode) {
+        std::cout << "graphics mode enabled" << std::endl;
+    }
+
+    std::shared_ptr<Chess> CHESS = createChess(graphics_mode);
     std::string line;
 
     bool is_eof_given = false;
@@ -36,8 +56,6 @@ int main()
 
             CHESS->start_game(
                 string_to_playertype(white), string_to_playertype(black));
-            // TODO: remove
-            CHESS->notify_displays();
         } else if (cmd == "resign") {
             throw std::logic_error("unimplemented");
             CHESS->resign();

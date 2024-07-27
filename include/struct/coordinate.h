@@ -11,6 +11,7 @@ struct Coordinate {
     Coordinate(int row, char column);
     Coordinate(int row, int column);
     bool operator<(const Coordinate& other) const;
+    bool operator==(const Coordinate& other) const;
 };
 
 #endif

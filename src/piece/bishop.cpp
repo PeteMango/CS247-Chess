@@ -11,5 +11,5 @@ Bishop::Bishop(
 
 void Bishop::get_threatened_squares(std::set<Coordinate>& s)
 {
-    return this->single_move(this->directions, s);
+    return this->multiple_moves(this->directions, s);
 };

@@ -15,9 +15,9 @@ bool King::in_check(Coordinate square)
 {
     std::set<Coordinate> attacked;
     if (this->color == Color::BLACK) {
-        this->board->get_attacked_squares_by_color(attacked, Color::WHITE);
+        this->board->get_threatened_squares_by_color(attacked, Color::WHITE);
     } else {
-        this->board->get_attacked_squares_by_color(attacked, Color::BLACK);
+        this->board->get_threatened_squares_by_color(attacked, Color::BLACK);
     }
 
     /* cannot move into a spot that would result in a check */
