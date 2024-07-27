@@ -162,13 +162,12 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     if (p->get_color() != this->active_color) {
         return false;
     }
+    bool valid_enpassant = false;
     if (!p->is_valid_move(end)) {
-        // en passant
-        if (!this->is_enpassant(start, end)) {
+        valid_enpassant = this->is_valid_enpassant(start, end);
+        bool valid_castle = this->is_valid_castle(start, end);
+        if (!valid_enpassant && !valid_castle) {
             return false;
-        }
-        // castling
-        else if (p->get_piece_type() == PieceType::KING) {
         }
     }
     // check for checks here
@@ -179,6 +178,11 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     std::shared_ptr<Piece> taken_piece = nullptr;
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
+        this->delete_piece(taken_piece);
+    } else if (valid_enpassant) {
+        std::pair<int, int> taken_piece_idx
+            = get_grid_indexes(this->get_enpassant_taken_piece_coordinate());
+        taken_piece = this->grid[taken_piece_idx.first][taken_piece_idx.second];
         this->delete_piece(taken_piece);
     }
     this->delete_piece(p);
@@ -215,18 +219,42 @@ std::string Board::make_move(
         std::shared_ptr<Piece> taken
             = this->grid[ending_idx.first][ending_idx.second];
         this->delete_piece(taken);
-    } else if (this->is_enpassant(start, end)) {
+    } else if (this->is_valid_enpassant(start, end)) {
         Coordinate c = this->get_enpassant_taken_piece_coordinate();
         std::pair<int, int> enpassant_taken_piece_idx = get_grid_indexes(c);
         std::shared_ptr<Piece> enpassant_taken_piece
             = this->grid[enpassant_taken_piece_idx.first]
                         [enpassant_taken_piece_idx.second];
         this->delete_piece(enpassant_taken_piece);
+    } else if (this->is_valid_castle(start, end)) {
+        Coordinate rook_coord;
+        std::pair<int, int> d;
+        // kingside
+        if (start.column < end.column) {
+            rook_coord = this->get_castle_rook(p->get_color(), CastleSide::KINGSIDE);
+            d = { 0, -2 };
+        }
+        // queenside
+        else {
+            rook_coord
+                = this->get_castle_rook(p->get_color(), CastleSide::QUEENSIDE);
+            d = { 0, 3 };
+        }
+        std::pair<int, int> rook_idx = get_grid_indexes(rook_coord);
+        std::shared_ptr<Piece> rook = this->grid[rook_idx.first][rook_idx.second];
+
+        std::pair<int, int> new_rook_idx = add_pairs(rook_idx, d);
+        Coordinate new_rook_coord
+            = Coordinate(new_rook_idx.first, new_rook_idx.second);
+        std::shared_ptr<Piece> new_rook
+            = this->create_piece(p->get_color(), new_rook_coord, PieceType::ROOK);
+        this->delete_piece(rook);
+        this->add_piece(new_rook);
     }
     // elif en passant
 
     // if its a double move it can't be an en passant
-    if (is_double_move(start, end)) {
+    if (this->is_double_pawn_move(start, end)) {
         std::shared_ptr<Coordinate> enpassant
             = this->get_enpassant_square_coordinate(end);
         debug("adding to en passant target\n");
@@ -527,19 +555,12 @@ bool Board::is_promotion(Coordinate start, Coordinate end)
     return end.row == 1 && start.row == 2;
 }
 
-bool Board::is_enpassant_possible()
-{
-    if (!this->en_passant_enabled) {
-        return false;
-    }
-    return this->en_passant_target != nullptr;
-}
-
 Coordinate Board::get_enpassant_coordinate() { return *this->en_passant_target; }
 
-bool Board::is_enpassant(Coordinate start, Coordinate end)
+bool Board::is_valid_enpassant(Coordinate start, Coordinate end)
 {
     // theres implicitly no piece there
+    // TODO: check if theres pieces there
     if (!this->en_passant_enabled) {
         return false;
     }
@@ -558,16 +579,97 @@ bool Board::is_enpassant(Coordinate start, Coordinate end)
         return false;
     }
     std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(p);
+    bool has_move_to_end = false;
     for (auto i : pawn->get_captures()) {
         std::pair<int, int> square = add_pairs(start_idx, i);
         if (Coordinate(square.first, square.second) == end) {
-            return true;
+            has_move_to_end = true;
         }
     }
-    return false;
+    if (!has_move_to_end) {
+        return false;
+    }
+
+    Coordinate taken_piece_coord = this->get_enpassant_taken_piece_coordinate();
+    std::pair<int, int> taken_piece_idx = get_grid_indexes(taken_piece_coord);
+    std::shared_ptr<Piece> taken_piece
+        = this->grid[taken_piece_idx.first][taken_piece_idx.second];
+    if (taken_piece == nullptr) {
+        return false;
+    }
+    return true;
 }
 
-bool Board::is_double_move(Coordinate start, Coordinate end)
+bool Board::is_valid_castle(Coordinate start, Coordinate end)
+{
+    std::pair<int, int> start_idx = get_grid_indexes(start);
+    std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
+    if (!p) {
+        return false;
+    }
+    if (p->get_piece_type() != PieceType::KING) {
+        return false;
+    }
+    std::shared_ptr<King> king = std::dynamic_pointer_cast<King>(p);
+    // check castle rights
+    if (king->get_color() == Color::WHITE) {
+        if (start.column < end.column) {
+            if (!this->castle_rights[Color::WHITE][CastleSide::KINGSIDE]) {
+                return false;
+            }
+        } else {
+            if (!this->castle_rights[Color::WHITE][CastleSide::QUEENSIDE]) {
+                return false;
+            }
+        }
+    } else {
+        if (start.column < end.column) {
+            if (!this->castle_rights[Color::BLACK][CastleSide::KINGSIDE]) {
+                return false;
+            }
+        } else {
+            if (!this->castle_rights[Color::BLACK][CastleSide::QUEENSIDE]) {
+                return false;
+            }
+        }
+    }
+
+    // check if all squares are empty
+    std::set<Coordinate> s;
+    this->get_threatened_squares_by_color(s, toggle_color(king->get_color()));
+    // check if squares gone to for king is valid
+    std::pair<int, int> d;
+    if (start.column < end.column) {
+        // right
+        d = { 0, 1 };
+    } else {
+        // left
+        d = { 0, -1 };
+    }
+    std::pair<int, int> cur = get_grid_indexes(start);
+    for (int i = 0; i < 2; i++) {
+        cur = add_pairs(cur, d);
+        if (this->grid[cur.first][cur.second] != nullptr) {
+            return false;
+        }
+        Coordinate c = Coordinate(cur.first, cur.second);
+        if (!(s.find(c) == s.end())) {
+            return false;
+        }
+    }
+    // queenside
+    if (start.column > end.column) {
+        d = { 0, 1 };
+        std::pair<int, int> cur = get_grid_indexes(end);
+        cur = add_pairs(cur, d);
+        if (this->grid[cur.first][cur.second] != nullptr) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Board::is_double_pawn_move(Coordinate start, Coordinate end)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start);
     std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
@@ -581,6 +683,28 @@ bool Board::is_double_move(Coordinate start, Coordinate end)
         return start.row == 2 && end.row == 4 && start.column == end.column;
     }
     return start.row == 7 && end.row == 5 && start.column == end.column;
+}
+
+bool Board::is_double_king_move(Coordinate start, Coordinate end)
+{
+    std::pair<int, int> start_idx = get_grid_indexes(start);
+    std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
+    if (!p) {
+        return false;
+    }
+    if (p->get_piece_type() != PieceType::KING) {
+        return false;
+    }
+    bool valid = (end.column == 'g' || end.column == 'b') && start.row == end.row
+        && start.column == 'e';
+    if (!valid) {
+        return false;
+    }
+
+    if (p->get_color() == Color::WHITE) {
+        return start.row == 1;
+    }
+    return start.row == 8;
 }
 
 void Board::add_enpassant_target(std::shared_ptr<Coordinate> c)
@@ -614,4 +738,21 @@ std::shared_ptr<Coordinate> Board::get_enpassant_square_coordinate(Coordinate c)
         return std::make_shared<Coordinate>(6, c.column);
     }
     throw std::logic_error("enpassant move not on row 4 or 5");
+}
+
+Coordinate Board::get_castle_rook(Color c, CastleSide cs)
+{
+    if (c == Color::WHITE) {
+        if (cs == CastleSide::KINGSIDE) {
+            return Coordinate("h1");
+        } else {
+            return Coordinate("a1");
+        }
+    } else {
+        if (cs == CastleSide::KINGSIDE) {
+            return Coordinate("h8");
+        } else {
+            return Coordinate("a8");
+        }
+    }
 }

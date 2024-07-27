@@ -50,13 +50,15 @@ public:
     void delete_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
     void get_threatened_squares_by_color(std::set<Coordinate>& s, Color c);
-    bool is_enpassant_possible();
     Coordinate get_enpassant_coordinate();
-    bool is_enpassant(Coordinate start, Coordinate end);
-    bool is_double_move(Coordinate start, Coordinate end);
+    bool is_valid_enpassant(Coordinate start, Coordinate end);
+    bool is_valid_castle(Coordinate start, Coordinate end);
+    bool is_double_pawn_move(Coordinate start, Coordinate end);
+    bool is_double_king_move(Coordinate start, Coordinate end);
     void add_enpassant_target(std::shared_ptr<Coordinate> c);
     Coordinate get_enpassant_taken_piece_coordinate();
     std::shared_ptr<Coordinate> get_enpassant_square_coordinate(Coordinate c);
+    Coordinate get_castle_rook(Color c, CastleSide cs);
 
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     Color get_active_color();
