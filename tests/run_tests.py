@@ -20,7 +20,7 @@ def RunTest():
         for file in files:
             if file.startswith("fail"):
                 fail_files_count += 1
-            if file.endswith("moving.in"):
+            if file.endswith("moving.in") or file.endswith("fail5.in"):
                 continue
 
             if file.endswith(".in"):

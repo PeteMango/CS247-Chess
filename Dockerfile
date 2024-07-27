@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y \
     libx11-dev \
     python3 \
     python3-pip \
+    gdb \
+    libc6-dbg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

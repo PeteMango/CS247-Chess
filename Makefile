@@ -1,5 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -g -Iinclude 
+LDFLAGS = -lX11
 EXEC = out/chess
 SRC_DIR = src
 BUILD_DIR = build
@@ -12,7 +13,7 @@ DIRS = $(sort $(dir $(OBJECTS)))
 all: $(EXEC)
 
 $(EXEC): $(OBJECTS) | $(OUT_DIR)
-	$(CXX) $(OBJECTS) -o $(EXEC) -lX11
+	$(CXX) $(OBJECTS) -o $(EXEC) $(LDFLAGS)
 
 -include $(SRC_DEPS)
 
