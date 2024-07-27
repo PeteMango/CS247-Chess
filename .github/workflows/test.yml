@@ -20,7 +20,7 @@ jobs:
 
       - name: Run Enter Script
         run: |
-          ls
+          cd scripts
           ./enter.sh
 
       - name: Run Tests
