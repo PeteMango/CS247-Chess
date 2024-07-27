@@ -17,19 +17,10 @@ Pawn::Pawn(
 void Pawn::get_valid_moves(std::set<Coordinate>& s)
 {
     /* has moved, can no longer double move */
-    if (this->color == Color::WHITE && this->location.row != 2) {
-        auto it = std::remove(
-            this->directions.begin(), this->directions.end(), std::make_pair(2, 0));
-        if (it != this->directions.end()) {
-            this->directions.erase(it, this->directions.end());
-        }
-    }
-    if (this->color == Color::BLACK && this->location.row != 7) {
-        auto it = std::remove(
-            this->directions.begin(), this->directions.end(), std::make_pair(-2, 0));
-        if (it != this->directions.end()) {
-            this->directions.erase(it, this->directions.end());
-        }
+    // TODO: fix
+    if ((this->color == Color::WHITE and this->location.row != 2)
+        or (this->color == Color::BLACK and this->location.row != 7)) {
+        this->directions.pop_back();
     }
 
     /* handle captures */
