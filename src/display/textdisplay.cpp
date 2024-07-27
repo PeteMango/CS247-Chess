@@ -46,4 +46,16 @@ void TextDisplay::show()
     }
 
     std::cout << std::endl;
+
+    if (b->is_checkmate(b->get_active_color())) {
+        std::cout << "Checkmate! "
+                  << ColorToPrintString.at(toggle_color(b->get_active_color()))
+                  << " wins!" << std::endl;
+    } else if (b->is_stalemate(b->get_active_color())) {
+        std::cout << "Stalemate!" << std::endl;
+    } else if (b->is_check(b->get_active_color())) {
+        std::cout << ColorToPrintString.at(b->get_active_color()) << " is in check."
+                  << std::endl;
+    }
+    // TODO: resigning
 }

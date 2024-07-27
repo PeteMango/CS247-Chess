@@ -8,6 +8,7 @@
 #include "../include/util.h"
 #include "enum.h"
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 
 // empty
@@ -329,21 +330,84 @@ bool Board::is_check(Color c)
     } else if (c == Color::BLACK && this->black_king == nullptr) {
         return false;
     }
-    std::set<Coordinate> s;
-
+    std::shared_ptr<King> king = nullptr;
     if (c == Color::WHITE) {
-        get_threatened_squares_by_color(s, Color::BLACK);
-        return s.find(this->white_king->get_coordinate()) != s.end();
+        king = std::dynamic_pointer_cast<King>(this->white_king);
+    } else {
+        king = std::dynamic_pointer_cast<King>(this->black_king);
     }
-    get_threatened_squares_by_color(s, Color::WHITE);
-    return s.find(this->black_king->get_coordinate()) != s.end();
+    return king->in_check();
 }
 
-bool Board::is_stalemate() { return true; }
+bool Board::is_stalemate(Color c)
+{
+    std::set<std::pair<Coordinate, Coordinate>> s;
+    this->get_all_valid_moves(s, c);
+    return s.empty();
+}
 
-bool Board::is_checkmate() { return true; }
+bool Board::is_checkmate(Color c)
+{
+    if (c == Color::WHITE && this->white_king == nullptr) {
+        return false;
+    } else if (c == Color::BLACK && this->black_king == nullptr) {
+        return false;
+    }
+    std::shared_ptr<King> king = nullptr;
+    if (c == Color::WHITE) {
+        king = std::dynamic_pointer_cast<King>(this->white_king);
+    } else {
+        king = std::dynamic_pointer_cast<King>(this->black_king);
+    }
+    return king->in_checkmate();
+}
 
-void Board::get_possible_moves_by_color(std::set<Move>& m, Color c) { }
+void Board::get_all_valid_moves(
+    std::set<std::pair<Coordinate, Coordinate>>& s, Color c)
+{
+    std::set<std::shared_ptr<Piece>> p;
+    if (c == Color::WHITE) {
+        p.insert(this->white_pieces.begin(), this->white_pieces.end());
+    } else {
+        p.insert(this->black_pieces.begin(), this->black_pieces.end());
+    }
+    for (auto piece : p) {
+        std::set<Coordinate> s2;
+        piece->get_valid_moves(s2);
+        for (auto coord : s2) {
+            std::pair<Coordinate, Coordinate> move
+                = std::make_pair(piece->get_coordinate(), coord);
+            s.insert(move);
+        }
+        // add en passasnt
+        if (piece->get_piece_type() == PieceType::PAWN) {
+            std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(piece);
+            for (auto square : pawn->get_captures()) {
+                Coordinate end = Coordinate(square.first, square.second);
+                if (this->is_valid_move(pawn->get_coordinate(), end)) {
+                    std::pair<Coordinate, Coordinate> move
+                        = std::make_pair(pawn->get_coordinate(), end);
+                    s.insert(move);
+                }
+            }
+        }
+        // add castle
+        else if (piece->get_piece_type() == PieceType::KING) {
+            std::vector<std::pair<int, int>> d = { { 0, 2 }, { 0, -2 } };
+            Coordinate cur = piece->get_coordinate();
+            std::pair<int, int> cur_idx = get_grid_indexes(cur);
+            for (auto i : d) {
+                std::pair<int, int> new_idx = add_pairs(cur_idx, i);
+                Coordinate new_coord = Coordinate(new_idx.first, new_idx.second);
+                if (this->is_valid_move(cur, new_coord)) {
+                    std::pair<Coordinate, Coordinate> move
+                        = std::make_pair(cur, new_coord);
+                    s.insert(move);
+                }
+            }
+        }
+    }
+}
 
 void Board::verify_board()
 {
@@ -650,6 +714,10 @@ bool Board::is_valid_castle(Coordinate start, Coordinate end)
     // check if all squares are empty
     std::set<Coordinate> s;
     this->get_threatened_squares_by_color(s, toggle_color(king->get_color()));
+    // can't castle when in check
+    if (!(s.find(start) == s.end())) {
+        return false;
+    }
     // check if squares gone to for king is valid
     std::pair<int, int> d;
     if (start.column < end.column) {
@@ -769,3 +837,4 @@ Coordinate Board::get_castle_rook(Color c, CastleSide cs)
         }
     }
 }
+

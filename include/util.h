@@ -18,6 +18,8 @@ extern const std::unordered_map<Color, std::string> ColorToString;
 
 extern const std::unordered_map<std::string, Color> StringToColor;
 
+extern const std::unordered_map<Color, std::string> ColorToPrintString;
+
 extern const std::unordered_map<std::string, PlayerType> StringToPlayer;
 
 extern const std::unordered_map<Color, std::unordered_map<PieceType, char>> pieces;

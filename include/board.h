@@ -43,7 +43,6 @@ public:
     void clean_board();
 
     // make move helpers
-    /* bool is_valid_move(Move m); */
     bool is_valid_move(Coordinate start, Coordinate end);
     std::string make_move(Coordinate start, Coordinate end, PromotionType promotion);
     void add_piece(std::shared_ptr<Piece> p);
@@ -59,6 +58,8 @@ public:
     Coordinate get_enpassant_taken_piece_coordinate();
     std::shared_ptr<Coordinate> get_enpassant_square_coordinate(Coordinate c);
     Coordinate get_castle_rook(Color c, CastleSide cs);
+    void get_all_valid_moves(
+        std::set<std::pair<Coordinate, Coordinate>>& s, Color c);
 
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     Color get_active_color();
@@ -67,9 +68,8 @@ public:
     void increment_fullmove_clock();
 
     bool is_check(Color c);
-    bool is_stalemate();
-    bool is_checkmate();
-    void get_possible_moves_by_color(std::set<Move>& m, Color c);
+    bool is_stalemate(Color c);
+    bool is_checkmate(Color c);
 };
 
 #endif
