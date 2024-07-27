@@ -153,3 +153,36 @@ move g8 f6
 move e4 e5
 move d7 d5
 move e5 d6
+
+game human human
+move e2 e4
+move e7 e5
+move g1 f3
+move g8 f6
+move f1 e2
+move f8 e7
+move e1 g1
+move e8 g8
+
+game human human
+move d2 d4
+move d7 d5
+move b1 c3
+move b8 c6
+move c1 e3
+move c8 e6
+move d1 d3
+move d8 d6
+move e1 c1
+move e8 c8
+
+game human human
+move e2 e4
+move e7 e5
+move g1 f3
+move g8 f6
+move b2 b3
+move f8 a3
+move c1 a3
+move e8 g8
+
