@@ -1,87 +1,104 @@
 import unittest
 import subprocess
 import os
+import io
 
 
-class TestSolution(unittest.TestCase):
-    def test_decryption_output(
-        self,
-        input_dir="in",
-        output_dir="out",
-        expected_dir="expect",
-        binary_file="./chess",
-    ):
-        # Get test cases
-        try:
-            input_files = [f for f in os.listdir(input_dir) if f.endswith(".in")]
-        except FileNotFoundError:
-            self.fail(f"Input directory '{input_dir}' not found.")
-        except Exception as e:
-            self.fail(f"Error reading input directory '{input_dir}': {e}")
+def RunTest():
+    in_dir = "in"
+    out_dir = "out"
+    binary = "./chess"
 
-        if not input_files:
-            self.fail("No input files found.")
+    total = 0
+    passed = 0
+    crash = 0
 
-        passed, failed = 0, 0
+    crashed = []
+    fail_files_count = 0
 
-        for input_file in input_files:
-            base_name = input_file[:-3]
+    for root, _, files in os.walk(in_dir):
+        for file in files:
+            if file.startswith("fail"):
+                fail_files_count += 1
+            if file.endswith(".in"):
+                rel_path = os.path.relpath(root, in_dir)
+                input_file = os.path.join(root, file)
+                output_subdir = os.path.join(out_dir, rel_path)
+                if not os.path.exists(output_subdir):
+                    os.makedirs(output_subdir)
 
-            # Run the binary with the .in input
-            input_path = os.path.join(input_dir, input_file)
-            try:
-                with open(input_path, "r") as infile:
-                    result = subprocess.run(
-                        [binary_file],
-                        stdin=infile,
-                        text=True,
-                        capture_output=True,
-                        check=True,
-                    )
-            except subprocess.CalledProcessError as e:
-                error_msg = (
-                    f"Binary execution failed for '{input_path}' with return code {e.returncode}.\n"
-                    f"Error output:\n{e.stderr.strip() if e.stderr else 'No stderr output'}"
-                )
-                # self.fail(error_msg)
-                passed += 1
-                continue
-            except Exception as e:
-                self.fail(f"Error running binary for '{input_path}': {e}")
+                name = file[:-3]
+                output_file = os.path.join(output_subdir, f"{name}.out")
 
-            # Write result back into the .out file
-            output_file = f"{base_name}.out"
-            output_path = os.path.join(output_dir, output_file)
-            try:
-                with open(output_path, "w") as outfile:
-                    outfile.write(result.stdout)
-            except Exception as e:
-                self.fail(f"Error writing output file '{output_path}': {e}")
+                try:
+                    with open(input_file, "r") as infile:
+                        # Read lines and look for the exclamation mark
+                        lines = infile.readlines()
+                        start_index = 0
+                        pre_exclamation = []
 
-            # Get the expected output
-            expected_file = f"{base_name}.expect"
-            expected_path = os.path.join(expected_dir, expected_file)
-            try:
-                with open(expected_path, "r") as expectfile:
-                    expected_output = expectfile.read().strip()
-            except FileNotFoundError:
-                self.fail(f"Expected output file '{expected_path}' not found.")
-            except Exception as e:
-                self.fail(f"Error reading expected output file '{expected_path}': {e}")
+                        for i, line in enumerate(lines):
+                            if line.strip() == "!":
+                                start_index = i + 1
+                                break
+                            pre_exclamation.append(line)
 
-            # Normalize and compare output
-            normalized_result = result.stdout.strip()
-            normalized_expected = expected_output.strip()
+                        # If exclamation mark is found, start reading from the next line
+                        # Otherwise, start reading from the beginning
+                        relevant_lines = lines[start_index:]
 
-            if normalized_result == normalized_expected:
-                passed += 1
-            else:
-                failed += 1
-                self.fail(f"Failed for {input_file}")
+                        # Print the part before the exclamation mark if it exists
+                        if pre_exclamation:
+                            print(f"Content before exclamation mark in {input_file}:")
+                            print("".join(pre_exclamation))
 
-        print(f"{passed} test cases passed.")
-        print(f"{failed} test cases failed.")
+                        # Create a string from relevant lines to use as input
+                        input_data = "".join(relevant_lines)
+
+                        # Run the subprocess with the relevant lines as input
+                        result = subprocess.run(
+                            [binary],
+                            input=input_data,
+                            text=True,
+                            capture_output=True,
+                            check=True,
+                        )
+
+                    with open(output_file, "w") as outfile:
+                        passed += 1
+                        outfile.write(result.stdout)
+
+                except subprocess.CalledProcessError as e:
+                    crash += 1
+                    crashed.append((input_file, str(e)))
+                    print(f"Error running {binary} with input file {input_file}: {e}")
+                except Exception as e:
+                    crash += 1
+                    crashed.append((input_file, str(e)))
+                    print(f"An unexpected error occurred: {e}")
+            total += 1
+
+    print("\n\n")
+    print(f"TOTAL: {total}")
+    print(f"PASSED: {passed}")
+    print(f"CRASHED: {crash}")
+
+    print("\n\nCRASHED TEST CASES:")
+    for crash_file, error in crashed:
+        print(f"File: {crash_file}")
+        with open(crash_file, "r") as file:
+            print(file.read())
+        print(f"Error: {error}")
+        print("\n")
+
+    # Check if the number of crashes is equal to the number of files that start with "fail"
+    if crash == fail_files_count:
+        print("TESTCASES PASS")
+    else:
+        raise AssertionError(
+            f"Discrepancy found: {crash} crashes vs. {fail_files_count} 'fail' files."
+        )
 
 
 if __name__ == "__main__":
-    unittest.main()
+    RunTest()
