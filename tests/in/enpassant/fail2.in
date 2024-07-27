@@ -1,0 +1,10 @@
+Failure: only enpassantable if the enemy pawn moves twice in a single move 
+!
+game human human 
+move e2 e4
+move a7 a6
+move e4 e5
+move d7 d6
+move h2 h3
+move d6 d5
+move e5 d6
