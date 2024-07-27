@@ -6,10 +6,10 @@ Pawn::Pawn(
     : Piece(color, location, type, board)
 {
     if (this->color == Color::WHITE) {
-        this->directions.insert(this->directions.end(), { { 1, 0 } });
+        this->directions.insert(this->directions.end(), { { 1, 0 }, { 2, 0 } });
         this->captures.insert(this->captures.end(), { { 1, 1 }, { 1, -1 } });
     } else {
-        this->directions.insert(this->directions.end(), { { -1, 0 } });
+        this->directions.insert(this->directions.end(), { { -1, 0 }, { -2, 0 } });
         this->captures.insert(this->captures.end(), { { -1, 1 }, { -1, -1 } });
     }
 }
@@ -42,6 +42,11 @@ void Pawn::get_valid_moves(std::set<Coordinate>& s)
 
 void Pawn::get_threatened_squares(std::set<Coordinate>& s)
 {
+    /* has moved, can no longer double move */
+    if (this->color == Color::WHITE and this->location.row != 2
+        or this->color == Color::BLACK and this->location.row != 7) {
+        this->directions.pop_back();
+    }
     /* handle captures */
     for (auto i : this->captures) {
         std::pair<int, int> start = get_grid_indexes(this->location);
