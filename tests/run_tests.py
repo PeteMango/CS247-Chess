@@ -20,7 +20,7 @@ def RunTest():
         for file in files:
             if file.startswith("fail"):
                 fail_files_count += 1
-            if file.endswith("moving.in") or file.endswith("fail5.in"):
+            if file.endswith("moving.in"):
                 continue
 
             if file.endswith(".in"):
@@ -84,9 +84,9 @@ def RunTest():
     print("\n\nCRASHED TEST CASES:")
     for crash_file, error in crashed:
         print(f"File: {crash_file}")
-        with open(crash_file, "r") as file:
-            print(file.read())
-        print(f"Error: {error}")
+        # with open(crash_file, "r") as file:
+        #     print(file.read())
+        # print(f"Error: {error}")
         print("\n")
 
     print(f"TOTAL: {total}")
