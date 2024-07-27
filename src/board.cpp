@@ -721,7 +721,6 @@ bool Board::is_double_king_move(Coordinate start, Coordinate end)
     if (!valid) {
         return false;
     }
-    std::cout << "was here after all these checks" << std::endl;
 
     if (p->get_color() == Color::WHITE) {
         return start.row == 1;
