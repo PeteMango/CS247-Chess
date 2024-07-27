@@ -13,10 +13,11 @@ void Chess::init()
 {
     auto self = shared_from_this();
     std::unique_ptr<TextDisplay> t = std::make_unique<TextDisplay>(self);
-    std::unique_ptr<GraphicsDisplay> g = std::make_unique<GraphicsDisplay>(self);
+    /* std::unique_ptr<GraphicsDisplay> g = std::make_unique<GraphicsDisplay>(self);
+     */
 
     this->displays.push_back(std::move(t));
-    this->displays.push_back(std::move(g));
+    /* this->displays.push_back(std::move(g)); */
 }
 
 std::shared_ptr<Chess> createChess()

@@ -49,10 +49,13 @@ public:
     void add_piece(std::shared_ptr<Piece> p);
     void delete_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
+    void get_threatened_squares_by_color(std::set<Coordinate>& s, Color c);
 
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();
     Color get_active_color();
     void toggle_active_color();
+    void increment_halfmove_clock();
+    void increment_fullmove_clock();
 
     bool is_check(Color c);
     bool is_stalemate();

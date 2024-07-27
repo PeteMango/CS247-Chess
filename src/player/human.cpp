@@ -10,6 +10,7 @@ Human::Human(std::shared_ptr<Game> game, Color color)
 
 void Human::make_move(Coordinate start, Coordinate end, PromotionType promotion)
 {
+    // TODO: put this in Board::make_move?
     // promorion, capture, regular, en passant, castle
     std::pair<int, int> starting_idx = get_grid_indexes(start);
     std::pair<int, int> ending_idx = get_grid_indexes(end);
@@ -34,4 +35,10 @@ void Human::make_move(Coordinate start, Coordinate end, PromotionType promotion)
         new_p = board->create_piece(p->get_color(), end, p->get_piece_type());
     }
     board->add_piece(new_p);
+
+    if (board->get_active_color() == Color::BLACK) {
+        board->increment_halfmove_clock();
+    }
+    board->increment_fullmove_clock();
+    board->toggle_active_color();
 }

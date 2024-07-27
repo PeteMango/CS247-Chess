@@ -36,8 +36,6 @@ int main()
 
             CHESS->start_game(
                 string_to_playertype(white), string_to_playertype(black));
-            // TODO: remove
-            CHESS->notify_displays();
         } else if (cmd == "resign") {
             throw std::logic_error("unimplemented");
             CHESS->resign();
@@ -82,9 +80,11 @@ int main()
                 }
                 PromotionType promotion_type = string_to_promotiontype(promotion);
                 if (b->get_active_color() == Color::WHITE) {
+                    std::cout << "make white move" << std::endl;
                     p->white->make_move(
                         start_coordinate, end_coordinate, promotion_type);
                 } else {
+                    std::cout << "make black move" << std::endl;
                     p->black->make_move(
                         start_coordinate, end_coordinate, promotion_type);
                 }

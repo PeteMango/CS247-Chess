@@ -1,0 +1,106 @@
+setup
++ K e4
+done
+game human human
+move e4 e5
+move e5 e4
+move e4 d4
+move d4 e4
+move e4 d3
+move d3 e4
+move e4 f3
+move f3 e4
+
+setup
++ Q e4
+done
+game human human
+move e4 h1
+move h1 e4
+
+setup
++ R a1
+done
+game human human
+move a1 a4
+move a4 e4
+
+setup
++ B a1
+done
+game human human
+move a1 d4
+move d4 g1
+
+setup
++ N a1
+done
+game human human
+move a1 b3
+move b3 d4
+move d4 f3
+
+setup
++ P b2
+done
+game human human
+move b2 b4
+move b4 b5
+
+setup
++ K d1
++ P c2
++ P d2
++ P e2
+done
+game human human
+move d1 c1
+move c1 b1
+
+setup
++ K d1
++ P c2
++ P e2
+= black
++ P d2
+done
+game human human
+move d1 c1
+
+setup
++ K d1
++ P c2
++ P e2
+= black
++ P d2
+done
+game human human
+move d1 d2
+
+setup
++ K e1
++ P d2
+= black
++ Q a5
+done
+game human human
+move d2 d4
+
+setup
++ K e1
++ P d2
+= black
++ Q c3
+done
+game human human
+move d2 c3
+move c3 c4
+
+game human human
+move e2 e4
+move c7 c5
+move g1 f3
+move b8 c6
+move d2 d4
+move c5 d4
+move f3 d4

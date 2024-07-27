@@ -136,3 +136,11 @@ PieceType PromotionTypeToPieceType(PromotionType pt)
         throw std::logic_error("not possible");
     }
 }
+
+Color toggle_color(Color c)
+{
+    if (c == Color::WHITE) {
+        return Color::BLACK;
+    }
+    return Color::WHITE;
+}

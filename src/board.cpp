@@ -6,6 +6,7 @@
 #include "../include/piece/queen.h"
 #include "../include/piece/rook.h"
 #include "../include/util.h"
+#include "enum.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -158,12 +159,49 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         return false;
     }
     std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
+    if (p->get_color() != this->active_color) {
+        return false;
+    }
     if (!p->is_valid_move(end)) {
         return false;
     }
+    // check for checks here
+    std::pair<int, int> end_idx = get_grid_indexes(end);
+    std::shared_ptr<Piece> new_p
+        = this->create_piece(p->get_color(), end, p->get_piece_type());
+    std::set<Coordinate> s;
+    std::shared_ptr<Piece> taken_piece = nullptr;
+    if (this->grid[end_idx.first][end_idx.second] != nullptr) {
+        taken_piece = this->grid[end_idx.first][end_idx.second];
+        this->delete_piece(taken_piece);
+    }
+    this->delete_piece(p);
+    this->add_piece(new_p);
+    this->get_threatened_squares_by_color(s, toggle_color(p->get_color()));
+    bool invalid = false;
+    if (p->get_color() == Color::WHITE && this->white_king
+        && s.find(this->white_king->get_coordinate()) != s.end()) {
+        invalid = true;
+    } else if (p->get_color() == Color::BLACK && this->black_king
+        && s.find(this->black_king->get_coordinate()) != s.end()) {
+        invalid = true;
+    }
+    std::cout << "k: " << this->white_king->get_coordinate().column
+              << this->white_king->get_coordinate().row << std::endl;
+    this->delete_piece(new_p);
+    this->add_piece(p);
+    if (taken_piece) {
+        this->add_piece(taken_piece);
+    }
+    if (invalid) {
+        return false;
+    }
+    for (auto i : s) {
+        std::cout << "s: " << i.column << i.row << std::endl;
+    }
+
     // taking, en passant
     if (p->get_piece_type() == PieceType::PAWN) {
-
     }
     // castling
     else if (p->get_piece_type() == PieceType::KING) {
@@ -171,9 +209,32 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     return true;
 }
 
+void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
+{
+    if (c == Color::WHITE) {
+        for (auto it = this->white_pieces.begin(); it != this->white_pieces.end();
+             ++it) {
+            (*it)->get_threatened_squares(s);
+        }
+    } else {
+        for (auto it = this->black_pieces.begin(); it != this->black_pieces.end();
+             ++it) {
+            (*it)->get_threatened_squares(s);
+        }
+    }
+}
+
 std::string Board::make_move(Move m) { return ""; }
 
 void Board::setup_board(std::istream& in) { return; }
+
+void Board::toggle_active_color()
+{
+    this->active_color = toggle_color(this->active_color);
+}
+
+void Board::increment_halfmove_clock() { this->halfmove_clock++; }
+void Board::increment_fullmove_clock() { this->fullmove_clock++; }
 
 // returns whether c is in check
 bool Board::is_check(Color c)
@@ -388,13 +449,18 @@ Color Board::get_active_color() { return this->active_color; }
 
 void Board::delete_piece(std::shared_ptr<Piece> p)
 {
-    // we cannot be deleting a king, so we don't check
     std::pair<int, int> idx = get_grid_indexes(p->get_coordinate());
     this->grid[idx.first][idx.second] = nullptr;
     if (p->get_color() == Color::WHITE) {
         this->white_pieces.erase(p);
+        if (p->get_piece_type() == PieceType::KING) {
+            this->white_king = nullptr;
+        }
     } else {
         this->black_pieces.erase(p);
+        if (p->get_piece_type() == PieceType::KING) {
+            this->black_king = nullptr;
+        }
     }
 }
 
@@ -405,8 +471,14 @@ void Board::add_piece(std::shared_ptr<Piece> p)
     this->grid[idx.first][idx.second] = p;
     if (p->get_color() == Color::WHITE) {
         this->white_pieces.insert(p);
+        if (p->get_piece_type() == PieceType::KING) {
+            this->white_king = p;
+        }
     } else {
         this->black_pieces.insert(p);
+        if (p->get_piece_type() == PieceType::KING) {
+            this->black_king = p;
+        }
     }
 }
 
