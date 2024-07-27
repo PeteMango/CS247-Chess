@@ -79,6 +79,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             Coordinate coord(coordinate);
             PieceType p = string_to_piecetype(piece);
             this->board->place_piece(color, coord, p);
+
             this->chess->notify_displays();
         } else if (cmd == "-") {
             std::string coordinate;
