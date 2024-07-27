@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Run Start Script
+        run: |
+          cd scripts
+          ./start.sh
+
+      - name: Run Enter Script
+        run: |
+          ./enter.sh
+
+      - name: Run Tests
+        run: |
+          cd scripts
+          ./test.sh
+
+      - name: Stop containers
+        if: always()
+        run: docker compose down

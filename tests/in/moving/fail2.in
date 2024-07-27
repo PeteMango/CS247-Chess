@@ -1,3 +1,5 @@
+Failure: Moving a pawn off of a square that is blocking a potential check.
+!
 setup
 + K e1
 + P d2
