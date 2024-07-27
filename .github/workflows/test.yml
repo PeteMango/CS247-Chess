@@ -18,13 +18,8 @@ jobs:
           cd scripts
           ./start.sh
 
-      - name: Run Enter Script
-        run: |
-          cd scripts
-          ./enter.sh
-
       - name: Run Tests in Docker Container
-        run: docker exec chess /bin/bash -c "cd scripts && ./test.sh"
+        run: docker exec chess /bin/bash -c "make"
 
       - name: Stop containers
         if: always()
