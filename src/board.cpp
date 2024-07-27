@@ -654,6 +654,9 @@ bool Board::is_valid_castle(Coordinate start, Coordinate end)
     // check if all squares are empty
     std::set<Coordinate> s;
     this->get_threatened_squares_by_color(s, toggle_color(king->get_color()));
+    if (!(s.find(start) == s.end())) {
+        return false;
+    }
     // check if squares gone to for king is valid
     std::pair<int, int> d;
     if (start.column < end.column) {
@@ -718,7 +721,6 @@ bool Board::is_double_king_move(Coordinate start, Coordinate end)
     if (!valid) {
         return false;
     }
-    std::cout << "was here after all these checks" << std::endl;
 
     if (p->get_color() == Color::WHITE) {
         return start.row == 1;
