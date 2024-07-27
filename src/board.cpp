@@ -251,7 +251,6 @@ std::string Board::make_move(
         this->delete_piece(rook);
         this->add_piece(new_rook);
     }
-    // elif en passant
 
     // if its a double move it can't be an en passant
     if (this->is_double_pawn_move(start, end)) {
@@ -263,8 +262,6 @@ std::string Board::make_move(
         this->add_enpassant_target(nullptr);
     }
 
-    // castle???
-
     std::shared_ptr<Piece> new_p = nullptr;
     if (this->is_promotion(start, end)) {
         new_p = this->create_piece(
@@ -275,11 +272,27 @@ std::string Board::make_move(
     this->delete_piece(p);
     this->add_piece(new_p);
 
+    // revoke castle rights
+    if (p->get_piece_type() == PieceType::KING) {
+        for (auto i : this->castle_rights[p->get_color()]) {
+            i.second = false;
+        }
+    } else if (p->get_piece_type() == PieceType::ROOK) {
+        Coordinate c1 = this->get_castle_rook(p->get_color(), CastleSide::KINGSIDE);
+        Coordinate c2 = this->get_castle_rook(p->get_color(), CastleSide::QUEENSIDE);
+        if (start == c1) {
+            this->castle_rights[p->get_color()][CastleSide::KINGSIDE] = false;
+        } else if (start == c2) {
+            this->castle_rights[p->get_color()][CastleSide::QUEENSIDE] = false;
+        }
+    }
+
     if (this->get_active_color() == Color::BLACK) {
         this->increment_halfmove_clock();
     }
     this->increment_fullmove_clock();
     this->toggle_active_color();
+    // TODO: fen
     return "";
 }
 
