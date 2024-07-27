@@ -23,10 +23,8 @@ jobs:
           cd scripts
           ./enter.sh
 
-      - name: Run Tests
-        run: |
-          cd scripts
-          ./test.sh
+      - name: Run Tests in Docker Container
+        run: docker exec <container_name> /bin/bash -c "cd /path/to/scripts && ./test.sh"
 
       - name: Stop containers
         if: always()
