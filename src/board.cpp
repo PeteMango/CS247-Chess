@@ -376,7 +376,7 @@ bool Board::is_checkmate(Color c)
             return false;
         }
     }
-    return true;
+    return this->is_check(c);
 }
 
 void Board::get_all_valid_moves(
