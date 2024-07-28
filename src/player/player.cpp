@@ -1,4 +1,5 @@
 #include "../../include/player/player.h"
+#include <stdexcept>
 
 Player::Player(
     std::shared_ptr<Game> game, bool is_human, Color color)
