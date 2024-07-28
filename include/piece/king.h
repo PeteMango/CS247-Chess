@@ -10,8 +10,8 @@ public:
     King(Color color, Coordinate location, PieceType type,
         std::shared_ptr<Board> board);
     void get_threatened_squares(std::set<Coordinate>& s) override;
-    bool in_check(Coordinate square);
-    bool is_checkmate(std::set<Coordinate>& attacked_squares);
+    bool in_check();
+    bool in_checkmate();
 };
 
 #endif

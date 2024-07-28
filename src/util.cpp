@@ -41,6 +41,9 @@ const std::unordered_map<std::string, Color> StringToColor {
     { "white", Color::WHITE }, { "black", Color::BLACK }
 };
 
+const std::unordered_map<Color, std::string> ColorToPrintString
+    = { { Color::WHITE, "White" }, { Color::BLACK, "Black" } };
+
 const std::unordered_map<std::string, PlayerType> StringToPlayer {
     { "human", PlayerType::HUMAN }, { "computer1", PlayerType::LEVEL1 },
     { "computer2", PlayerType::LEVEL2 }, { "computer3", PlayerType::LEVEL3 },

@@ -1,6 +1,7 @@
 #include "../../include/piece/king.h"
 #include "../../include/board.h"
 #include "../../include/piece/rook.h"
+#include "util.h"
 
 King::King(
     Color color, Coordinate location, PieceType type, std::shared_ptr<Board> board)
@@ -11,22 +12,40 @@ King::King(
             { -1, -1 } });
 }
 
-bool King::in_check(Coordinate square)
+bool King::in_check()
 {
     std::set<Coordinate> attacked;
-    if (this->color == Color::BLACK) {
-        this->board->get_threatened_squares_by_color(attacked, Color::WHITE);
-    } else {
-        this->board->get_threatened_squares_by_color(attacked, Color::BLACK);
-    }
+    this->board->get_threatened_squares_by_color(
+        attacked, toggle_color(this->color));
 
     /* cannot move into a spot that would result in a check */
-    if (attacked.find(square) != attacked.end()) {
+    if (attacked.find(this->location) != attacked.end()) {
         return true;
     }
     return false;
 }
-bool King::is_checkmate(std::set<Coordinate>& attacked_squares) { return true; }
+bool King::in_checkmate()
+{
+    std::set<Coordinate> s;
+    this->board->get_threatened_squares_by_color(s, toggle_color(this->color));
+    if (s.find(this->location) == s.end()) {
+        return false;
+    }
+    for (auto i : this->directions) {
+        Coordinate cur = this->location;
+        std::pair<int, int> cur_idx = get_grid_indexes(cur);
+        cur_idx = add_pairs(cur_idx, i);
+        if (!coordinate_in_bounds(cur_idx)) {
+            continue;
+        }
+        // make the move
+        Coordinate move = Coordinate(cur_idx.first, cur_idx.second);
+        if (this->board->is_valid_move(cur, move)) {
+            return false;
+        }
+    }
+    return true;
+}
 
 void King::get_threatened_squares(std::set<Coordinate>& s)
 {

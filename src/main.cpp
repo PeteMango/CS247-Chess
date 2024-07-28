@@ -119,6 +119,7 @@ int main(int argc, char* argv[])
                     "computer move");
             }
             CHESS->notify_displays();
+            CHESS->notify_status();
         } else if (cmd == "setup") {
             if (!CHESS->can_setup_board()) {
                 throw std::invalid_argument("setup run when game in progress");
