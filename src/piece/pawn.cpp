@@ -18,7 +18,6 @@ void Pawn::get_valid_moves(std::set<Coordinate>& s)
 {
     /* has moved, can no longer double move */
     // TODO: definitely fix
-    debug("in pawn get valid moves\n");
     if ((this->color == Color::WHITE and this->location.row != 2)
         or (this->color == Color::BLACK and this->location.row != 7)) {
         if (this->directions.size() >= 2) {

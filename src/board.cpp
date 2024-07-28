@@ -358,13 +358,25 @@ bool Board::is_checkmate(Color c)
     } else if (c == Color::BLACK && this->black_king == nullptr) {
         return false;
     }
+    // TODO: this should be reviewed
     std::shared_ptr<King> king = nullptr;
     if (c == Color::WHITE) {
         king = std::dynamic_pointer_cast<King>(this->white_king);
     } else {
         king = std::dynamic_pointer_cast<King>(this->black_king);
     }
-    return king->in_checkmate();
+    bool king_cant_move = king->in_checkmate();
+    if (!king_cant_move) {
+        return false;
+    }
+    std::set<std::pair<Coordinate, Coordinate>> s;
+    this->get_all_valid_moves(s, c);
+    for (auto move : s) {
+        if (this->is_valid_move(move.first, move.second)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void Board::get_all_valid_moves(
