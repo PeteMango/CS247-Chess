@@ -51,9 +51,6 @@ void GraphicsDisplay::show()
                 Color pieceColor = grid[row][col]->get_color();
                 PieceType pieceType = grid[row][col]->get_piece_type();
 
-                color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
-                xwin_display->fillGrid(col, row, color);
-
                 char piece = pieces.at(pieceColor).at(pieceType);
                 xwin_display->drawPiece(col, row, piece);
 
