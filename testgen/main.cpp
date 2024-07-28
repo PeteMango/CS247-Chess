@@ -288,11 +288,11 @@ std::string generateSingleGameExpect(int i)
 
     if (terminations[i] == "FIVEFOLD_REPETITION") {
         printBoard(ret, board);
-        if (board.inCheck())
-            if ((move.size() - 1) % 2 == 1)
-                ret += "White is in check.\n";
-            else
-                ret += "Black is in check.\n";
+        // if (board.inCheck())
+        //     if ((move.size() - 1) % 2 == 1)
+        //         ret += "White is in check.\n";
+        //     else
+        //         ret += "Black is in check.\n";
 
         if (move.size() % 2 != 0)
             ret += "White wins!\n", white_score += 2;

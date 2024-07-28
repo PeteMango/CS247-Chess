@@ -1942,7 +1942,17 @@ Black is in check.
 
   abcdefgh
 Black is in check.
-Black wins!
+8  _ _ R _
+7 _ _ _ _ 
+6  _ _ _ _
+5 _ pR_ _ 
+4 P_P_ k _
+3 _P_ _ _ 
+2  r _ _ r
+1 K _ _ _ 
+
+  abcdefgh
+White wins!
 Final Score:
-White: 0
-Black: 1
+White: 1
+Black: 0
