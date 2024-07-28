@@ -1433,7 +1433,18 @@ White is in check.
 
   abcdefgh
 White is in check.
-White wins!
+8  _ _ _ _
+7 _ _ _ r 
+6  _ _ _ R
+5 _ kP_ _ 
+4  _ _ _ _
+3 _ _ _r_K
+2  _ _ _ R
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+Black wins!
 Final Score:
-White: 1
-Black: 0
+White: 0
+Black: 1

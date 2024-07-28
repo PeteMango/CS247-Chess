@@ -1809,7 +1809,18 @@ White is in check.
 
   abcdefgh
 White is in check.
-White wins!
+8  _ _ _ _
+7 _k_ _ _ 
+6  r _ _ _
+5 _K_ _ _R
+4  P _ _ _
+3 _ _ _ _ 
+2  _ _ _ _
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+Black wins!
 8 rnbqkbnr
 7 pppppppp
 6  _ _ _ _
@@ -4433,5 +4444,5 @@ White is in check.
   abcdefgh
 Stalemate!
 Final Score:
-White: 2.5
-Black: 0.5
+White: 1.5
+Black: 1.5
