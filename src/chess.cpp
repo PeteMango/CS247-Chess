@@ -4,6 +4,7 @@
 #include "display/graphicsdisplay.h"
 #include "display/textdisplay.h"
 #include "game.h"
+#include "player/computer/levelone.h"
 #include "util.h"
 #include <iostream>
 #include <stdexcept>
@@ -51,7 +52,7 @@ std::shared_ptr<Player> Chess::create_player(PlayerType type, Color color)
     case PlayerType::HUMAN:
         return std::make_shared<Human>(this->get_last_game(), color);
     case PlayerType::LEVEL1:
-        return std::make_shared<Computer>(this->get_last_game(), color);
+        return std::make_shared<levelone>(this->get_last_game(), color);
     case PlayerType::LEVEL2:
         throw std::invalid_argument("not implemented");
         return std::make_shared<Computer>(this->get_last_game(), color);
