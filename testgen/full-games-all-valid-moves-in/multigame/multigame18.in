@@ -258,6 +258,7 @@ move a5 f5
 move f6 f5
 game human human
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 move e2 e4
 move c7 c6
@@ -446,6 +447,8 @@ move f6 e5
 resign
 game human human
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 91da449 (fix)
 move d2 d4
 move g8 f6
 move c2 c4
@@ -635,6 +638,9 @@ move d4 c5
 move a3 a4
 move b1 b4
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 91da449 (fix)
 game human human
 move e2 e4
 move c7 c6
@@ -821,5 +827,8 @@ move e5 f6
 move b5 b6
 move f6 e5
 resign
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 91da449 (fix)

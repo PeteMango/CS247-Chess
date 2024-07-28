@@ -6908,6 +6908,7 @@ White is in check.
 
   abcdefgh
 <<<<<<< HEAD
+<<<<<<< HEAD
 Black wins!
 =======
 White is in check.
@@ -9347,6 +9348,9 @@ Black is in check.
   abcdefgh
 Stalemate!
 >>>>>>> 47519ea (update tests)
+=======
+Black wins!
+>>>>>>> 91da449 (fix)
 Final Score:
 White: 0.5
 Black: 2.5
