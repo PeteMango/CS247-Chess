@@ -58,5 +58,9 @@ void GraphicsDisplay::show()
                 xwin_display->drawPiece(col, row, piece);
             }
 }
+void GraphicsDisplay::show_status(DisplayStatus s, Color c) { }
 
-void GraphicsDisplay::show_status() { }
+void GraphicsDisplay::show_results(
+    int white_doubled_results, int black_doubled_results)
+{
+}

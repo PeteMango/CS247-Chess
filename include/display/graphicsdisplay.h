@@ -13,7 +13,8 @@ class GraphicsDisplay : public DisplayBoard {
 public:
     GraphicsDisplay(std::shared_ptr<Chess> chess);
     void show() override;
-    void show_status() override;
+    void show_status(DisplayStatus s, Color c) override;
+    void show_results(int white_doubled_results, int black_doubled_results) override;
 };
 
 #endif

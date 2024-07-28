@@ -60,6 +60,9 @@ const std::unordered_map<Color, std::unordered_map<PieceType, char>> pieces
                   { PieceType::BISHOP, 'b' }, { PieceType::ROOK, 'r' },
                   { PieceType::QUEEN, 'q' }, { PieceType::KING, 'k' } } } };
 
+const std::unordered_map<Color, Result> ColorToResult
+    = { { Color::WHITE, Result::WHITE_WIN }, { Color::BLACK, Result::BLACK_WIN } };
+
 bool validate_player(std::string player)
 {
     return StringToPlayer.find(player) != StringToPlayer.end();
@@ -108,6 +111,8 @@ PlayerType string_to_playertype(std::string player)
 {
     return StringToPlayer.at(player);
 }
+
+Result color_to_result(Color c) { return ColorToResult.at(c); }
 
 std::pair<int, int> get_grid_indexes(Coordinate c)
 {
