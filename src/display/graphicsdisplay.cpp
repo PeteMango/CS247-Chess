@@ -58,3 +58,5 @@ void GraphicsDisplay::show()
                 xwin_display->drawPiece(col, row, piece);
             }
 }
+
+void GraphicsDisplay::show_status() { }

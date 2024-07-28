@@ -257,7 +257,6 @@ std::string Board::make_move(
     if (this->is_double_pawn_move(start, end)) {
         std::shared_ptr<Coordinate> enpassant
             = this->get_enpassant_square_coordinate(end);
-        debug("adding to en passant target\n");
         this->add_enpassant_target(enpassant);
     } else {
         this->add_enpassant_target(nullptr);
@@ -375,9 +374,11 @@ void Board::get_all_valid_moves(
         std::set<Coordinate> s2;
         piece->get_valid_moves(s2);
         for (auto coord : s2) {
-            std::pair<Coordinate, Coordinate> move
-                = std::make_pair(piece->get_coordinate(), coord);
-            s.insert(move);
+            if (this->is_valid_move(piece->get_coordinate(), coord)) {
+                std::pair<Coordinate, Coordinate> move
+                    = std::make_pair(piece->get_coordinate(), coord);
+                s.insert(move);
+            }
         }
         // add en passasnt
         if (piece->get_piece_type() == PieceType::PAWN) {
@@ -390,6 +391,7 @@ void Board::get_all_valid_moves(
                     s.insert(move);
                 }
             }
+
         }
         // add castle
         else if (piece->get_piece_type() == PieceType::KING) {

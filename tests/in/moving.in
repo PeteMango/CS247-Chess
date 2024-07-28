@@ -186,3 +186,91 @@ move f8 a3
 move c1 a3
 move e8 g8
 
+setup
++ K e1
++ R a1
+= black
++ K e8
++ P e7
+done
+game human human
+move a1 a8
+
+setup
++ K e1
++ P e2
+= black
++ K e8
++ R a8
+done
+game human human
+move e2 e3
+move a8 a1
+
+setup
++ K e1
++ R a7
++ R b1
+= black
++ K g8
+done
+game human human
+move b1 b8
+
+setup
++ K e1
++ R a7
++ R f1
+= black
++ K g8
+done
+game human human
+move f1 f8
+
+setup
++ K e1
+= black
++ R a8
++ R b2
+done
+game human human
+move e1 d1
+move a8 a1
+
+setup
++ K e1
+= black
++ R a8
++ R c2
+done
+game human human
+move e1 d1
+move a8 a1
+
+
+setup
++ K e1
++ R d1
++ R f1
++ R a1
+= black
++ K e8
+done
+game human human
+move a1 a7
+
+setup
++ K e1
++ P h2
+= black
++ K e8
++ R d8
++ R f8
++ R a8
++ P g5
+done
+game human human
+move h2 h3
+move a8 a2
+move h3 h4
+move g5 h4

@@ -94,6 +94,13 @@ void Chess::notify_displays()
     }
 }
 
+void Chess::notify_status()
+{
+    for (long unsigned int i = 0; i < this->displays.size(); i++) {
+        displays[i]->show_status();
+    }
+}
+
 bool Chess::is_next_move_human()
 {
     std::shared_ptr<Game> g = this->get_last_game();
