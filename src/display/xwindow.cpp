@@ -79,6 +79,7 @@ void xwindow::drawPiece(int col, int row, char piece)
 {
     if (col >= 0 && row >= 0 && rendered_board[col][row] == piece)
         return;
+    rendered_board[col][row] = piece;
 
     int x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
     int y = (7 - row) * SQUARE_SIZE + SQUARE_SIZE / 2 + STRING_OFFSET;
