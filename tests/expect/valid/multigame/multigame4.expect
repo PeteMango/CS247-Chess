@@ -42,6 +42,9 @@
 7 ppp _ppp
 6  _ _p_ _
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 91da449 (fix)
 5 _ _P_ _ 
 4  _ P _ _
 3 _ _ _ _ 
@@ -2417,8 +2420,11 @@ Stalemate!
 8 rnbqkbnr
 7 ppp _ppp
 6  _ _p_ _
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 91da449 (fix)
 5 _ _p_ _ 
 4  _PP _ _
 3 _ N _ _ 
@@ -4131,6 +4137,7 @@ White is in check.
 
   abcdefgh
 Checkmate! White wins!
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 8 rnbqkbnr
@@ -6509,6 +6516,8 @@ Black is in check.
   abcdefgh
 Black wins!
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 91da449 (fix)
 Final Score:
 White: 1.5
 Black: 1.5

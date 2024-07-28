@@ -12,6 +12,7 @@
   abcdefgh
 8 rnbqkbnr
 7 pp_ppppp
+<<<<<<< HEAD
 6  _p_ _ _
 5 _ _ _ _ 
 4  _ _P_ _
@@ -944,6 +945,8 @@ Black wins!
   abcdefgh
 8 rnbqkbnr
 7 pp_ppppp
+=======
+>>>>>>> 91da449 (fix)
 6  _ _ _ _
 5 _ p _ _ 
 4  _ _P_ _
@@ -2527,6 +2530,9 @@ Checkmate! Black wins!
 6  _ _ _ _
 5 _ _ _ _ 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 91da449 (fix)
 4  _ _P_ _
 3 _ _ _ _ 
 2 PPPP PPP
@@ -3458,8 +3464,11 @@ Black wins!
 7 pppppppp
 6  _ _ _ _
 5 _ _ _ _ 
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 91da449 (fix)
 4  _ P _ _
 3 _ _ _ _ 
 2 PPP_PPPP
