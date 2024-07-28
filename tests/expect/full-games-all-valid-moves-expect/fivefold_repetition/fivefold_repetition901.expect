@@ -1,1365 +1,1365 @@
 8 rnbqkbnr
 7 pppppppp
-6 ........
-5 ........
-4 ....P...
-3 ........
-2 PPPP.PPP
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _P_ _
+3 _ _ _ _ 
+2 PPPP PPP
 1 RNBQKBNR
 
   abcdefgh
 8 rnbqkbnr
-7 pppp.ppp
-6 ........
-5 ....p...
-4 ....P...
-3 ........
-2 PPPP.PPP
+7 pppp_ppp
+6  _ _ _ _
+5 _ _ p _ 
+4  _ _P_ _
+3 _ _ _ _ 
+2 PPPP PPP
 1 RNBQKBNR
 
   abcdefgh
 8 rnbqkbnr
-7 pppp.ppp
-6 ........
-5 ....p...
-4 ....P...
-3 .....N..
-2 PPPP.PPP
-1 RNBQKB.R
-
-  abcdefgh
-8 r.bqkbnr
-7 pppp.ppp
-6 ..n.....
-5 ....p...
-4 ....P...
-3 .....N..
-2 PPPP.PPP
-1 RNBQKB.R
-
-  abcdefgh
-8 r.bqkbnr
-7 pppp.ppp
-6 ..n.....
-5 ....p...
-4 ..B.P...
-3 .....N..
-2 PPPP.PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 pppp.ppp
-6 ..n..n..
-5 ....p...
-4 ..B.P...
-3 .....N..
-2 PPPP.PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 pppp.ppp
-6 ..n..n..
-5 ....p...
-4 ..BPP...
-3 .....N..
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 pppp.ppp
-6 ..n..n..
-5 ........
-4 ..BpP...
-3 .....N..
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 pppp.ppp
-6 ..n..n..
-5 ....P...
-4 ..Bp....
-3 .....N..
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 ppp..ppp
-6 ..n..n..
-5 ...pP...
-4 ..Bp....
-3 .....N..
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 ppp..ppp
-6 ..n..n..
-5 .B.pP...
-4 ...p....
-3 .....N..
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 ppp..ppp
-6 ..n.....
-5 .B.pP...
-4 ...pn...
-3 .....N..
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r.bqkb.r
-7 ppp..ppp
-6 ..n.....
-5 .B.pP...
-4 ...Nn...
-3 ........
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r..qkb.r
-7 pppb.ppp
-6 ..n.....
-5 .B.pP...
-4 ...Nn...
-3 ........
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r..qkb.r
-7 pppb.ppp
-6 ..B.....
-5 ...pP...
-4 ...Nn...
-3 ........
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r..qkb.r
-7 p.pb.ppp
-6 ..p.....
-5 ...pP...
-4 ...Nn...
-3 ........
-2 PPP..PPP
-1 RNBQK..R
-
-  abcdefgh
-8 r..qkb.r
-7 p.pb.ppp
-6 ..p.....
-5 ...pP...
-4 ...Nn...
-3 ........
-2 PPP..PPP
-1 RNBQ.RK.
-
-  abcdefgh
-8 r..qk..r
-7 p.pbbppp
-6 ..p.....
-5 ...pP...
-4 ...Nn...
-3 ........
-2 PPP..PPP
-1 RNBQ.RK.
-
-  abcdefgh
-8 r..qk..r
-7 p.pbbppp
-6 ..p.....
-5 ...pP...
-4 ...Nn...
-3 .....P..
-2 PPP...PP
-1 RNBQ.RK.
-
-  abcdefgh
-8 r..qk..r
-7 p.pbbppp
-6 ..p.....
-5 ..npP...
-4 ...N....
-3 .....P..
-2 PPP...PP
-1 RNBQ.RK.
-
-  abcdefgh
-8 r..qk..r
-7 p.pbbppp
-6 ..p.....
-5 ..npP...
-4 ...N.P..
-3 ........
-2 PPP...PP
-1 RNBQ.RK.
-
-  abcdefgh
-8 r..qk..r
-7 p.pbb.pp
-6 ..p.....
-5 ..npPp..
-4 ...N.P..
-3 ........
-2 PPP...PP
-1 RNBQ.RK.
-
-  abcdefgh
-8 r..qk..r
-7 p.pbb.pp
-6 ..p.....
-5 ..npPp..
-4 ...N.P..
-3 ....B...
-2 PPP...PP
-1 RN.Q.RK.
-
-  abcdefgh
-8 r..qk..r
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 ....B...
-2 PPP...PP
-1 RN.Q.RK.
-
-  abcdefgh
-8 r..qk..r
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 ..N.B...
-2 PPP...PP
-1 R..Q.RK.
-
-  abcdefgh
-8 rq..k..r
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 ..N.B...
-2 PPP...PP
-1 R..Q.RK.
-
-  abcdefgh
-8 rq..k..r
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 .PN.B...
-2 P.P...PP
-1 R..Q.RK.
-
-  abcdefgh
-8 rq...rk.
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 .PN.B...
-2 P.P...PP
-1 R..Q.RK.
-
-  abcdefgh
-8 rq...rk.
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 .PN.B..P
-2 P.P...P.
-1 R..Q.RK.
-
-  abcdefgh
-8 r...qrk.
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 .PN.B..P
-2 P.P...P.
-1 R..Q.RK.
-
-  abcdefgh
-8 r...qrk.
-7 ..pbb.pp
-6 ..p.....
-5 p.npPp..
-4 ...N.P..
-3 .PN.B..P
-2 P.P...PK
-1 R..Q.R..
-
-  abcdefgh
-8 r...qrk.
-7 ..pbb.pp
-6 n.p.....
-5 p..pPp..
-4 ...N.P..
-3 .PN.B..P
-2 P.P...PK
-1 R..Q.R..
-
-  abcdefgh
-8 r...qrk.
-7 ..pbb.pp
-6 n.p.....
-5 p..pPp..
-4 .....P..
-3 .PN.BN.P
-2 P.P...PK
-1 R..Q.R..
-
-  abcdefgh
-8 r...qrk.
-7 ..p.b.pp
-6 n.p.b...
-5 p..pPp..
-4 .....P..
-3 .PN.BN.P
-2 P.P...PK
-1 R..Q.R..
-
-  abcdefgh
-8 r...qrk.
-7 ..p.b.pp
-6 n.p.b...
-5 p..pPp..
-4 .....P..
-3 .PN.BN.P
-2 P.PQ..PK
-1 R....R..
-
-  abcdefgh
-8 ...rqrk.
-7 ..p.b.pp
-6 n.p.b...
-5 p..pPp..
-4 .....P..
-3 .PN.BN.P
-2 P.PQ..PK
-1 R....R..
-
-  abcdefgh
-8 ...rqrk.
-7 ..p.b.pp
-6 n.p.b...
-5 p..pPp..
-4 .....P..
-3 .P..BN.P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 ...rqrk.
-7 ..p.b.pp
-6 n...b...
-5 p.ppPp..
-4 .....P..
-3 .P..BN.P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 ...rqrk.
-7 ..p.b.pp
-6 n...b...
-5 Q.ppPp..
-4 .....P..
-3 .P..BN.P
-2 P.P.N.PK
-1 R....R..
-
-  abcdefgh
-8 r...qrk.
-7 ..p.b.pp
-6 n...b...
-5 Q.ppPp..
-4 .....P..
-3 .P..BN.P
-2 P.P.N.PK
-1 R....R..
-
-  abcdefgh
-8 r...qrk.
-7 ..p.b.pp
-6 n...b...
-5 ..ppPp..
-4 .....P..
-3 .P..BN.P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 r...qrk.
-7 ..p.b.pp
-6 n...b...
-5 ..p.Pp..
-4 ...p.P..
-3 .P..BN.P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 r...qrk.
-7 ..p.b.pp
-6 n...b...
-5 ..p.Pp..
-4 ...p.P..
-3 .P...N.P
-2 P.PQNBPK
-1 R....R..
-
-  abcdefgh
-8 r....rk.
-7 ..p.b.pp
-6 n.q.b...
-5 ..p.Pp..
-4 ...p.P..
-3 .P...N.P
-2 P.PQNBPK
-1 R....R..
-
-  abcdefgh
-8 r....rk.
-7 ..p.b.pp
-6 n.q.b...
-5 ..p.Pp..
-4 ...p.P.B
-3 .P...N.P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 r....rk.
-7 ..p...pp
-6 n.q.b...
-5 ..p.Pp..
-4 ...p.P.b
-3 .P...N.P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 r....rk.
-7 ..p...pp
-6 n.q.b...
-5 ..p.Pp..
-4 ...p.P.N
-3 .P.....P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 r....rk.
-7 ..p...pp
-6 ..q.b...
-5 ..p.Pp..
-4 .n.p.P.N
-3 .P.....P
-2 P.PQN.PK
-1 R....R..
-
-  abcdefgh
-8 r....rk.
-7 ..p...pp
-6 ..q.b...
-5 ..p.Pp..
-4 .n.N.P.N
-3 .P.....P
-2 P.PQ..PK
-1 R....R..
-
-  abcdefgh
-8 r..r..k.
-7 ..p...pp
-6 ..q.b...
-5 ..p.Pp..
-4 .n.N.P.N
-3 .P.....P
-2 P.PQ..PK
-1 R....R..
-
-  abcdefgh
-8 r..r..k.
-7 ..p...pp
-6 ..q.b...
-5 ..p.Pp..
-4 .n.N.P.N
-3 .PP....P
-2 P..Q..PK
-1 R....R..
-
-  abcdefgh
-8 r..r..k.
-7 .qp...pp
-6 ....b...
-5 ..p.Pp..
-4 .n.N.P.N
-3 .PP....P
-2 P..Q..PK
-1 R....R..
-
-  abcdefgh
-8 r..r..k.
-7 .qp...pp
-6 ....b...
-5 ..p.Pp..
-4 .n.N.P.N
-3 .PP....P
-2 P..Q.RPK
-1 R.......
-
-  abcdefgh
-8 r..r..k.
-7 .qp...pp
-6 n...b...
-5 ..p.Pp..
-4 ...N.P.N
-3 .PP....P
-2 P..Q.RPK
-1 R.......
-
-  abcdefgh
-8 r..r..k.
-7 .qp...pp
-6 n...N...
-5 ..p.Pp..
-4 .....P.N
-3 .PP....P
-2 P..Q.RPK
-1 R.......
-
-  abcdefgh
-8 r.....k.
-7 .qp...pp
-6 n...N...
-5 ..p.Pp..
-4 .....P.N
-3 .PP....P
-2 P..r.RPK
-1 R.......
-
-  abcdefgh
-8 r.....k.
-7 .qp...pp
-6 n...N...
-5 ..p.Pp..
-4 .....P.N
-3 .PP....P
-2 P..R..PK
-1 R.......
-
-  abcdefgh
-8 r.....k.
-7 ..p...pp
-6 nq..N...
-5 ..p.Pp..
-4 .....P.N
-3 .PP....P
-2 P..R..PK
-1 R.......
-
-  abcdefgh
-8 r.....k.
-7 ..p...pp
-6 nq......
-5 ..p.PpN.
-4 .....P.N
-3 .PP....P
-2 P..R..PK
-1 R.......
-
-  abcdefgh
-8 r.....k.
-7 ..p...p.
-6 nq.....p
-5 ..p.PpN.
-4 .....P.N
-3 .PP....P
-2 P..R..PK
-1 R.......
-
-  abcdefgh
-8 r.....k.
-7 ..p...p.
-6 nq.....p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 R.......
-
-  abcdefgh
-8 .....rk.
-7 ..p...p.
-6 nq.....p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 R.......
-
-  abcdefgh
-8 .....rk.
-7 ..p...p.
-6 nq.....p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 nq.....p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 nq.....p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 ....R...
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 n...q..p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 ....R...
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 n...q..p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 nq.....p
-5 ..p.Pp..
-4 .....P.N
-3 .PP..N.P
-2 P..R..PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 nq.....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P...N.P
-2 P..R..PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..p...pk
-6 .q.....p
-5 ..p.Pp..
-4 .nP..P.N
-3 .P...N.P
-2 P..R..PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..pR..pk
-6 .q.....p
-5 ..p.Pp..
-4 .nP..P.N
-3 .P...N.P
-2 P.....PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..pR..pk
-6 .q.....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P...N.P
-2 P.n...PK
-1 ...R....
-
-  abcdefgh
-8 .....r..
-7 ..pR..pk
-6 .q.....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P...NKP
-2 P.n...P.
-1 ...R....
-
-  abcdefgh
-8 r.......
-7 ..pR..pk
-6 .q.....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P...NKP
-2 P.n...P.
-1 ...R....
-
-  abcdefgh
-8 r.......
-7 ..pR..pk
-6 .q.....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P.R.NKP
-2 P.n...P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..pR..pk
-6 ..q....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P.R.NKP
-2 P.n...P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..p..Rpk
-6 ..q....p
-5 ..p.Pp..
-4 ..P..P.N
-3 .P.R.NKP
-2 P.n...P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..p..Rpk
-6 ..q....p
-5 ..p.Pp..
-4 ..Pn.P.N
-3 .P.R.NKP
-2 P.....P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..p..Rpk
-6 ..q....p
-5 ..p.Pp..
-4 ..PN.P.N
-3 .P.R..KP
-2 P.....P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..p..Rpk
-6 .......p
-5 ..p.Pp..
-4 ..PNqP.N
-3 .P.R..KP
-2 P.....P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..p..Rpk
-6 .......p
-5 ..p.PN..
-4 ..P.qP.N
-3 .P.R..KP
-2 P.....P.
-1 ........
-
-  abcdefgh
-8 r.......
-7 ..p..Rpk
-6 .......p
-5 ..p.PN..
-4 ..P..P.N
-3 .P.q..KP
-2 P.....P.
-1 ........
-
-  abcdefgh
-Black is in check.
-8 r.......
-7 ..p..Rpk
-6 .......p
-5 ..p.PN..
-4 ..P..P.N
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ......r.
-7 ..p..Rpk
-6 .......p
-5 ..p.PN..
-4 ..P..P.N
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ......r.
-7 ..p.NRpk
-6 .......p
-5 ..p.P...
-4 ..P..P.N
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ....r...
-7 ..p.NRpk
-6 .......p
-5 ..p.P...
-4 ..P..P.N
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ....r...
-7 ..p.NRpk
-6 .......p
-5 ..p.PN..
-4 ..P..P..
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ........
-7 ..p.rRpk
-6 .......p
-5 ..p.PN..
-4 ..P..P..
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ........
-7 ..p.NRpk
-6 .......p
-5 ..p.P...
-4 ..P..P..
-3 .P.q...P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ........
-7 ..p.NRpk
-6 .......p
-5 ..p.P...
-4 ..P.qP..
-3 .P.....P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ........
-7 ..p..Rpk
-6 .......p
-5 ..pNP...
-4 ..P.qP..
-3 .P.....P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ......k.
-7 ..p..Rp.
-6 .......p
-5 ..pNP...
-4 ..P.qP..
-3 .P.....P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ......k.
-7 ..p...p.
-6 .....R.p
-5 ..pNP...
-4 ..P.qP..
-3 .P.....P
-2 P.....PK
-1 ........
-
-  abcdefgh
-8 ......k.
-7 ..p...p.
-6 .....R.p
-5 ..pNP...
-4 ..P..P..
-3 .P.....P
-2 P.....PK
-1 ....q...
-
-  abcdefgh
-8 ......k.
-7 ..p.N.p.
-6 .....R.p
-5 ..p.P...
-4 ..P..P..
-3 .P.....P
-2 P.....PK
-1 ....q...
+7 pppp_ppp
+6  _ _ _ _
+5 _ _ p _ 
+4  _ _P_ _
+3 _ _ _N_ 
+2 PPPP PPP
+1 RNBQKB_R
+
+  abcdefgh
+8 r_bqkbnr
+7 pppp_ppp
+6  _n_ _ _
+5 _ _ p _ 
+4  _ _P_ _
+3 _ _ _N_ 
+2 PPPP PPP
+1 RNBQKB_R
+
+  abcdefgh
+8 r_bqkbnr
+7 pppp_ppp
+6  _n_ _ _
+5 _ _ p _ 
+4  _B_P_ _
+3 _ _ _N_ 
+2 PPPP PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 pppp_ppp
+6  _n_ n _
+5 _ _ p _ 
+4  _B_P_ _
+3 _ _ _N_ 
+2 PPPP PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 pppp_ppp
+6  _n_ n _
+5 _ _ p _ 
+4  _BPP_ _
+3 _ _ _N_ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 pppp_ppp
+6  _n_ n _
+5 _ _ _ _ 
+4  _BpP_ _
+3 _ _ _N_ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 pppp_ppp
+6  _n_ n _
+5 _ _ P _ 
+4  _Bp _ _
+3 _ _ _N_ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 ppp _ppp
+6  _n_ n _
+5 _ _pP _ 
+4  _Bp _ _
+3 _ _ _N_ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 ppp _ppp
+6  _n_ n _
+5 _B_pP _ 
+4  _ p _ _
+3 _ _ _N_ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 ppp _ppp
+6  _n_ _ _
+5 _B_pP _ 
+4  _ pn_ _
+3 _ _ _N_ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_bqkb r
+7 ppp _ppp
+6  _n_ _ _
+5 _B_pP _ 
+4  _ Nn_ _
+3 _ _ _ _ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_ qkb r
+7 pppb_ppp
+6  _n_ _ _
+5 _B_pP _ 
+4  _ Nn_ _
+3 _ _ _ _ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_ qkb r
+7 pppb_ppp
+6  _B_ _ _
+5 _ _pP _ 
+4  _ Nn_ _
+3 _ _ _ _ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_ qkb r
+7 p pb_ppp
+6  _p_ _ _
+5 _ _pP _ 
+4  _ Nn_ _
+3 _ _ _ _ 
+2 PPP_ PPP
+1 RNBQK _R
+
+  abcdefgh
+8 r_ qkb r
+7 p pb_ppp
+6  _p_ _ _
+5 _ _pP _ 
+4  _ Nn_ _
+3 _ _ _ _ 
+2 PPP_ PPP
+1 RNBQ_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 p pbbppp
+6  _p_ _ _
+5 _ _pP _ 
+4  _ Nn_ _
+3 _ _ _ _ 
+2 PPP_ PPP
+1 RNBQ_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 p pbbppp
+6  _p_ _ _
+5 _ _pP _ 
+4  _ Nn_ _
+3 _ _ _P_ 
+2 PPP_ _PP
+1 RNBQ_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 p pbbppp
+6  _p_ _ _
+5 _ npP _ 
+4  _ N _ _
+3 _ _ _P_ 
+2 PPP_ _PP
+1 RNBQ_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 p pbbppp
+6  _p_ _ _
+5 _ npP _ 
+4  _ N P _
+3 _ _ _ _ 
+2 PPP_ _PP
+1 RNBQ_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 p pbb pp
+6  _p_ _ _
+5 _ npPp_ 
+4  _ N P _
+3 _ _ _ _ 
+2 PPP_ _PP
+1 RNBQ_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 p pbb pp
+6  _p_ _ _
+5 _ npPp_ 
+4  _ N P _
+3 _ _ B _ 
+2 PPP_ _PP
+1 RN_Q_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _ _ B _ 
+2 PPP_ _PP
+1 RN_Q_RK 
+
+  abcdefgh
+8 r_ qk_ r
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _ N B _ 
+2 PPP_ _PP
+1 R _Q_RK 
+
+  abcdefgh
+8 rq _k_ r
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _ N B _ 
+2 PPP_ _PP
+1 R _Q_RK 
+
+  abcdefgh
+8 rq _k_ r
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _PN B _ 
+2 P_P_ _PP
+1 R _Q_RK 
+
+  abcdefgh
+8 rq _ rk_
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _PN B _ 
+2 P_P_ _PP
+1 R _Q_RK 
+
+  abcdefgh
+8 rq _ rk_
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _PN B _P
+2 P_P_ _P_
+1 R _Q_RK 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _PN B _P
+2 P_P_ _P_
+1 R _Q_RK 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ pbb pp
+6  _p_ _ _
+5 p npPp_ 
+4  _ N P _
+3 _PN B _P
+2 P_P_ _PK
+1 R _Q_R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ pbb pp
+6 n_p_ _ _
+5 p _pPp_ 
+4  _ N P _
+3 _PN B _P
+2 P_P_ _PK
+1 R _Q_R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ pbb pp
+6 n_p_ _ _
+5 p _pPp_ 
+4  _ _ P _
+3 _PN BN_P
+2 P_P_ _PK
+1 R _Q_R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ p b pp
+6 n_p_b_ _
+5 p _pPp_ 
+4  _ _ P _
+3 _PN BN_P
+2 P_P_ _PK
+1 R _Q_R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ p b pp
+6 n_p_b_ _
+5 p _pPp_ 
+4  _ _ P _
+3 _PN BN_P
+2 P_PQ _PK
+1 R _ _R_ 
+
+  abcdefgh
+8  _ rqrk_
+7 _ p b pp
+6 n_p_b_ _
+5 p _pPp_ 
+4  _ _ P _
+3 _PN BN_P
+2 P_PQ _PK
+1 R _ _R_ 
+
+  abcdefgh
+8  _ rqrk_
+7 _ p b pp
+6 n_p_b_ _
+5 p _pPp_ 
+4  _ _ P _
+3 _P_ BN_P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8  _ rqrk_
+7 _ p b pp
+6 n_ _b_ _
+5 p ppPp_ 
+4  _ _ P _
+3 _P_ BN_P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8  _ rqrk_
+7 _ p b pp
+6 n_ _b_ _
+5 Q ppPp_ 
+4  _ _ P _
+3 _P_ BN_P
+2 P_P_N_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ p b pp
+6 n_ _b_ _
+5 Q ppPp_ 
+4  _ _ P _
+3 _P_ BN_P
+2 P_P_N_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ p b pp
+6 n_ _b_ _
+5 _ ppPp_ 
+4  _ _ P _
+3 _P_ BN_P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ p b pp
+6 n_ _b_ _
+5 _ p Pp_ 
+4  _ p P _
+3 _P_ BN_P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _qrk_
+7 _ p b pp
+6 n_ _b_ _
+5 _ p Pp_ 
+4  _ p P _
+3 _P_ _N_P
+2 P_PQNBPK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _ rk_
+7 _ p b pp
+6 n_q_b_ _
+5 _ p Pp_ 
+4  _ p P _
+3 _P_ _N_P
+2 P_PQNBPK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _ rk_
+7 _ p b pp
+6 n_q_b_ _
+5 _ p Pp_ 
+4  _ p P B
+3 _P_ _N_P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _ rk_
+7 _ p _ pp
+6 n_q_b_ _
+5 _ p Pp_ 
+4  _ p P b
+3 _P_ _N_P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _ rk_
+7 _ p _ pp
+6 n_q_b_ _
+5 _ p Pp_ 
+4  _ p P N
+3 _P_ _ _P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _ rk_
+7 _ p _ pp
+6  _q_b_ _
+5 _ p Pp_ 
+4  n p P N
+3 _P_ _ _P
+2 P_PQN_PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ _ rk_
+7 _ p _ pp
+6  _q_b_ _
+5 _ p Pp_ 
+4  n N P N
+3 _P_ _ _P
+2 P_PQ _PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ r _k_
+7 _ p _ pp
+6  _q_b_ _
+5 _ p Pp_ 
+4  n N P N
+3 _P_ _ _P
+2 P_PQ _PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ r _k_
+7 _ p _ pp
+6  _q_b_ _
+5 _ p Pp_ 
+4  n N P N
+3 _PP _ _P
+2 P_ Q _PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ r _k_
+7 _qp _ pp
+6  _ _b_ _
+5 _ p Pp_ 
+4  n N P N
+3 _PP _ _P
+2 P_ Q _PK
+1 R _ _R_ 
+
+  abcdefgh
+8 r_ r _k_
+7 _qp _ pp
+6  _ _b_ _
+5 _ p Pp_ 
+4  n N P N
+3 _PP _ _P
+2 P_ Q RPK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ r _k_
+7 _qp _ pp
+6 n_ _b_ _
+5 _ p Pp_ 
+4  _ N P N
+3 _PP _ _P
+2 P_ Q RPK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ r _k_
+7 _qp _ pp
+6 n_ _N_ _
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _ _P
+2 P_ Q RPK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ _ _k_
+7 _qp _ pp
+6 n_ _N_ _
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _ _P
+2 P_ r RPK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ _ _k_
+7 _qp _ pp
+6 n_ _N_ _
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _ _P
+2 P_ R _PK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ _ _k_
+7 _ p _ pp
+6 nq _N_ _
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _ _P
+2 P_ R _PK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ _ _k_
+7 _ p _ pp
+6 nq _ _ _
+5 _ p PpN 
+4  _ _ P N
+3 _PP _ _P
+2 P_ R _PK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ _ _k_
+7 _ p _ p 
+6 nq _ _ p
+5 _ p PpN 
+4  _ _ P N
+3 _PP _ _P
+2 P_ R _PK
+1 R _ _ _ 
+
+  abcdefgh
+8 r_ _ _k_
+7 _ p _ p 
+6 nq _ _ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 R _ _ _ 
+
+  abcdefgh
+8  _ _ rk_
+7 _ p _ p 
+6 nq _ _ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 R _ _ _ 
+
+  abcdefgh
+8  _ _ rk_
+7 _ p _ p 
+6 nq _ _ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6 nq _ _ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6 nq _ _ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 _ _ R _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6 n_ _q_ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 _ _ R _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6 n_ _q_ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6 nq _ _ p
+5 _ p Pp_ 
+4  _ _ P N
+3 _PP _N_P
+2 P_ R _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6 nq _ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_ _N_P
+2 P_ R _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ p _ pk
+6  q _ _ p
+5 _ p Pp_ 
+4  nP_ P N
+3 _P_ _N_P
+2 P_ R _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ pR_ pk
+6  q _ _ p
+5 _ p Pp_ 
+4  nP_ P N
+3 _P_ _N_P
+2 P_ _ _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ pR_ pk
+6  q _ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_ _N_P
+2 P_n_ _PK
+1 _ _R_ _ 
+
+  abcdefgh
+8  _ _ r _
+7 _ pR_ pk
+6  q _ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_ _NKP
+2 P_n_ _P_
+1 _ _R_ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ pR_ pk
+6  q _ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_ _NKP
+2 P_n_ _P_
+1 _ _R_ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ pR_ pk
+6  q _ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_R_NKP
+2 P_n_ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ pR_ pk
+6  _q_ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_R_NKP
+2 P_n_ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ p _Rpk
+6  _q_ _ p
+5 _ p Pp_ 
+4  _P_ P N
+3 _P_R_NKP
+2 P_n_ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ p _Rpk
+6  _q_ _ p
+5 _ p Pp_ 
+4  _Pn P N
+3 _P_R_NKP
+2 P_ _ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ p _Rpk
+6  _q_ _ p
+5 _ p Pp_ 
+4  _PN P N
+3 _P_R_ KP
+2 P_ _ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ p _Rpk
+6  _ _ _ p
+5 _ p Pp_ 
+4  _PNqP N
+3 _P_R_ KP
+2 P_ _ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ p _Rpk
+6  _ _ _ p
+5 _ p PN_ 
+4  _P_qP N
+3 _P_R_ KP
+2 P_ _ _P_
+1 _ _ _ _ 
+
+  abcdefgh
+8 r_ _ _ _
+7 _ p _Rpk
+6  _ _ _ p
+5 _ p PN_ 
+4  _P_ P N
+3 _P_q_ KP
+2 P_ _ _P_
+1 _ _ _ _ 
 
   abcdefgh
 White is in check.
-8 ........
-7 ..p.N.pk
-6 .....R.p
-5 ..p.P...
-4 ..P..P..
-3 .P.....P
-2 P.....PK
-1 ....q...
+8 r_ _ _ _
+7 _ p _Rpk
+6  _ _ _ p
+5 _ p PN_ 
+4  _P_ P N
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 ........
-7 ..p.NRpk
-6 .......p
-5 ..p.P...
-4 ..P..P..
-3 .P.....P
-2 P.....PK
-1 ....q...
+8  _ _ _r_
+7 _ p _Rpk
+6  _ _ _ p
+5 _ p PN_ 
+4  _P_ P N
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 ........
-7 ..p.NRpk
-6 .......p
-5 ..p.P...
-4 ..P..P..
-3 .P.....P
-2 P....qPK
-1 ........
+8  _ _ _r_
+7 _ p NRpk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_ P N
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.N.pk
-6 .......p
-5 ..p.P...
-4 ..P..P..
-3 .P.....P
-2 P....qPK
-1 ........
+8  _ _r_ _
+7 _ p NRpk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_ P N
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.N.pk
-6 ........
-5 ..p.P..p
-4 ..P..P..
-3 .P.....P
-2 P....qPK
-1 ........
+8  _ _r_ _
+7 _ p NRpk
+6  _ _ _ p
+5 _ p PN_ 
+4  _P_ P _
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.N.pk
-6 ....P...
-5 ..p....p
-4 ..P..P..
-3 .P.....P
-2 P....qPK
-1 ........
+8  _ _ _ _
+7 _ p rRpk
+6  _ _ _ p
+5 _ p PN_ 
+4  _P_ P _
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.N.pk
-6 ....P...
-5 ..p.....
-4 ..P..P.p
-3 .P.....P
-2 P....qPK
-1 ........
+8  _ _ _ _
+7 _ p NRpk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_ P _
+3 _P_q_ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..P.p
-3 .P.....P
-2 P....qPK
-1 ........
+8  _ _ _ _
+7 _ p NRpk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_qP _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....PK
-1 ........
+8  _ _ _ _
+7 _ p _Rpk
+6  _ _ _ p
+5 _ pNP _ 
+4  _P_qP _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ _k_
+7 _ p _Rp 
+6  _ _ _ p
+5 _ pNP _ 
+4  _P_qP _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ _k_
+7 _ p _ p 
+6  _ _ R p
+5 _ pNP _ 
+4  _P_qP _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 .....K..
+8  _ _ _k_
+7 _ p _ p 
+6  _ _ R p
+5 _ pNP _ 
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 .....K..
-
-  abcdefgh
-Black is in check.
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 ......K.
-
-  abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
-
-  abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 .....K..
-
-  abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 .....K..
+8  _ _ _k_
+7 _ p N p 
+6  _ _ R p
+5 _ p P _ 
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
 
   abcdefgh
 Black is in check.
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ _ _
+7 _ p N pk
+6  _ _ R p
+5 _ p P _ 
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ _ _
+7 _ p NRpk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 .....K..
+8  _ _ _ _
+7 _ p NRpk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ qPK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 .....K..
+8  _ _ R _
+7 _ p N pk
+6  _ _ _ p
+5 _ p P _ 
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ qPK
+1 _ _ _ _ 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p..N..
-4 ..P..q.p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p N pk
+6  _ _ _ _
+5 _ p P _p
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ qPK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p...pk
-6 ....P...
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p N pk
+6  _ _P_ _
+5 _ p _ _p
+4  _P_ P _
+3 _P_ _ _P
+2 P_ _ qPK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p N pk
+6  _ _P_ _
+5 _ p _ _ 
+4  _P_ P p
+3 _P_ _ _P
+2 P_ _ qPK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ....q.K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ P p
+3 _P_ _ _P
+2 P_ _ qPK
+1 _ _ _ _ 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ....q...
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ........
+White is in check.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ....q.K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _K_ 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ....q...
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _K_ 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ........
+White is in check.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ....q.K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _K_ 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ....q...
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _K_ 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ........
+White is in check.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ....q.K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _K_ 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p..N..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ....q...
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _K_ 
 
   abcdefgh
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....PK
-1 ........
+White is in check.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p _N_ 
+4  _P_ q p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
-Black is in check.
-8 .....R..
-7 ..p.P.pk
-6 ........
-5 ..p.qN..
-4 ..P....p
-3 .P.....P
-2 P.....P.
-1 ......K.
+8  _ _ R _
+7 _ p _ pk
+6  _ _P_ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ q K 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ q K 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ q K 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ q K 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p _N_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ q _ 
+
+  abcdefgh
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _PK
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ R _
+7 _ p P pk
+6  _ _ _ _
+5 _ p qN_ 
+4  _P_ _ p
+3 _P_ _ _P
+2 P_ _ _P_
+1 _ _ _ K 
 
   abcdefgh
 Stalemate!
