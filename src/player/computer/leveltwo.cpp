@@ -29,8 +29,6 @@ void LevelTwo::move()
         auto it = possible_moves.begin();
         std::advance(it, index);
 
-        std::cout << it->first.column << it->first.row << " " << it->second.column
-                  << it->second.row << std::endl;
         this->game->make_move(it->first, it->second, PromotionType::QUEEN);
         return;
     }

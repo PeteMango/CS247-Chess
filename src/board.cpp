@@ -179,17 +179,17 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     std::set<Coordinate> s;
     std::shared_ptr<Piece> taken_piece = nullptr;
 
-    bool captured = false;
+    bool capture = false;
 
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
-        captured = true;
+        capture = true;
         this->delete_piece(taken_piece);
     } else if (valid_enpassant) {
         std::pair<int, int> taken_piece_idx
             = get_grid_indexes(this->get_enpassant_taken_piece_coordinate());
         taken_piece = this->grid[taken_piece_idx.first][taken_piece_idx.second];
-        captured = true;
+        capture = true;
         this->delete_piece(taken_piece);
     }
 
@@ -232,7 +232,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     if (invalid) {
         return MoveFlags { false, false, false };
     }
-    return MoveFlags { true, check, captured };
+    return MoveFlags { true, check, capture };
 }
 
 std::string Board::make_move(
