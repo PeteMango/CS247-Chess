@@ -247,7 +247,6 @@ game human human
 move e1 d1
 move a8 a1
 
-// this doesnt work
 setup
 + K e1
 + R d1
