@@ -11,7 +11,6 @@ class xwindow {
     int s;
     GC gc;
     unsigned long colours[10];
-    std::vector<std::vector<char>> rendered_board;
     const int SQUARE_SIZE = 60;
     const int STRING_OFFSET = 8;
 
@@ -22,6 +21,7 @@ public:
     xwindow& operator=(const xwindow&) = delete;
 
     enum { White = 0, Black, Red, Green, Blue };
+    std::vector<std::vector<char>> rendered_board;
 
     void fillGrid(int x, int y, int colour = Black);
     void drawPiece(int x, int y, char piece);

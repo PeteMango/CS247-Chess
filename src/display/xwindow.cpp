@@ -9,7 +9,7 @@
 using namespace std;
 
 xwindow::xwindow()
-    : rendered_board { 8, std::vector<char>(8, '0') }
+    : rendered_board { 8, std::vector<char>(8, ']') }
 {
     int width = SQUARE_SIZE * 9;
     int height = SQUARE_SIZE * 9;
@@ -49,7 +49,8 @@ xwindow::xwindow()
     // Make window non-resizeable.
     XSizeHints hints;
     hints.flags = (USPosition | PSize | PMinSize | PMaxSize);
-    hints.height = hints.base_height = hints.min_height = hints.max_height = height;
+    hints.height = hints.base_height = hints.min_height = hints.max_height
+        = height;
     hints.width = hints.base_width = hints.min_width = hints.max_width = width;
     XSetNormalHints(d, w, &hints);
 
