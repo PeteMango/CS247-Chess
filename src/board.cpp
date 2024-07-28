@@ -884,3 +884,10 @@ Coordinate Board::get_castle_rook(Color c, CastleSide cs)
     }
 }
 
+std::set<std::shared_ptr<Piece>> Board::get_pieces(Color c)
+{
+    if (c == Color::WHITE) {
+        return this->white_pieces;
+    }
+    return this->black_pieces;
+}

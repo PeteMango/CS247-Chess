@@ -70,16 +70,18 @@ int main(int argc, char* argv[])
             std::string end;
             std::string promotion;
             ss >> start >> end >> promotion;
-            if (!validate_coordinate(start) || !validate_coordinate(end)) {
-                throw std::invalid_argument("invalid coordinates");
-            }
-            Coordinate start_coordinate(start);
-            Coordinate end_coordinate(end);
+
             std::shared_ptr<Game> g = CHESS->get_last_game();
             std::shared_ptr<Board> b = g->get_board();
             std::shared_ptr<Players> p = CHESS->get_last_game_players();
 
             if (CHESS->is_next_move_human()) {
+                if (!validate_coordinate(start) || !validate_coordinate(end)) {
+                    throw std::invalid_argument("invalid coordinates");
+                }
+                Coordinate start_coordinate(start);
+                Coordinate end_coordinate(end);
+
                 if (!b->is_valid_move(start_coordinate, end_coordinate)) {
                     throw std::invalid_argument("invalid move");
                 }

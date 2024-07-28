@@ -4,5 +4,6 @@
 *.DS_Store
 compile_flags.txt
 *.out
+./out/chess
 tests/out/*
 !tests/out/.gitkeep
