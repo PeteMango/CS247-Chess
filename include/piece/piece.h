@@ -45,9 +45,9 @@ public:
     Color get_color();
     PieceType get_piece_type();
     Coordinate get_coordinate();
-    // virtual void get_attacking_squares(std::set<Coordinate>& s)
-    //     = 0;
     void update_location(Coordinate square);
+
+    char get_piece_character();
 
     /* debugging */
     void print_attack();
