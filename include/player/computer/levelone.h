@@ -7,11 +7,11 @@
 #include "struct/coordinate.h"
 #include <set>
 
-class levelone : public Computer {
+class LevelOne : public Computer {
 
 public:
-    levelone(std::shared_ptr<Game> game, Color color);
-    ~levelone();
+    LevelOne(std::shared_ptr<Game> game, Color color);
+    ~LevelOne();
     void move() override;
 };
 

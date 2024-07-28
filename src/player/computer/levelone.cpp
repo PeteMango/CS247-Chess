@@ -1,13 +1,13 @@
 #include "player/computer/levelone.h"
 
-levelone::levelone(std::shared_ptr<Game> game, Color color)
+LevelOne::LevelOne(std::shared_ptr<Game> game, Color color)
     : Computer(game, color)
 {
 }
 
-levelone::~levelone() { }
+LevelOne::~LevelOne() { }
 
-void levelone::move()
+void LevelOne::move()
 {
     // Get the game board
     std::shared_ptr<Board> grid = this->game->get_board();
