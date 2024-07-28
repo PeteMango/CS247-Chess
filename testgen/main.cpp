@@ -28,8 +28,8 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp)
     return size * nmemb;
 }
 
-void fetchURLchunk(std::vector<std::map<std::string, std::string>>& dataset,
-    std::string& offset)
+void fetchURLchunk(
+    std::vector<std::map<std::string, std::string>>& dataset, std::string& offset)
 {
     CURL* curl;
     CURLcode res;
@@ -60,8 +60,8 @@ void fetchURLchunk(std::vector<std::map<std::string, std::string>>& dataset,
             }
 
         } else
-            std::cerr << "curl_easy_perform() failed: "
-                      << curl_easy_strerror(res) << std::endl;
+            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res)
+                      << std::endl;
     }
 }
 
@@ -115,8 +115,7 @@ std::string getFileName(std::vector<int> ids, bool isIn)
         subfolder = terminations[ids[0]];
         if (terminations[ids[0]] == "FIVEFOLD_REPETITION")
             subfolder = "resign";
-        filename
-            = subfolder + std::to_string(row_ids[ids[0]]) + "." + extension;
+        filename = subfolder + std::to_string(row_ids[ids[0]]) + "." + extension;
     } else {
         subfolder = "multigame";
         int id = multigame_count++ / 2;
@@ -125,8 +124,8 @@ std::string getFileName(std::vector<int> ids, bool isIn)
 
     std::string full_filename = folder + subfolder + "/" + filename;
 
-    std::transform(full_filename.begin(), full_filename.end(),
-        full_filename.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::transform(full_filename.begin(), full_filename.end(), full_filename.begin(),
+        [](unsigned char c) { return std::tolower(c); });
 
     std::cout << "writing to " << full_filename << "\n";
 
@@ -180,8 +179,8 @@ void writeTestInput(std::vector<int> ids)
 // ------------------------- Making .expect ------------------------ //
 // ----------------------------------------------------------------- //
 
-void findValidMove(chess::Board& board, chess::Movelist& move_list,
-    chess::Move& m, std::string& move, int j)
+void findValidMove(chess::Board& board, chess::Movelist& move_list, chess::Move& m,
+    std::string& move, int j)
 {
     std::string a, b;
     char promo;
@@ -194,13 +193,11 @@ void findValidMove(chess::Board& board, chess::Movelist& move_list,
             promo = toupper(move[4]);
         else
             promo = tolower(move[4]);
-        m = chess::Move::make<chess::Move::PROMOTION>(
-            chess::Square { posMap[a] }, chess::Square { posMap[b] },
-            simplePieceMap[tolower(promo)]);
+        m = chess::Move::make<chess::Move::PROMOTION>(chess::Square { posMap[a] },
+            chess::Square { posMap[b] }, simplePieceMap[tolower(promo)]);
         return;
     }
-    chess::movegen::legalmoves<chess::movegen::MoveGenType::ALL>(
-        move_list, board);
+    chess::movegen::legalmoves<chess::movegen::MoveGenType::ALL>(move_list, board);
 
     m = chess::Move::make<chess::Move::NORMAL>(posMap[a], posMap[b]);
     if (move_list.find(m) != -1)
@@ -223,6 +220,35 @@ void findValidMove(chess::Board& board, chess::Movelist& move_list,
     }
 }
 
+void printBoard(std::string& ret, chess::Board& board)
+{
+    ChessFen chessfen;
+
+    chessfen.parse_fen(board.getFen(false));
+
+    int offset = -1;
+    for (int i = 0; i < 64; i++) {
+        if (i % 8 == 0)
+            ret += std::string(1, char('8' - i / 8)) + " ", offset++;
+
+        if (chessfen.board[i] == '.') {
+            if ((i + offset) % 2 == 0)
+                ret += ' ';
+            else
+                ret += '_';
+        } else
+            ret += chessfen.board[i];
+        if (i > 0 && (i + 1) % 8 == 0)
+            ret += '\n';
+    }
+    ret += "\n  ";
+
+    for (int col = 0; col < 8; col++)
+        ret += std::string(1, (char)(col + 'a'));
+
+    ret += "\n";
+}
+
 int white_score, black_score;
 std::string generateSingleGameExpect(int i)
 {
@@ -235,35 +261,12 @@ std::string generateSingleGameExpect(int i)
 
     chess::Move m;
     chess::Movelist move_list;
-    ChessFen chessfen;
 
     for (int j = 0; j < move.size(); j++) {
         findValidMove(board, move_list, m, move[j], j);
         board.makeMove(m);
 
-        chessfen.parse_fen(board.getFen(false));
-
-        int offset = -1;
-        for (int i = 0; i < 64; i++) {
-            if (i % 8 == 0)
-                ret += std::string(1, char('8' - i / 8)) + " ", offset++;
-
-            if (chessfen.board[i] == '.') {
-                if ((i + offset) % 2 == 0)
-                    ret += ' ';
-                else
-                    ret += '_';
-            } else
-                ret += chessfen.board[i];
-            if (i > 0 && (i + 1) % 8 == 0)
-                ret += '\n';
-        }
-        ret += "\n  ";
-
-        for (int col = 0; col < 8; col++)
-            ret += std::string(1, (char)(col + 'a'));
-
-        ret += "\n";
+        printBoard(ret, board);
 
         if (termination == "CHECKMATE" && j == move.size() - 1)
             continue;
@@ -284,7 +287,14 @@ std::string generateSingleGameExpect(int i)
     }
 
     if (terminations[i] == "FIVEFOLD_REPETITION") {
-        if (move.size() % 2 == 0)
+        printBoard(ret, board);
+        if (board.inCheck())
+            if ((move.size() - 1) % 2 == 1)
+                ret += "White is in check.\n";
+            else
+                ret += "Black is in check.\n";
+
+        if (move.size() % 2 != 0)
             ret += "White wins!\n", white_score += 2;
         else
             ret += "Black wins!\n", black_score += 2;
@@ -352,8 +362,7 @@ int main()
         writeTestExpected({ i });
     }
 
-    int n = std::min(
-        stalemates.size(), std::min(checkmates.size(), resign.size()));
+    int n = std::min(stalemates.size(), std::min(checkmates.size(), resign.size()));
 
     std::vector<int> tmp;
     std::random_device rd;
