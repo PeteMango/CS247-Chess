@@ -23,7 +23,7 @@ public:
     Chess();
     void init(bool graphics_mode);
     void notify_displays();
-    void notify_status();
+    void notify_status(DisplayStatus s, Color c);
     // command functions
     void setup_board(std::istream& in, bool& is_eof_given);
     void start_game(PlayerType white, PlayerType black);

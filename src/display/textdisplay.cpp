@@ -48,7 +48,7 @@ void TextDisplay::show()
     std::cout << std::endl;
 }
 
-void TextDisplay::show_status()
+void TextDisplay::show_status(DisplayStatus s, Color c)
 {
     if (!this->chess->has_game()) {
         return;
@@ -56,14 +56,12 @@ void TextDisplay::show_status()
     std::shared_ptr<Game> g = this->chess->get_last_game();
     std::shared_ptr<Board> b = g->get_board();
     // TODO: resigning
-    if (b->is_checkmate(b->get_active_color())) {
-        std::cout << "Checkmate! "
-                  << ColorToPrintString.at(toggle_color(b->get_active_color()))
-                  << " wins!" << std::endl;
-    } else if (b->is_stalemate(b->get_active_color())) {
-        std::cout << "Stalemate!" << std::endl;
-    } else if (b->is_check(b->get_active_color())) {
-        std::cout << ColorToPrintString.at(b->get_active_color()) << " is in check."
+    if (s == DisplayStatus::CHECKMATE) {
+        std::cout << "Checkmate! " << ColorToPrintString.at(c) << " wins!"
                   << std::endl;
+    } else if (s == DisplayStatus::STALEMATE) {
+        std::cout << "Stalemate!" << std::endl;
+    } else if (s == DisplayStatus::CHECK) {
+        std::cout << ColorToPrintString.at(c) << " is in check." << std::endl;
     }
 }

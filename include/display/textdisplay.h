@@ -12,7 +12,7 @@ class TextDisplay : public DisplayBoard {
 public:
     TextDisplay(std::shared_ptr<Chess> chess);
     void show() override;
-    void show_status() override;
+    void show_status(DisplayStatus s, Color c) override;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 Game::Game(std::shared_ptr<Chess> chess, bool default_board)
-    : board { std::make_shared<Board>(default_board) }
+    : board { std::make_shared<Board>(chess, default_board) }
     , is_complete { false }
     , is_started { false }
     , chess { chess }
@@ -19,7 +19,7 @@ bool Game::is_game_complete() { return this->is_complete; }
 
 bool Game::is_game_started() { return this->is_started; }
 
-Color Game::get_winner() { return this->winner; }
+Result Game::get_result() { return this->result; }
 
 void Game::resign() { throw std::invalid_argument("unimplemented"); }
 
@@ -88,3 +88,9 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
 std::shared_ptr<Board> Game::get_board() { return this->board; }
 
 void Game::update_start(bool started) { this->is_started = started; }
+
+void Game::end_game(Result result)
+{
+    this->is_complete = true;
+    this->result = result;
+}

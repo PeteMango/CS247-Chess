@@ -10,6 +10,7 @@
 #include <sstream>
 #include <vector>
 
+class Chess;
 class Board : public std::enable_shared_from_this<Board> {
     // core
     std::vector<std::vector<std::shared_ptr<Piece>>> grid;
@@ -19,6 +20,7 @@ class Board : public std::enable_shared_from_this<Board> {
     std::map<Color, std::map<CastleSide, bool>> castle_rights;
     int halfmove_clock;
     int fullmove_clock;
+    std::shared_ptr<Chess> chess;
     // helper fields
     std::set<std::shared_ptr<Piece>> white_pieces;
     std::set<std::shared_ptr<Piece>> black_pieces;
@@ -28,9 +30,9 @@ class Board : public std::enable_shared_from_this<Board> {
     std::string serialize();
 
 public:
-    Board(bool default_board = true);
+    Board(std::shared_ptr<Chess> chess, bool default_board = true);
     // deserialize
-    Board(const std::string& fen);
+    Board(std::shared_ptr<Chess> chess, const std::string& fen);
     void setup_board(std::istream& in);
     std::shared_ptr<Piece> create_piece(
         Color color, Coordinate square, PieceType type);

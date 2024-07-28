@@ -13,7 +13,7 @@ class Game {
     std::vector<std::string> moves;
     bool is_complete;
     bool is_started;
-    Color winner;
+    Result result;
     std::shared_ptr<Chess> chess;
 
 public:
@@ -23,9 +23,10 @@ public:
     void resign();
     // helper functions
     std::shared_ptr<Board> get_board();
-    Color get_winner();
+    Result get_result();
     void update_start(bool started);
     bool is_game_complete();
     bool is_game_started();
+    void end_game(Result result);
 };
 #endif

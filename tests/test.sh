@@ -2,11 +2,11 @@
 
 # Set variables
 # checkmate
-# EXPECTED_DIR="tests/expect/valid/checkmate"
-# INPUT_DIR="tests/in/valid/checkmate"
+EXPECTED_DIR="tests/expect/valid/checkmate"
+INPUT_DIR="tests/in/valid/checkmate"
 # stalemate
-EXPECTED_DIR="tests/expect/valid/stalemate"
-INPUT_DIR="tests/in/valid/stalemate"
+# EXPECTED_DIR="tests/expect/valid/stalemate"
+# INPUT_DIR="tests/in/valid/stalemate"
 OUTPUT_DIR="tests/norman/out"
 DIFF_DIR="tests/norman/diff"
 EXECUTABLE="out/chess"

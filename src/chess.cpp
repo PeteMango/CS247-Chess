@@ -94,10 +94,10 @@ void Chess::notify_displays()
     }
 }
 
-void Chess::notify_status()
+void Chess::notify_status(DisplayStatus s, Color c)
 {
     for (long unsigned int i = 0; i < this->displays.size(); i++) {
-        displays[i]->show_status();
+        displays[i]->show_status(s, c);
     }
 }
 
@@ -151,6 +151,16 @@ std::shared_ptr<Players> Chess::get_last_game_players()
 }
 
 // call has players, etc
-bool Chess::can_make_move() { return true; }
+bool Chess::can_make_move()
+{
+    if (!this->has_game()) {
+        return false;
+    }
+    std::shared_ptr<Game> g = this->get_last_game();
+    if (g->is_game_started() && !g->is_game_complete()) {
+        return true;
+    }
+    return false;
+}
 
 bool Chess::can_setup_board() { return this->is_game_not_running(); }
