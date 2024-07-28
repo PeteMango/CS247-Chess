@@ -5,7 +5,7 @@ TEST_DIR := .
 OBJ_DIR := obj
 
 # List of source files in src directory, excluding main.cpp
-SRC_FILES := $(filter-out $(SRC_DIR)/main.cpp, $(wildcard $(SRC_DIR)/*.cpp))
+SRC_FILES := $(filter-out $(SRC_DIR)/main.cpp, $(shell find $(SRC_DIR) -name '*.cpp'))
 TEST_MAIN := $(TEST_DIR)/main.cpp
 
 # Object files
@@ -14,10 +14,11 @@ TEST_OBJ := $(TEST_MAIN:$(TEST_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -I$(INC_DIR) -Wall -Wextra -std=c++17
+CXXFLAGS := -I$(INC_DIR) -Wall -Wextra -std=c++17 -O3
+LDFLAGS := -lcurl
 
 # Target executable
-TARGET := test_program
+TARGET := test_moves
 
 # Default target
 all: $(TARGET)
@@ -28,7 +29,7 @@ $(OBJ_DIR):
 
 # Rule to build the target executable
 $(TARGET): $(OBJ_FILES) $(TEST_OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Rule to build object files from source files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
