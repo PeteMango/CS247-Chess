@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     gdb \
     libc6-dbg \
+    libcurl4-openssl-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

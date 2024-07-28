@@ -1,46 +1,40 @@
-# Define variables
-SRC_DIR := ../src
-INC_DIR := ../include
-TEST_DIR := .
-OBJ_DIR := obj
-
-# List of source files in src directory, excluding main.cpp
-SRC_FILES := $(filter-out $(SRC_DIR)/main.cpp, $(shell find $(SRC_DIR) -name '*.cpp'))
-TEST_MAIN := $(TEST_DIR)/main.cpp
-
-# Object files
-OBJ_FILES := $(SRC_FILES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-TEST_OBJ := $(TEST_MAIN:$(TEST_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-
-# Compiler and flags
+# Compiler
 CXX := g++
-CXXFLAGS := -I$(INC_DIR) -Wall -Wextra -std=c++17 -O3
-LDFLAGS := -lcurl
 
-# Target executable
-TARGET := test_moves
+# Directories
+SRC_DIR := ../src
+INCLUDE_DIR := ../include
+TESTVALID_DIR := .
 
-# Default target
-all: $(TARGET)
+# Source Files
+SRC_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
+TESTVALID_FILES := $(shell find $(TESTVALID_DIR) -name '*.cpp')
 
-# Create obj directory if it doesn't exist
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+# Exclude main.cpp from src directory
+SRC_FILES := $(filter-out $(SRC_DIR)/main.cpp, $(SRC_FILES))
 
-# Rule to build the target executable
-$(TARGET): $(OBJ_FILES) $(TEST_OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+# Object Files
+OBJ_FILES := $(SRC_FILES:.cpp=.o) $(TESTVALID_FILES:.cpp=.o)
 
-# Rule to build object files from source files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+# Executable
+EXECUTABLE := testmoves
+
+# Compiler Flags
+CXXFLAGS := -I$(INCLUDE_DIR) -I$(TESTVALID_DIR) -std=c++17 -Wall
+
+# Linking Flags
+LDFLAGS := -lX11 -lcurl
+
+# Rules
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJ_FILES)
+	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS)
+
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Rule to build the test main object file
-$(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp | $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Clean up
 clean:
-	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -f $(OBJ_FILES) $(EXECUTABLE)
 
 .PHONY: all clean
