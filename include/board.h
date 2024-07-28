@@ -46,7 +46,7 @@ public:
     void clean_board();
 
     // make move helpers
-    bool is_valid_move(Coordinate start, Coordinate end);
+    MoveFlags is_valid_move(Coordinate start, Coordinate end);
     std::string make_move(Coordinate start, Coordinate end, PromotionType promotion);
     void add_piece(std::shared_ptr<Piece> p);
     void delete_piece(std::shared_ptr<Piece> p);

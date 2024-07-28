@@ -157,42 +157,51 @@ Board::Board(std::shared_ptr<Game> game, const std::string& fen)
     fenStream >> this->halfmove_clock >> this->fullmove_clock;
 }
 
-bool Board::is_valid_move(Coordinate start, Coordinate end)
+MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start);
     if (this->grid[start_idx.first][start_idx.second] == nullptr) {
-        return false;
+        return MoveFlags { false, false, false };
     }
     std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
     if (p->get_color() != this->active_color) {
-        return false;
+        return MoveFlags { false, false, false };
     }
     bool valid_enpassant = this->is_valid_enpassant(start, end);
     bool valid_castle = this->is_valid_castle(start, end);
     if (!p->is_valid_move(end) and !valid_castle and !valid_enpassant) {
-        return false;
+        return MoveFlags { false, false, false };
     }
-    // check for checks here
+    /* check for checks */
     std::pair<int, int> end_idx = get_grid_indexes(end);
     std::shared_ptr<Piece> new_p
         = this->create_piece(p->get_color(), end, p->get_piece_type());
     std::set<Coordinate> s;
     std::shared_ptr<Piece> taken_piece = nullptr;
 
+    bool capture = false;
+
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
+        capture = true;
         this->delete_piece(taken_piece);
     } else if (valid_enpassant) {
         std::pair<int, int> taken_piece_idx
             = get_grid_indexes(this->get_enpassant_taken_piece_coordinate());
         taken_piece = this->grid[taken_piece_idx.first][taken_piece_idx.second];
+        capture = true;
         this->delete_piece(taken_piece);
     }
 
     /* make the actual move */
     this->delete_piece(p);
     this->add_piece(new_p);
+
+    /* getting the squares that we are threatened by */
     this->get_threatened_squares_by_color(s, toggle_color(p->get_color()));
+
+    std::set<Coordinate> enemy;
+    this->get_threatened_squares_by_color(enemy, p->get_color());
 
     /* check if making the move makes the game state invalid */
     bool invalid = false;
@@ -204,6 +213,15 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         invalid = true;
     }
 
+    bool check = false;
+    if (p->get_color() == Color::WHITE and this->black_king
+        and enemy.find(this->black_king->get_coordinate()) != enemy.end()) {
+        check = true;
+    } else if (p->get_color() == Color::BLACK and this->white_king
+        and enemy.find(this->white_king->get_coordinate()) != enemy.end()) {
+        check = true;
+    }
+
     /* restore original game state if new state is invalid */
     this->delete_piece(new_p);
     this->add_piece(p);
@@ -211,7 +229,10 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         this->add_piece(taken_piece);
     }
 
-    return !invalid;
+    if (invalid) {
+        return MoveFlags { false, false, false };
+    }
+    return MoveFlags { true, check, capture };
 }
 
 std::string Board::make_move(
@@ -394,7 +415,7 @@ bool Board::is_checkmate(Color c)
     std::set<std::pair<Coordinate, Coordinate>> s;
     this->get_all_valid_moves(s, c);
     for (auto move : s) {
-        if (this->is_valid_move(move.first, move.second)) {
+        if (this->is_valid_move(move.first, move.second).valid) {
             return false;
         }
     }
@@ -414,7 +435,7 @@ void Board::get_all_valid_moves(
         std::set<Coordinate> s2;
         piece->get_valid_moves(s2);
         for (auto coord : s2) {
-            if (this->is_valid_move(piece->get_coordinate(), coord)) {
+            if (this->is_valid_move(piece->get_coordinate(), coord).valid) {
                 std::pair<Coordinate, Coordinate> move
                     = std::make_pair(piece->get_coordinate(), coord);
                 s.insert(move);
@@ -425,7 +446,7 @@ void Board::get_all_valid_moves(
             std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(piece);
             for (auto square : pawn->get_captures()) {
                 Coordinate end = Coordinate(square.first, square.second);
-                if (this->is_valid_move(pawn->get_coordinate(), end)) {
+                if (this->is_valid_move(pawn->get_coordinate(), end).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(pawn->get_coordinate(), end);
                     s.insert(move);
@@ -441,7 +462,7 @@ void Board::get_all_valid_moves(
             for (auto i : d) {
                 std::pair<int, int> new_idx = add_pairs(cur_idx, i);
                 Coordinate new_coord = Coordinate(new_idx.first, new_idx.second);
-                if (this->is_valid_move(cur, new_coord)) {
+                if (this->is_valid_move(cur, new_coord).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(cur, new_coord);
                     s.insert(move);

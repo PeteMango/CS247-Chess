@@ -40,7 +40,7 @@ bool King::in_checkmate()
         }
         // make the move
         Coordinate move = Coordinate(cur_idx.first, cur_idx.second);
-        if (this->board->is_valid_move(cur, move)) {
+        if (this->board->is_valid_move(cur, move).valid) {
             return false;
         }
     }

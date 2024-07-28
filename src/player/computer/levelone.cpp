@@ -20,8 +20,7 @@ void LevelOne::move()
         return;
     }
 
-    int index
-        = this->random_number(0, possible_moves.size() - 1, possible_moves.size());
+    int index = this->random_number(0, possible_moves.size(), possible_moves.size());
 
     auto it = possible_moves.begin();
     std::advance(it, index);
