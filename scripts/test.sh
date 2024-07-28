@@ -4,5 +4,5 @@ make clean
 
 make
 
-./tests/test.sh
+./tests/run_tests.sh
 
