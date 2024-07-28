@@ -9,9 +9,9 @@
 #include "enum.h"
 #include "game.h"
 #include "globals.h"
-#include "util.h"
 #include "struct/coordinate.h"
 #include "struct/move.h"
+#include "util.h"
 
 // ----------------------------- Other ---------------------------- //
 #include <algorithm>
@@ -185,8 +185,10 @@ void generateSingleGameExpect(int i)
 
         findValidMove(boardGOOD, move_list, m, move[j], j);
 
-
         boardGOOD.makeMove(m);
+        if (!NormBoard->is_valid_move(a, b)) {
+            std::cout << "BADDDD\n";
+        }
         NormChess->make_move(a, b, NormPieceMap[promo]);
     }
 }
@@ -203,6 +205,7 @@ void writeTestExpected(std::vector<int> ids)
 
 int main()
 {
+    // std::cout << "ASD";
     std::vector<int> stalemates, checkmates, resign;
     getDataFromDatabase();
 
