@@ -36,8 +36,7 @@ int main(int argc, char* argv[])
     while (true) {
         std::getline(std::cin, line);
         if (std::cin.eof() || is_eof_given) {
-            std::cout << "CTRL-D detected" << std::endl;
-            /* CHESS->get_scores(); */
+            CHESS->get_scores();
             break;
         }
 

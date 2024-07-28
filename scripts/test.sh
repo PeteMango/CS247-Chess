@@ -2,12 +2,7 @@
 
 make clean
 
-make 
+make
 
-rm tests/chess
+./tests/run_tests.sh
 
-cp out/chess tests/
-
-cd tests/
-
-python3 run_tests.py
