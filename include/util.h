@@ -24,6 +24,8 @@ extern const std::unordered_map<std::string, PlayerType> StringToPlayer;
 
 extern const std::unordered_map<Color, std::unordered_map<PieceType, char>> pieces;
 
+extern const std::unordered_map<Color, Result> ColorToResult;
+
 bool validate_player(std::string player);
 
 bool validate_coordinate(std::string coordinate);
@@ -55,6 +57,8 @@ std::pair<int, int> add_pairs(std::pair<int, int> a, std::pair<int, int> b);
 bool coordinate_in_bounds(std::pair<int, int> a);
 
 PieceType PromotionTypeToPieceType(PromotionType pt);
+
+Result color_to_result(Color c);
 
 Color toggle_color(Color c);
 

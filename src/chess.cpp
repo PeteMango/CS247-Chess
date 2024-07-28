@@ -4,6 +4,7 @@
 #include "display/graphicsdisplay.h"
 #include "display/textdisplay.h"
 #include "game.h"
+#include "util.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -27,12 +28,19 @@ std::shared_ptr<Chess> createChess(bool graphics_mode)
     return c;
 }
 
-void Chess::resign() { throw std::invalid_argument("unimplemented"); }
+void Chess::resign()
+{
+    std::shared_ptr<Game> g = this->get_last_game();
+    Color winner = toggle_color(g->get_board()->get_active_color());
+    g->end_game(color_to_result(winner));
+    this->notify_displays();
+    this->notify_status(DisplayStatus::RESIGN, winner);
+}
 
 void Chess::setup_board(std::istream& in, bool& is_eof_given)
 {
     // empty game
-    std::shared_ptr<Game> game = std::make_shared<Game>(shared_from_this(), false);
+    std::shared_ptr<Game> game = createGame(shared_from_this(), false);
     this->games.push_back(game);
     this->get_last_game()->setup_board(in, is_eof_given);
 }
@@ -67,7 +75,7 @@ void Chess::start_game(PlayerType white, PlayerType black)
 
     // create new
     if (!(this->has_game() && !g->is_game_complete() && !g->is_game_started())) {
-        g = std::make_shared<Game>(shared_from_this(), true);
+        g = createGame(shared_from_this(), true);
         this->games.push_back(g);
     }
 
@@ -85,7 +93,26 @@ void Chess::make_move(Coordinate start, Coordinate end, PromotionType promotion)
     g->make_move(start, end, promotion);
 }
 
-void Chess::get_scores() { throw std::invalid_argument("unimplemented"); }
+void Chess::get_scores()
+{
+    int white = 0;
+    int black = 0;
+    for (long unsigned int i = 0; i < this->games.size(); i++) {
+        if (!games[i]->is_game_complete()) {
+            continue;
+        }
+        Result r = games[i]->get_result();
+        if (r == Result::WHITE_WIN) {
+            white += 2;
+        } else if (r == Result::BLACK_WIN) {
+            black += 2;
+        } else if (r == Result::DRAW) {
+            white += 1;
+            black += 1;
+        }
+    }
+    this->notify_results(white, black);
+}
 
 void Chess::notify_displays()
 {
@@ -94,10 +121,17 @@ void Chess::notify_displays()
     }
 }
 
-void Chess::notify_status()
+void Chess::notify_status(DisplayStatus s, Color c)
 {
     for (long unsigned int i = 0; i < this->displays.size(); i++) {
-        displays[i]->show_status();
+        displays[i]->show_status(s, c);
+    }
+}
+
+void Chess::notify_results(int white_doubled_results, int black_doubled_results)
+{
+    for (long unsigned int i = 0; i < this->displays.size(); i++) {
+        displays[i]->show_results(white_doubled_results, black_doubled_results);
     }
 }
 
@@ -151,6 +185,16 @@ std::shared_ptr<Players> Chess::get_last_game_players()
 }
 
 // call has players, etc
-bool Chess::can_make_move() { return true; }
+bool Chess::can_make_move()
+{
+    if (!this->has_game()) {
+        return false;
+    }
+    std::shared_ptr<Game> g = this->get_last_game();
+    if (g->is_game_started() && !g->is_game_complete()) {
+        return true;
+    }
+    return false;
+}
 
 bool Chess::can_setup_board() { return this->is_game_not_running(); }
