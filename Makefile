@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++20 -Wall -g -Iinclude 
+CXXFLAGS = -std=c++14 -Wall -g -Iinclude 
 LDFLAGS = -lX11
 EXEC = out/chess
 SRC_DIR = src

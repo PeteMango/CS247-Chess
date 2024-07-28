@@ -10,7 +10,7 @@
 int main(int argc, char* argv[])
 {
     bool debug_mode = false;
-    bool graphics_mode = true;
+    bool graphics_mode = false;
     for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];
         if (arg == "--debug" || arg == "-d") {
