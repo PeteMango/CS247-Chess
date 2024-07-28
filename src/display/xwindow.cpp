@@ -79,6 +79,11 @@ void xwindow::drawPiece(int col, int row, char piece)
 {
     if (col >= 0 && row >= 0 && rendered_board[col][row] == piece)
         return;
+
+    int color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
+    if (rendered_board[col][row] != ']' && col >= 0 && row >= 0)
+        fillGrid(col, row, color);
+
     rendered_board[col][row] = piece;
 
     int x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
