@@ -7,13 +7,17 @@
 
 class Piece;
 
-struct Move {
-    std::shared_ptr<Piece> piece;
-    Coordinate start;
-    Coordinate end;
-    PromotionType promotion;
-    Move(std::shared_ptr<Piece> piece, Coordinate start,
-        Coordinate end, PromotionType promotion);
+struct MoveFlags {
+    bool valid;
+    bool check;
+    bool capture;
+
+    MoveFlags(bool valid, bool check, bool capture)
+        : valid(valid)
+        , check(check)
+        , capture(capture)
+    {
+    }
 };
 
 #endif

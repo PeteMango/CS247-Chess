@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
                 Coordinate start_coordinate(start);
                 Coordinate end_coordinate(end);
 
-                if (!b->is_valid_move(start_coordinate, end_coordinate)) {
+                if (!b->is_valid_move(start_coordinate, end_coordinate).valid) {
                     throw std::invalid_argument("invalid move");
                 }
                 if (b->is_promotion(start_coordinate, end_coordinate)
