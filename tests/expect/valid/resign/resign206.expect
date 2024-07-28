@@ -2488,7 +2488,17 @@ Black is in check.
 1 r _ _ _ 
 
   abcdefgh
-Black wins!
+8  _ _ _ _
+7 _ _ _ _ 
+6  _ _ p _
+5 _ _ _ p 
+4  _ _ _Pk
+3 _ _ _P_ 
+2  _ _R_K_
+1 r _ _ _ 
+
+  abcdefgh
+White wins!
 Final Score:
-White: 0
-Black: 1
+White: 1
+Black: 0
