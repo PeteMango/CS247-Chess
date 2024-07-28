@@ -121,6 +121,9 @@ game human human
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 91da449 (fix)
 =======
 >>>>>>> 91da449 (fix)
 move d2 d4
@@ -252,12 +255,15 @@ move e6 d5
 resign
 game human human
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
 =======
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 91da449 (fix)
 move e2 e4
 move e7 e5
 move b1 c3
@@ -449,131 +455,3 @@ move c5 c4
 move d3 c4
 move b5 a5
 move c4 a4
-game human human
-move d2 d4
-move g8 f6
-move c2 c4
-move e7 e6
-move g2 g3
-move d7 d5
-move f1 g2
-move f8 e7
-move g1 f3
-move e8 g8
-move e1 g1
-move a7 a5
-move d1 c2
-move c7 c6
-move f1 d1
-move b8 d7
-move a2 a3
-move b7 b6
-move b1 d2
-move c8 b7
-move e2 e4
-move a8 c8
-move e4 e5
-move f6 e8
-move b2 b4
-move a5 b4
-move a3 b4
-move e7 b4
-move a1 a7
-move c8 b8
-move d2 f1
-move b4 e7
-move h2 h4
-move e8 c7
-move f3 g5
-move e7 g5
-move c1 g5
-move d8 c8
-move c2 c1
-move d5 c4
-move h4 h5
-move c7 b5
-move h5 h6
-move f7 f6
-move g2 h3
-move c8 e8
-move h6 g7
-move f8 f7
-move e5 f6
-move d7 f6
-move d1 e1
-move b5 d4
-move h3 g2
-move d4 b5
-move g2 h3
-move b5 d4
-move h3 g2
-move d4 b5
-move g2 h3
-move b5 d4
-move h3 g2
-move d4 b5
-move c1 c4
-move f6 d5
-move f1 h2
-move f7 g7
-move g2 d5
-move c6 d5
-move c4 f4
-move b5 a7
-move h2 g4
-move g7 g6
-move g4 h6
-move g6 h6
-move g5 h6
-move a7 c6
-move e1 e5
-move c6 e5
-move f4 e5
-move e8 e7
-move e5 b8
-move g8 f7
-move h6 e3
-move e6 e5
-move e3 g5
-move e7 g5
-move b8 b7
-move f7 e6
-move b7 c6
-move e6 f5
-move c6 d5
-move g5 c1
-move g1 g2
-move c1 c7
-move f2 f3
-move h7 h5
-move d5 b3
-move f5 f6
-move b3 d3
-move c7 c5
-move d3 d8
-move f6 f7
-move d8 d7
-move f7 f6
-move d7 d8
-move f6 e6
-move d8 g8
-move e6 d6
-move g8 g6
-move d6 d5
-move g6 e4
-move d5 e6
-move e4 g6
-move e6 d5
-move g6 e4
-move d5 e6
-move e4 g6
-move e6 d5
-move g6 e4
-move d5 d6
-move e4 g6
-move d6 d5
-move g6 e4
-move d5 e6
-move e4 g6
-move e6 d5
-resign
