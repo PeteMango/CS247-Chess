@@ -103,6 +103,15 @@ bool Piece::is_valid_move(Coordinate c)
     return s.find(c) != s.end();
 }
 
+char Piece::get_piece_character()
+{
+    char c = PieceTypeToString.at(this->type)[0];
+    if (this->color == Color::BLACK) {
+        return std::tolower(c);
+    }
+    return c;
+}
+
 /* getter methods */
 Color Piece::get_color() { return this->color; }
 PieceType Piece::get_piece_type() { return this->type; }
