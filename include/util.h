@@ -48,6 +48,8 @@ std::pair<int, int> get_grid_indexes(Coordinate c);
 
 std::pair<int, int> get_grid_indexes(std::pair<int, int> a);
 
+std::pair<char, int> get_print_coordinate(std::pair<int, int> c);
+
 std::pair<int, int> add_pairs(std::pair<int, int> a, std::pair<int, int> b);
 
 bool coordinate_in_bounds(std::pair<int, int> a);

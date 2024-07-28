@@ -1,0 +1,20 @@
+Failure: castle when king is in check
+!
+game human human
+move e2 e4
+move c7 c5
+move f1 c4
+move b7 b6
+move g1 h3
+move a7 a6
+move b2 b3
+move d8 c7
+move a2 a3
+move c7 g3
+move h3 g5 
+move g3 g2
+move b3 b4
+move g2 f3
+move h2 h3
+move f3 e3
+move e1 g1

@@ -81,22 +81,20 @@ def RunTest():
                     print(f"An unexpected error occurred: {e}")
             total += 1
 
-    print("\n\n")
-    print(f"TOTAL: {total}")
-    print(f"PASSED: {passed}")
-    print(f"CRASHED: {crash}")
-
     print("\n\nCRASHED TEST CASES:")
     for crash_file, error in crashed:
         print(f"File: {crash_file}")
-        with open(crash_file, "r") as file:
-            print(file.read())
-        print(f"Error: {error}")
+        # with open(crash_file, "r") as file:
+        #     print(file.read())
+        # print(f"Error: {error}")
         print("\n")
 
+    print(f"TOTAL: {total}")
+    print(f"PASSED: {passed}")
+    print(f"CRASHED: {crash}")
     # Check if the number of crashes is equal to the number of files that start with "fail"
     if crash == fail_files_count:
-        print("TESTCASES PASS")
+        print("\nTESTCASES PASS")
     else:
         raise AssertionError(
             f"Discrepancy found: {crash} crashes vs. {fail_files_count} 'fail' files."

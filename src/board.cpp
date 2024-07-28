@@ -107,8 +107,9 @@ Board::Board(const std::string& fen)
                     col++;
                 }
             } else {
-                // this->board[row][col]
-                //     = std::make_shared<Piece>(c);
+                this->grid[row][col] = this->create_piece(
+                    (c >= 'a' and c <= 'z') ? Color::BLACK : Color::WHITE,
+                    Coordinate { row, col }, string_to_piecetype(std::string { c }));
                 col++;
             }
         }
@@ -116,9 +117,9 @@ Board::Board(const std::string& fen)
     }
 
     /* set active color */
-    std::string activeColor;
+    char activeColor;
     fenStream >> activeColor;
-    if (activeColor[0] == 'b') {
+    if (activeColor == 'b') {
         this->active_color = Color::BLACK;
     } else {
         this->active_color = Color::WHITE;
@@ -143,7 +144,6 @@ Board::Board(const std::string& fen)
     /* empassant target square */
     std::string empassant;
     fenStream >> empassant;
-
     if (empassant != "-") {
         this->en_passant_target = std::make_unique<Coordinate>(
             empassant[1] - '0', empassant[0] - 'a' + 1);
@@ -163,13 +163,10 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
     if (p->get_color() != this->active_color) {
         return false;
     }
-    bool valid_enpassant = false;
-    if (!p->is_valid_move(end)) {
-        valid_enpassant = this->is_valid_enpassant(start, end);
-        bool valid_castle = this->is_valid_castle(start, end);
-        if (!valid_enpassant && !valid_castle) {
-            return false;
-        }
+    bool valid_enpassant = this->is_valid_enpassant(start, end);
+    bool valid_castle = this->is_valid_castle(start, end);
+    if (!p->is_valid_move(end) and !valid_castle and !valid_enpassant) {
+        return false;
     }
     // check for checks here
     std::pair<int, int> end_idx = get_grid_indexes(end);
@@ -177,6 +174,7 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         = this->create_piece(p->get_color(), end, p->get_piece_type());
     std::set<Coordinate> s;
     std::shared_ptr<Piece> taken_piece = nullptr;
+
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
         this->delete_piece(taken_piece);
@@ -186,26 +184,30 @@ bool Board::is_valid_move(Coordinate start, Coordinate end)
         taken_piece = this->grid[taken_piece_idx.first][taken_piece_idx.second];
         this->delete_piece(taken_piece);
     }
+
+    /* make the actual move */
     this->delete_piece(p);
     this->add_piece(new_p);
     this->get_threatened_squares_by_color(s, toggle_color(p->get_color()));
+
+    /* check if making the move makes the game state invalid */
     bool invalid = false;
-    if (p->get_color() == Color::WHITE && this->white_king
-        && s.find(this->white_king->get_coordinate()) != s.end()) {
+    if (p->get_color() == Color::WHITE and this->white_king
+        and s.find(this->white_king->get_coordinate()) != s.end()) {
         invalid = true;
-    } else if (p->get_color() == Color::BLACK && this->black_king
-        && s.find(this->black_king->get_coordinate()) != s.end()) {
+    } else if (p->get_color() == Color::BLACK and this->black_king
+        and s.find(this->black_king->get_coordinate()) != s.end()) {
         invalid = true;
     }
+
+    /* restore original game state if new state is invalid */
     this->delete_piece(new_p);
     this->add_piece(p);
     if (taken_piece) {
         this->add_piece(taken_piece);
     }
-    if (invalid) {
-        return false;
-    }
-    return true;
+
+    return !invalid;
 }
 
 std::string Board::make_move(
@@ -215,7 +217,7 @@ std::string Board::make_move(
     std::pair<int, int> ending_idx = get_grid_indexes(end);
     std::shared_ptr<Piece> p = this->grid[starting_idx.first][starting_idx.second];
 
-    // capture
+    /* capture */
     if (this->grid[ending_idx.first][ending_idx.second] != nullptr) {
         std::shared_ptr<Piece> taken
             = this->grid[ending_idx.first][ending_idx.second];
@@ -230,12 +232,12 @@ std::string Board::make_move(
     } else if (this->is_valid_castle(start, end)) {
         Coordinate rook_coord;
         std::pair<int, int> d;
-        // kingside
+        /* kingside */
         if (start.column < end.column) {
             rook_coord = this->get_castle_rook(p->get_color(), CastleSide::KINGSIDE);
             d = { 0, -2 };
         }
-        // queenside
+        /* queenside */
         else {
             rook_coord
                 = this->get_castle_rook(p->get_color(), CastleSide::QUEENSIDE);
@@ -253,7 +255,7 @@ std::string Board::make_move(
         this->add_piece(new_rook);
     }
 
-    // if its a double move it can't be an en passant
+    /* if its a double move it can be an en-passant */
     if (this->is_double_pawn_move(start, end)) {
         std::shared_ptr<Coordinate> enpassant
             = this->get_enpassant_square_coordinate(end);
@@ -262,6 +264,7 @@ std::string Board::make_move(
         this->add_enpassant_target(nullptr);
     }
 
+    /* check promotion */
     std::shared_ptr<Piece> new_p = nullptr;
     if (this->is_promotion(start, end)) {
         new_p = this->create_piece(
@@ -272,9 +275,9 @@ std::string Board::make_move(
     this->delete_piece(p);
     this->add_piece(new_p);
 
-    // revoke castle rights
+    /* if moved king, then revoke the possibility of a castle */
     if (p->get_piece_type() == PieceType::KING) {
-        for (auto i : this->castle_rights[p->get_color()]) {
+        for (auto& i : this->castle_rights[p->get_color()]) {
             i.second = false;
         }
     } else if (p->get_piece_type() == PieceType::ROOK) {
@@ -287,13 +290,16 @@ std::string Board::make_move(
         }
     }
 
+    /* increment clocks */
     if (this->get_active_color() == Color::BLACK) {
         this->increment_halfmove_clock();
     }
     this->increment_fullmove_clock();
     this->toggle_active_color();
-    // TODO: fen
-    return "";
+
+    /* serialize board */
+    // std::cout << "fen: " << this->serialize() << std::endl;
+    return this->serialize();
 }
 
 void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
@@ -510,29 +516,24 @@ std::string Board::serialize()
     /* board pieces */
     std::string fen = "";
 
-    for (const std::vector<std::shared_ptr<Piece>>& pc : this->grid) {
+    for (int i = static_cast<int>(this->grid.size()) - 1; i >= 0; --i) {
+        std::vector<std::shared_ptr<Piece>> pc = this->grid[i];
         int numEmpty = 0;
         for (std::shared_ptr<Piece> p : pc) {
-            if (p == nullptr) {
+            if (!p) {
                 numEmpty += 1;
                 continue;
             }
-            if (p->get_color() == Color::WHITE) {
-                PieceType pt = p->get_piece_type();
-
-                /* if there are empty spaces before */
-                if (numEmpty > 0) {
-                    fen.append(std::to_string(numEmpty));
-                    numEmpty = 0;
-                }
-
-                /* TODO: replace the piece's enum with the
-                 * appropriate character
-                 * append the piece type to the string */
-                fen.append(std::to_string(int(pt)));
+            if (numEmpty > 0) {
+                fen.append(std::to_string(numEmpty));
+                numEmpty = 0;
             }
-            fen.append("/");
+            fen.append(std::string { p->get_piece_character() });
         }
+        if (numEmpty > 0) {
+            fen.append(std::to_string(numEmpty));
+        }
+        fen.append("/");
     }
     /* pop the last slash */
     fen.pop_back();
@@ -567,7 +568,12 @@ std::string Board::serialize()
     /* en passant possible */
     if (this->en_passant_target == nullptr) {
         fen.append(" - ");
+    } else {
+        fen.append(std::string { this->en_passant_target->column }
+            + std::to_string(this->en_passant_target->row));
     }
+
+    fen.append(" ");
 
     /* half/full moves */
     fen.append(std::to_string(this->halfmove_clock) + " "
@@ -682,6 +688,9 @@ bool Board::is_valid_enpassant(Coordinate start, Coordinate end)
 bool Board::is_valid_castle(Coordinate start, Coordinate end)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start);
+    if (!is_double_king_move(start, end)) {
+        return false;
+    }
     std::shared_ptr<Piece> p = this->grid[start_idx.first][start_idx.second];
     if (!p) {
         return false;
@@ -778,8 +787,9 @@ bool Board::is_double_king_move(Coordinate start, Coordinate end)
     if (p->get_piece_type() != PieceType::KING) {
         return false;
     }
-    bool valid = (end.column == 'g' || end.column == 'b') && start.row == end.row
-        && start.column == 'e';
+
+    bool valid = (end.column == 'g' || end.column == 'c') and (start.row == end.row)
+        and (start.column == 'e');
     if (!valid) {
         return false;
     }
