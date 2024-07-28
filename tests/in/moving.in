@@ -247,7 +247,7 @@ game human human
 move e1 d1
 move a8 a1
 
-
+// this doesnt work
 setup
 + K e1
 + R d1
@@ -274,3 +274,18 @@ move h2 h3
 move a8 a2
 move h3 h4
 move g5 h4
+
+setup
++ K e1
++ R a1
++ R b7
+= black
++ K e8
++ B g5
+done
+game human human
+move a1 a8
+move g5 d8
+move e1 e2
+move e8 f8
+move a8 d8
