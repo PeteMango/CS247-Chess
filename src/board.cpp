@@ -8,19 +8,20 @@
 #include "../include/util.h"
 #include "chess.h"
 #include "enum.h"
+#include "game.h"
 #include <iostream>
 #include <memory>
 #include <stdexcept>
 
 // empty
-Board::Board(std::shared_ptr<Chess> chess, bool default_board)
+Board::Board(std::shared_ptr<Game> game, bool default_board)
     : grid { 8, std::vector<std::shared_ptr<Piece>>(8, nullptr) }
     , active_color { Color::WHITE }
     , en_passant_enabled { default_board }
     , en_passant_target()
     , halfmove_clock { 0 }
     , fullmove_clock { 0 }
-    , chess { chess }
+    , game { game }
     , white_king { nullptr }
     , black_king { nullptr }
 {
@@ -89,11 +90,11 @@ void Board::setup_default_board()
     this->verify_board();
 }
 
-Board::Board(std::shared_ptr<Chess> chess, const std::string& fen)
+Board::Board(std::shared_ptr<Game> game, const std::string& fen)
     : en_passant_enabled { true }
     , halfmove_clock { 0 }
     , fullmove_clock { 0 }
-    , chess { chess }
+    , game { game }
 {
     std::istringstream fenStream(fen);
     std::string curLine;
@@ -306,15 +307,17 @@ std::string Board::make_move(
         status = DisplayStatus::CHECKMATE;
         // winner
         color = toggle_color(this->active_color);
+        this->game->end_game(color_to_result(color));
     } else if (this->is_stalemate((this->active_color))) {
         status = DisplayStatus::STALEMATE;
+        this->game->end_game(Result::DRAW);
     } else if (this->is_check((this->active_color))) {
         status = DisplayStatus::CHECK;
         // color in check
         color = (this->active_color);
     }
-    this->chess->notify_displays();
-    this->chess->notify_status(status, color);
+    this->game->get_chess()->notify_displays();
+    this->game->get_chess()->notify_status(status, color);
 
     /* serialize board */
     // std::cout << "fen: " << this->serialize() << std::endl;

@@ -1,8 +1,10 @@
 #include "display/textdisplay.h"
 #include "chess.h"
+#include "enum.h"
 #include "game.h"
 #include "piece/piece.h"
 #include "util.h"
+#include <iomanip>
 #include <iostream>
 
 TextDisplay::TextDisplay(std::shared_ptr<Chess> chess)
@@ -55,7 +57,6 @@ void TextDisplay::show_status(DisplayStatus s, Color c)
     }
     std::shared_ptr<Game> g = this->chess->get_last_game();
     std::shared_ptr<Board> b = g->get_board();
-    // TODO: resigning
     if (s == DisplayStatus::CHECKMATE) {
         std::cout << "Checkmate! " << ColorToPrintString.at(c) << " wins!"
                   << std::endl;
@@ -63,5 +64,28 @@ void TextDisplay::show_status(DisplayStatus s, Color c)
         std::cout << "Stalemate!" << std::endl;
     } else if (s == DisplayStatus::CHECK) {
         std::cout << ColorToPrintString.at(c) << " is in check." << std::endl;
+    } else if (s == DisplayStatus::RESIGN) {
+        std::cout << ColorToPrintString.at(c) << " wins!" << std::endl;
+    }
+}
+
+void TextDisplay::show_results(int white_doubled_results, int black_doubled_results)
+{
+    std::cout << "Final Score:" << std::endl;
+    std::cout << "White: ";
+    this->display_doubled_number(white_doubled_results);
+    std::cout << std::endl;
+    std::cout << "Black: ";
+    this->display_doubled_number(black_doubled_results);
+    std::cout << std::endl;
+}
+
+void TextDisplay::display_doubled_number(int num)
+{
+    float res = num / 2.0f;
+    if (num % 2 == 0) {
+        std::cout << static_cast<int>(res);
+    } else {
+        std::cout << std::fixed << std::setprecision(1) << res;
     }
 }

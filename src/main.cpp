@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
         std::getline(std::cin, line);
         if (std::cin.eof() || is_eof_given) {
             std::cout << "CTRL-D detected" << std::endl;
+            /* CHESS->get_scores(); */
             break;
         }
 
@@ -57,7 +58,9 @@ int main(int argc, char* argv[])
             CHESS->start_game(
                 string_to_playertype(white), string_to_playertype(black));
         } else if (cmd == "resign") {
-            throw std::logic_error("unimplemented");
+            if (!CHESS->can_make_move()) {
+                throw std::invalid_argument("cannot call resign");
+            }
             CHESS->resign();
         } else if (cmd == "move") {
             if (!CHESS->can_make_move()) {

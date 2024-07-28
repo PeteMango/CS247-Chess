@@ -1,18 +1,30 @@
 #include "../include/game.h"
 #include "../include/util.h"
+#include "board.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 
 Game::Game(std::shared_ptr<Chess> chess, bool default_board)
-    : board { std::make_shared<Board>(chess, default_board) }
-    , is_complete { false }
+    : is_complete { false }
     , is_started { false }
     , chess { chess }
 {
+}
+
+void Game::init(bool default_board)
+{
+    this->board = std::make_shared<Board>(shared_from_this(), default_board);
     if (default_board) {
         this->board->setup_default_board();
     }
+}
+
+std::shared_ptr<Game> createGame(std::shared_ptr<Chess> chess, bool default_board)
+{
+    std::shared_ptr<Game> g = std::make_shared<Game>(chess, default_board);
+    g->init(default_board);
+    return g;
 }
 
 bool Game::is_game_complete() { return this->is_complete; }
@@ -23,10 +35,10 @@ Result Game::get_result() { return this->result; }
 
 void Game::resign() { throw std::invalid_argument("unimplemented"); }
 
-std::string Game::make_move(
-    Coordinate start, Coordinate end, PromotionType promotion)
+void Game::make_move(Coordinate start, Coordinate end, PromotionType promotion)
 {
-    throw std::invalid_argument("unimplemented");
+    std::string move = this->board->make_move(start, end, promotion);
+    this->moves.push_back(move);
 }
 
 void Game::setup_board(std::istream& in, bool& is_eof_given)
@@ -94,3 +106,5 @@ void Game::end_game(Result result)
     this->is_complete = true;
     this->result = result;
 }
+
+std::shared_ptr<Chess> Game::get_chess() { return this->chess; }

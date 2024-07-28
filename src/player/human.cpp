@@ -11,5 +11,5 @@ Human::Human(std::shared_ptr<Game> game, Color color)
 
 void Human::make_move(Coordinate start, Coordinate end, PromotionType promotion)
 {
-    this->game->get_board()->make_move(start, end, promotion);
+    this->game->make_move(start, end, promotion);
 }
