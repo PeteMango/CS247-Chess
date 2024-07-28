@@ -16,13 +16,10 @@ void GraphicsDisplay::setupBoard()
 {
     xwin_display = std::make_shared<xwindow>();
 
-    const int BLACK_SQUARE_COLOR = xwindow::Green;
-    const int WHITE_SQUARE_COLOR = xwindow::White;
-
     // draw squares
     for (int row = 7, color; row >= 0; row--)
         for (int col = 0; col < 8; col++) {
-            color = (row + col) % 2 == 0 ? BLACK_SQUARE_COLOR : WHITE_SQUARE_COLOR;
+            color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
             xwin_display->fillGrid(col, row, color);
         }
 
@@ -47,16 +44,23 @@ void GraphicsDisplay::show()
         isSetup = true;
     }
 
-    for (int row = 7; row >= 0; row--)
-        for (int col = 0; col < 8; col++)
+    for (int row = 7, color; row >= 0; row--)
+        for (int col = 0; col < 8; col++) {
+
             if (grid[row][col] != nullptr) {
                 Color pieceColor = grid[row][col]->get_color();
                 PieceType pieceType = grid[row][col]->get_piece_type();
 
                 char piece = pieces.at(pieceColor).at(pieceType);
-
                 xwin_display->drawPiece(col, row, piece);
+
+            } else if (xwin_display->rendered_board[col][row] != ']') {
+                xwin_display->rendered_board[col][row] = ']';
+                
+                color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
+                xwin_display->fillGrid(col, row, color);
             }
+        }
 }
 void GraphicsDisplay::show_status(DisplayStatus s, Color c) { }
 
