@@ -56,7 +56,7 @@ void GraphicsDisplay::show()
 
             } else if (xwin_display->rendered_board[col][row] != ']') {
                 xwin_display->rendered_board[col][row] = ']';
-                
+
                 color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
                 xwin_display->fillGrid(col, row, color);
             }
