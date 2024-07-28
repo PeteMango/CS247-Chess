@@ -106,8 +106,9 @@ Board::Board(const std::string& fen)
                     col++;
                 }
             } else {
-                this->grid[row][col] = std::make_shared<Piece>(
-                    string_to_piecetype(std::string { c }));
+                this->grid[row][col] = this->create_piece(
+                    (c >= 'a' and c <= 'z') ? Color::BLACK : Color::WHITE,
+                    Coordinate { row, col }, string_to_piecetype(std::string { c }));
                 col++;
             }
         }
@@ -297,7 +298,7 @@ std::string Board::make_move(
     this->toggle_active_color();
 
     /* serialize board */
-    // std::cout << "fen: " << this->serialize() << std::endl;
+    std::cout << "fen: " << this->serialize() << std::endl;
     return this->serialize();
 }
 
