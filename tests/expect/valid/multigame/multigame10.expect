@@ -2865,7 +2865,10 @@ White is in check.
   abcdefgh
 White is in check.
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 47519ea (update tests)
 8  _ _ _ _
 7 _k_ _ _ 
 6  r _ _ _
@@ -2876,6 +2879,10 @@ White is in check.
 1 _ _ _ _ 
 
   abcdefgh
+<<<<<<< HEAD
+=======
+White is in check.
+>>>>>>> 47519ea (update tests)
 Black wins!
 8 rnbqkbnr
 7 pppppppp

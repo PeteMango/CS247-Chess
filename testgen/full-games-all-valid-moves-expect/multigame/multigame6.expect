@@ -29,6 +29,7 @@
 1 RNBQKB_R
 
   abcdefgh
+<<<<<<< HEAD
 8 rn qkbnr
 7 ppp pppp
 6  _ _ _ _
@@ -1974,6 +1975,8 @@ Checkmate! White wins!
 1 RNBQKB_R
 
   abcdefgh
+=======
+>>>>>>> 47519ea (update tests)
 8 r_bqkbnr
 7 pp_ppppp
 6  _n_ _ _
@@ -8206,6 +8209,7 @@ White is in check.
   abcdefgh
 White wins!
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 47519ea (update tests)
 =======
 8 rnbqkbnr
@@ -11107,6 +11111,8 @@ Black is in check.
   abcdefgh
 Stalemate!
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 47519ea (update tests)
 Final Score:
 White: 2.5
 Black: 0.5

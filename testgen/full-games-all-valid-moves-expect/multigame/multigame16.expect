@@ -6909,8 +6909,11 @@ White is in check.
   abcdefgh
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Black wins!
 =======
+=======
+>>>>>>> 47519ea (update tests)
 White is in check.
 Black wins!
 8 rnbqkbnr
@@ -9347,10 +9350,13 @@ Black is in check.
 
   abcdefgh
 Stalemate!
+<<<<<<< HEAD
 >>>>>>> 47519ea (update tests)
 =======
 Black wins!
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 47519ea (update tests)
 Final Score:
 White: 0.5
 Black: 2.5

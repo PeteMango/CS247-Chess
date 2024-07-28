@@ -10,6 +10,7 @@
   abcdefgh
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 91da449 (fix)
 8 rnbqkbnr
@@ -761,6 +762,8 @@ Black wins!
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 47519ea (update tests)
 8 rnbqkb r
 7 pppppppp
 6  _ _ n _
@@ -3782,7 +3785,10 @@ White is in check.
 Checkmate! White wins!
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 47519ea (update tests)
 8 rnbqkbnr
 7 pppppppp
 6  _ _ _ _
@@ -4528,9 +4534,12 @@ White is in check.
   abcdefgh
 White is in check.
 Black wins!
+<<<<<<< HEAD
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 47519ea (update tests)
 Final Score:
 White: 1.5
 Black: 1.5
