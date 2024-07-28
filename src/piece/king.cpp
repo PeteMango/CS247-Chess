@@ -44,7 +44,7 @@ bool King::in_checkmate()
             return false;
         }
     }
-    return true;
+    return this->in_check();
 }
 
 void King::get_threatened_squares(std::set<Coordinate>& s)
