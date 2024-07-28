@@ -298,7 +298,7 @@ std::string Board::make_move(
     this->toggle_active_color();
 
     /* serialize board */
-    std::cout << "fen: " << this->serialize() << std::endl;
+    // std::cout << "fen: " << this->serialize() << std::endl;
     return this->serialize();
 }
 
