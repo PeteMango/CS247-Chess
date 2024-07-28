@@ -1,0 +1,884 @@
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _N_ 
+2 PPPPPPPP
+1 RNBQKB_R
+
+  abcdefgh
+Black is in check.
+8 rnbqkb r
+7 pppppppp
+6  _ _ n _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _N_ 
+2 PPPPPPPP
+1 RNBQKB_R
+
+  abcdefgh
+White is in check.
+8 rnbqkb r
+7 pppppppp
+6  _ _ n _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _NP 
+2 PPPPPP P
+1 RNBQKB_R
+
+  abcdefgh
+Black is in check.
+8 rnbqkb r
+7 ppp pppp
+6  _ _ n _
+5 _ _p_ _ 
+4  _ _ _ _
+3 _ _ _NP 
+2 PPPPPP P
+1 RNBQKB_R
+
+  abcdefgh
+White is in check.
+8 rnbqkb r
+7 ppp pppp
+6  _ _ n _
+5 _ _p_ _ 
+4  _ P _ _
+3 _ _ _NP 
+2 PPP_PP P
+1 RNBQKB_R
+
+  abcdefgh
+Black is in check.
+8 rnbqkb r
+7 ppp _ppp
+6  _ _pn _
+5 _ _p_ _ 
+4  _ P _ _
+3 _ _ _NP 
+2 PPP_PP P
+1 RNBQKB_R
+
+  abcdefgh
+White is in check.
+8 rnbqkb r
+7 ppp _ppp
+6  _ _pn _
+5 _ _p_ _ 
+4  _ P _ _
+3 _ _ _NP 
+2 PPP_PPBP
+1 RNBQK _R
+
+  abcdefgh
+Black is in check.
+8 rnbqkb r
+7 pp_ _ppp
+6  _ _pn _
+5 _ pp_ _ 
+4  _ P _ _
+3 _ _ _NP 
+2 PPP_PPBP
+1 RNBQK _R
+
+  abcdefgh
+White is in check.
+8 rnbqkb r
+7 pp_ _ppp
+6  _ _pn _
+5 _ pp_ _ 
+4  _PP _ _
+3 _ _ _NP 
+2 PP _PPBP
+1 RNBQK _R
+
+  abcdefgh
+Black is in check.
+8 rnbqkb r
+7 pp_ _ppp
+6  _ _pn _
+5 _ _p_ _ 
+4  _Pp _ _
+3 _ _ _NP 
+2 PP _PPBP
+1 RNBQK _R
+
+  abcdefgh
+White is in check.
+8 rnbqkb r
+7 pp_ _ppp
+6  _ _pn _
+5 _ _p_ _ 
+4  _Pp _ _
+3 _ _ _NP 
+2 PP _PPBP
+1 RNBQ_RK 
+
+  abcdefgh
+Black is in check.
+8 rnbqk_ r
+7 pp_ bppp
+6  _ _pn _
+5 _ _p_ _ 
+4  _Pp _ _
+3 _ _ _NP 
+2 PP _PPBP
+1 RNBQ_RK 
+
+  abcdefgh
+White is in check.
+8 rnbqk_ r
+7 pp_ bppp
+6  _ _pn _
+5 _ _P_ _ 
+4  _ p _ _
+3 _ _ _NP 
+2 PP _PPBP
+1 RNBQ_RK 
+
+  abcdefgh
+Black is in check.
+8 rnbqk_ r
+7 pp_ bppp
+6  _ _p_ _
+5 _ _n_ _ 
+4  _ p _ _
+3 _ _ _NP 
+2 PP _PPBP
+1 RNBQ_RK 
+
+  abcdefgh
+White is in check.
+8 rnbqk_ r
+7 pp_ bppp
+6  _ _p_ _
+5 _ _n_ _ 
+4  _ N _ _
+3 _ _ _ P 
+2 PP _PPBP
+1 RNBQ_RK 
+
+  abcdefgh
+Black is in check.
+8 rnbq rk_
+7 pp_ bppp
+6  _ _p_ _
+5 _ _n_ _ 
+4  _ N _ _
+3 _ _ _ P 
+2 PP _PPBP
+1 RNBQ_RK 
+
+  abcdefgh
+White is in check.
+8 rnbq rk_
+7 pp_ bppp
+6  _ _p_ _
+5 _ _n_ _ 
+4  _ N _ _
+3 _Q_ _ P 
+2 PP _PPBP
+1 RNB _RK 
+
+  abcdefgh
+Black is in check.
+8 rnb_ rk_
+7 pp_ bppp
+6  q _p_ _
+5 _ _n_ _ 
+4  _ N _ _
+3 _Q_ _ P 
+2 PP _PPBP
+1 RNB _RK 
+
+  abcdefgh
+White is in check.
+8 rnb_ rk_
+7 pp_ bppp
+6  Q _p_ _
+5 _ _n_ _ 
+4  _ N _ _
+3 _ _ _ P 
+2 PP _PPBP
+1 RNB _RK 
+
+  abcdefgh
+Black is in check.
+8 rnb_ rk_
+7 _p_ bppp
+6  p _p_ _
+5 _ _n_ _ 
+4  _ N _ _
+3 _ _ _ P 
+2 PP _PPBP
+1 RNB _RK 
+
+  abcdefgh
+White is in check.
+8 rnb_ rk_
+7 _p_ bppp
+6  p _p_ _
+5 _N_n_ _ 
+4  _ _ _ _
+3 _ _ _ P 
+2 PP _PPBP
+1 RNB _RK 
+
+  abcdefgh
+Black is in check.
+8 rnbr _k_
+7 _p_ bppp
+6  p _p_ _
+5 _N_n_ _ 
+4  _ _ _ _
+3 _ _ _ P 
+2 PP _PPBP
+1 RNB _RK 
+
+  abcdefgh
+White is in check.
+8 rnbr _k_
+7 _p_ bppp
+6  p _p_ _
+5 _N_B_ _ 
+4  _ _ _ _
+3 _ _ _ P 
+2 PP _PP P
+1 RNB _RK 
+
+  abcdefgh
+Black is in check.
+8 rnbr _k_
+7 _p_ bppp
+6  p _ _ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ _ _ P 
+2 PP _PP P
+1 RNB _RK 
+
+  abcdefgh
+White is in check.
+8 rnbr _k_
+7 _p_ bppp
+6  p _ _ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ _ B P 
+2 PP _PP P
+1 RN_ _RK 
+
+  abcdefgh
+Black is in check.
+8 rnbr _k_
+7 _p_ _ppp
+6  p _ _ _
+5 _Nbp_ _ 
+4  _ _ _ _
+3 _ _ B P 
+2 PP _PP P
+1 RN_ _RK 
+
+  abcdefgh
+White is in check.
+8 rnbr _k_
+7 _p_ _ppp
+6  p _ _ _
+5 _Nbp_ _ 
+4  _ _ _ _
+3 _ _ B P 
+2 PP _PP P
+1 RNR _ K 
+
+  abcdefgh
+Black is in check.
+8 rnbr _k_
+7 _p_ _ppp
+6  p _ _ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ _ b P 
+2 PP _PP P
+1 RNR _ K 
+
+  abcdefgh
+White is in check.
+8 rnbr _k_
+7 _p_ _ppp
+6  p _ _ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ _ P P 
+2 PP _P_ P
+1 RNR _ K 
+
+  abcdefgh
+Black is in check.
+8 r_br _k_
+7 _p_ _ppp
+6  pn_ _ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ _ P P 
+2 PP _P_ P
+1 RNR _ K 
+
+  abcdefgh
+White is in check.
+8 r_br _k_
+7 _p_ _ppp
+6  pn_ _ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ N P P 
+2 PP _P_ P
+1 R R _ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _k_
+7 _p_ _ppp
+6  pn_b_ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _ N P P 
+2 PP _P_ P
+1 R R _ K 
+
+  abcdefgh
+White is in check.
+8 r_ r _k_
+7 _p_ _ppp
+6  pn_b_ _
+5 _N_p_ _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ _P_ P
+1 R R _ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _k_
+7 _p_ _p_p
+6  pn_b_p_
+5 _N_p_ _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ _P_ P
+1 R R _ K 
+
+  abcdefgh
+White is in check.
+8 r_ r _k_
+7 _p_ _p_p
+6  pn_b_p_
+5 _N_p_ _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ _P_ P
+1 R _R_ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  pn_b_p_
+5 _N_p_ _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ _P_ P
+1 R _R_ K 
+
+  abcdefgh
+White is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  pn_b_p_
+5 _N_p_ _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ RP_ P
+1 R _ _ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_pn _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ RP_ P
+1 R _ _ K 
+
+  abcdefgh
+White is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_pn _ 
+4  _ _ _ _
+3 _PN P P 
+2 P_ RP_ P
+1 _ _R_ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_p_ _ 
+4  _ _ _n_
+3 _PN P P 
+2 P_ RP_ P
+1 _ _R_ K 
+
+  abcdefgh
+White is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_p_ _ 
+4  _ _P_n_
+3 _PN _ P 
+2 P_ RP_ P
+1 _ _R_ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_p_ _ 
+4  _ _P_ _
+3 _PN n P 
+2 P_ RP_ P
+1 _ _R_ K 
+
+  abcdefgh
+White is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_p_ _ 
+4  _ _P_ _
+3 _PN n P 
+2 P_ RP_ P
+1 _ R _ K 
+
+  abcdefgh
+Black is in check.
+8 r_ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_ _ _ 
+4  _ _p_ _
+3 _PN n P 
+2 P_ RP_ P
+1 _ R _ K 
+
+  abcdefgh
+White is in check.
+8 r_ R _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_ _ _ 
+4  _ _p_ _
+3 _PN n P 
+2 P_ _P_ P
+1 _ R _ K 
+
+  abcdefgh
+Black is in check.
+8  _ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_ _ _ 
+4  _ _p_ _
+3 _PN n P 
+2 P_ _P_ P
+1 _ R _ K 
+
+  abcdefgh
+White is in check.
+8  _ r _ _
+7 _p_ _pkp
+6  p _b_p_
+5 _N_ _ _ 
+4  _ _N_ _
+3 _P_ n P 
+2 P_ _P_ P
+1 _ R _ K 
+
+  abcdefgh
+Black is in check.
+8  _ r _ _
+7 _p_b_pkp
+6  p _ _p_
+5 _N_ _ _ 
+4  _ _N_ _
+3 _P_ n P 
+2 P_ _P_ P
+1 _ R _ K 
+
+  abcdefgh
+White is in check.
+8  _ r _ _
+7 _p_b_pkp
+6  p N _p_
+5 _N_ _ _ 
+4  _ _ _ _
+3 _P_ n P 
+2 P_ _P_ P
+1 _ R _ K 
+
+  abcdefgh
+Black is in check.
+8  _ r _ _
+7 _p_ _pkp
+6  pbN _p_
+5 _N_ _ _ 
+4  _ _ _ _
+3 _P_ n P 
+2 P_ _P_ P
+1 _ R _ K 
+
+  abcdefgh
+White is in check.
+8  _ r _ _
+7 _p_ _pkp
+6  pbN _p_
+5 _N_ _ _ 
+4  _ _ _ _
+3 _P_ n PP
+2 P_ _P_ _
+1 _ R _ K 
+
+  abcdefgh
+Black is in check.
+8  _ r _ _
+7 _p_ _pkp
+6  pbN _p_
+5 _N_n_ _ 
+4  _ _ _ _
+3 _P_ _ PP
+2 P_ _P_ _
+1 _ R _ K 
+
+  abcdefgh
+White is in check.
+8  _ r _ _
+7 _p_ _pkp
+6  pbN _p_
+5 _N_n_ _ 
+4 P_ _ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ R _ K 
+
+  abcdefgh
+Black is in check.
+8  _ r k _
+7 _p_ _p_p
+6  pbN _p_
+5 _N_n_ _ 
+4 P_ _ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ R _ K 
+
+  abcdefgh
+White is in check.
+8  _ r k _
+7 _p_ _p_p
+6  pbN _p_
+5 _N_n_ _ 
+4 P_R_ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ _ _ K 
+
+  abcdefgh
+Black is in check.
+8  _ r k _
+7 _pn _p_p
+6  pbN _p_
+5 _N_ _ _ 
+4 P_R_ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ _ _ K 
+
+  abcdefgh
+White is in check.
+8  _ r k _
+7 _pN _p_p
+6  pbN _p_
+5 _ _ _ _ 
+4 P_R_ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ _ _ K 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pbr _p_
+5 _ _ _ _ 
+4 P_R_ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ _ _ K 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pbr _p_
+5 _ _ _ _ 
+4 PR _ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ _ _ K 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ _
+3 _P_ _ PP
+2  _ _P_ _
+1 _ _r_ K 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ _
+3 _P_ _ PP
+2  _ _PK _
+1 _ _r_ _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ _
+3 _P_ _ PP
+2  _ _PK _
+1 _ _ _ _r
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _PK _
+1 _ _ _ _r
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _PK r
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _P_ r
+1 _ _ K _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _P_ _
+1 _ _ K _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _PK _
+1 _ _ _ _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _PK r
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _P_ r
+1 _ _ K _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _P_ _
+1 _ _ K _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _PK _
+1 _ _ _ _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _PK r
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _P_ r
+1 _ _ K _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _P_ _
+1 _ _ K _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _PK _
+1 _ _ _ _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _PK r
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _P_ r
+1 _ _ K _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _P_ _
+1 _ _ K _ 
+
+  abcdefgh
+White is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ Pr
+2  _ _PK _
+1 _ _ _ _ 
+
+  abcdefgh
+Black is in check.
+8  _ _ k _
+7 _pN _p_p
+6  pb_ _p_
+5 _ _ _ _ 
+4 PR _ _ P
+3 _P_ _ P 
+2  _ _PK r
+1 _ _ _ _ 
+
+  abcdefgh
+White is in check.
+White wins!
+Final Score:
+White: 1
+Black: 0
