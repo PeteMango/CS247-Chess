@@ -34,10 +34,7 @@ std::shared_ptr<Chess> createChess(bool graphics_mode)
 void Chess::resign()
 {
     std::shared_ptr<Game> g = this->get_last_game();
-    Color winner = toggle_color(g->get_board()->get_active_color());
-    g->end_game(color_to_result(winner));
-    this->notify_displays();
-    this->notify_status(DisplayStatus::RESIGN, winner);
+    g->resign();
 }
 
 void Chess::setup_board(std::istream& in, bool& is_eof_given)
@@ -63,7 +60,7 @@ std::shared_ptr<Player> Chess::create_player(PlayerType type, Color color)
         throw std::invalid_argument("not implemented");
         return std::make_shared<Computer>(this->get_last_game(), color);
     default:
-        throw std::logic_error("cant create a player that doesnt exist");
+        throw std::runtime_error("cant create a player that doesnt exist");
     }
 }
 

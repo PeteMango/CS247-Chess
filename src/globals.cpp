@@ -1,3 +1,5 @@
 #include "globals.h"
 
-bool DEBUG = false;
+bool STRICT = true;
+
+bool GRAPHICS = true;

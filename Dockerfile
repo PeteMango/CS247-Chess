@@ -12,12 +12,10 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     g++ \
     make \
-    cmake \
+    gdb \
+    valgrind \
     git \
     libx11-dev \
-    python3 \
-    python3-pip \
-    gdb \
     libc6-dbg \
     libcurl4-openssl-dev \
     && apt-get clean \

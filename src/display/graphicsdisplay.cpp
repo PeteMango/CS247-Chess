@@ -32,10 +32,11 @@ void GraphicsDisplay::setupBoard()
 
 void GraphicsDisplay::show()
 {
-    if (!this->chess->has_game()) {
+    auto chess = this->chess.lock();
+    if (!chess->has_game()) {
         return;
     }
-    std::shared_ptr<Game> g = this->chess->get_last_game();
+    std::shared_ptr<Game> g = chess->get_last_game();
     std::shared_ptr<Board> b = g->get_board();
     std::vector<std::vector<std::shared_ptr<Piece>>>& grid = b->get_grid();
 

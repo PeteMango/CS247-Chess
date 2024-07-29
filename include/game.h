@@ -14,7 +14,7 @@ class Game : public std::enable_shared_from_this<Game> {
     bool is_complete;
     bool is_started;
     Result result;
-    std::shared_ptr<Chess> chess;
+    std::weak_ptr<Chess> chess;
 
 public:
     Game(std::shared_ptr<Chess> chess, bool default_board = true);

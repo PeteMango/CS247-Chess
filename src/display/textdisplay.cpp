@@ -14,10 +14,11 @@ TextDisplay::TextDisplay(std::shared_ptr<Chess> chess)
 
 void TextDisplay::show()
 {
-    if (!this->chess->has_game()) {
+    auto chess = this->chess.lock();
+    if (!chess->has_game()) {
         return;
     }
-    std::shared_ptr<Game> g = this->chess->get_last_game();
+    std::shared_ptr<Game> g = chess->get_last_game();
     std::shared_ptr<Board> b = g->get_board();
     std::vector<std::vector<std::shared_ptr<Piece>>>& grid = b->get_grid();
 
@@ -52,10 +53,11 @@ void TextDisplay::show()
 
 void TextDisplay::show_status(DisplayStatus s, Color c)
 {
-    if (!this->chess->has_game()) {
+    auto chess = this->chess.lock();
+    if (!chess->has_game()) {
         return;
     }
-    std::shared_ptr<Game> g = this->chess->get_last_game();
+    std::shared_ptr<Game> g = chess->get_last_game();
     std::shared_ptr<Board> b = g->get_board();
     if (s == DisplayStatus::CHECKMATE) {
         std::cout << "Checkmate! " << ColorToPrintString.at(c) << " wins!"

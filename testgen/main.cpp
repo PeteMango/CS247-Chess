@@ -317,6 +317,8 @@ void writeTestExpected(std::vector<int> ids)
         return;
     }
 
+    outfile << "graphics mode disabled\nstrict mode enabled\n";
+
     white_score = black_score = 0;
 
     for (auto i : ids)

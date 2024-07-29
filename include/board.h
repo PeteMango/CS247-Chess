@@ -21,7 +21,7 @@ class Board : public std::enable_shared_from_this<Board> {
     std::map<Color, std::map<CastleSide, bool>> castle_rights;
     int halfmove_clock;
     int fullmove_clock;
-    std::shared_ptr<Game> game;
+    std::weak_ptr<Game> game;
     // helper fields
     std::set<std::shared_ptr<Piece>> white_pieces;
     std::set<std::shared_ptr<Piece>> black_pieces;
@@ -34,14 +34,13 @@ public:
     Board(std::shared_ptr<Game> game, bool default_board = true);
     // deserialize
     Board(std::shared_ptr<Game> game, const std::string& fen);
-    void setup_board(std::istream& in);
     std::shared_ptr<Piece> create_piece(
         Color color, Coordinate square, PieceType type);
 
     // board setup helpers
     void place_piece(Color color, Coordinate square, PieceType type);
     void remove_piece(Coordinate square);
-    void verify_board();
+    void verify_setup();
     void setup_default_board();
     void clean_board();
 

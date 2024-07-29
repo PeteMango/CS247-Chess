@@ -88,7 +88,7 @@ void Board::setup_default_board()
         this->place_piece(Color::WHITE, Coordinate(2, col), PieceType::PAWN);
         this->place_piece(Color::BLACK, Coordinate(7, col), PieceType::PAWN);
     }
-    this->verify_board();
+    this->verify_setup();
 }
 
 Board::Board(std::shared_ptr<Game> game, const std::string& fen)
@@ -262,6 +262,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 std::string Board::make_move(
     Coordinate start, Coordinate end, PromotionType promotion)
 {
+    auto game = this->game.lock();
     std::pair<int, int> starting_idx = get_grid_indexes(start);
     std::pair<int, int> ending_idx = get_grid_indexes(end);
     std::shared_ptr<Piece> p = this->grid[starting_idx.first][starting_idx.second];
@@ -364,17 +365,17 @@ std::string Board::make_move(
         status = DisplayStatus::CHECKMATE;
         // winner
         color = toggle_color(this->active_color);
-        this->game->end_game(color_to_result(color));
+        game->end_game(color_to_result(color));
     } else if (this->is_stalemate((this->active_color))) {
         status = DisplayStatus::STALEMATE;
-        this->game->end_game(Result::DRAW);
+        game->end_game(Result::DRAW);
     } else if (this->is_check((this->active_color))) {
         status = DisplayStatus::CHECK;
         // color in check
         color = (this->active_color);
     }
-    this->game->get_chess()->notify_displays();
-    this->game->get_chess()->notify_status(status, color);
+    game->get_chess()->notify_displays();
+    game->get_chess()->notify_status(status, color);
 
     /* serialize board */
     return this->serialize();
@@ -394,8 +395,6 @@ void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
         }
     }
 }
-
-void Board::setup_board(std::istream& in) { return; }
 
 void Board::toggle_active_color()
 {
@@ -507,17 +506,17 @@ void Board::get_all_valid_moves(
     }
 }
 
-void Board::verify_board()
+void Board::verify_setup()
 {
     // no pawns in the last rows
     for (int i = 0; i < 8; i++) {
         if (this->grid[0][i]
             && this->grid[0][i]->get_piece_type() == PieceType::PAWN) {
-            throw std::invalid_argument("pawn in the outer rows");
+            throw std::runtime_error("pawn in the outer rows");
         }
         if (this->grid[7][i]
             && this->grid[7][i]->get_piece_type() == PieceType::PAWN) {
-            throw std::invalid_argument("pawn in the outer rows");
+            throw std::runtime_error("pawn in the outer rows");
         }
     }
     // one of each king
@@ -531,7 +530,7 @@ void Board::verify_board()
                 this->white_pieces.insert(p);
                 if (p->get_piece_type() == PieceType::KING) {
                     if (this->white_king != nullptr) {
-                        throw std::invalid_argument("multiple white kings");
+                        throw std::runtime_error("multiple white kings");
                     }
                     this->white_king = p;
                 }
@@ -539,7 +538,7 @@ void Board::verify_board()
                 this->black_pieces.insert(p);
                 if (p->get_piece_type() == PieceType::KING) {
                     if (this->black_king != nullptr) {
-                        throw std::invalid_argument("multiple black kings");
+                        throw std::runtime_error("multiple black kings");
                     }
                     this->black_king = p;
                 }
@@ -548,7 +547,7 @@ void Board::verify_board()
     }
     // neither king in check
     if (this->is_check(Color::WHITE) || this->is_check(Color::BLACK)) {
-        throw std::invalid_argument("king in check");
+        throw std::runtime_error("king in check");
     }
 }
 
@@ -569,7 +568,7 @@ std::shared_ptr<Piece> Board::create_piece(
     case PieceType::PAWN:
         return std::make_shared<Pawn>(color, square, type, shared_from_this());
     default:
-        throw std::logic_error("cant create a piece that doesnt exist");
+        throw std::runtime_error("cant create a piece that doesnt exist");
     }
 }
 
@@ -909,7 +908,7 @@ Coordinate Board::get_enpassant_taken_piece_coordinate()
     } else if ((*this->en_passant_target).row == 6) {
         return Coordinate(5, (*this->en_passant_target).column);
     }
-    throw std::logic_error("enpassant target not on row 3 or 6");
+    throw std::runtime_error("enpassant target not on row 3 or 6");
 }
 
 std::shared_ptr<Coordinate> Board::get_enpassant_square_coordinate(Coordinate c)
@@ -920,7 +919,7 @@ std::shared_ptr<Coordinate> Board::get_enpassant_square_coordinate(Coordinate c)
     } else if (c.row == 5) {
         return std::make_shared<Coordinate>(6, c.column);
     }
-    throw std::logic_error("enpassant move not on row 4 or 5");
+    throw std::runtime_error("enpassant move not on row 4 or 5");
 }
 
 Coordinate Board::get_castle_rook(Color c, CastleSide cs)
