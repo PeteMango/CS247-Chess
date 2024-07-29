@@ -201,10 +201,10 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     }
 
     bool attacked = false, escape = false;
-    std::set<Coordinate> ally_attack_before;
-    this->get_threatened_squares_by_color(ally_attack_before, p->get_color());
-    if (ally_attack_before.find(Coordinate { start_idx.first, start_idx.second })
-        != ally_attack_before.end()) {
+    std::set<Coordinate> enemy_attacking_before;
+    this->get_threatened_squares_by_color(enemy_attacking_before, p->get_color());
+    if (enemy_attacking_before.find(Coordinate { start_idx.first, start_idx.second })
+        != enemy_attacking_before.end()) {
         attacked = true;
     }
 
