@@ -191,13 +191,13 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
         capture = true;
-        this->delete_piece(taken_piece);
+        this->destroy_piece(taken_piece);
     } else if (valid_enpassant) {
         std::pair<int, int> taken_piece_idx
             = get_grid_indexes(this->get_enpassant_taken_piece_coordinate());
         taken_piece = this->grid[taken_piece_idx.first][taken_piece_idx.second];
         capture = true;
-        this->delete_piece(taken_piece);
+        this->destroy_piece(taken_piece);
     }
 
     std::set<Coordinate> ally_attack_before, enemy_attack_before;
@@ -209,7 +209,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         != enemy_attack_before.end());
 
     /* make the actual move */
-    this->delete_piece(p);
+    this->destroy_piece(p);
     this->add_piece(new_p);
 
     std::set<Coordinate> ally_attack_after, enemy_attack_after;
@@ -246,7 +246,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     }
 
     /* restore original game state if new state is invalid */
-    this->delete_piece(new_p);
+    this->destroy_piece(new_p);
     this->add_piece(p);
     if (taken_piece) {
         this->add_piece(taken_piece);
@@ -283,14 +283,14 @@ std::string Board::make_move(
                     = false;
             }
         }
-        this->delete_piece(taken);
+        this->destroy_piece(taken);
     } else if (this->is_valid_enpassant(start, end)) {
         Coordinate c = this->get_enpassant_taken_piece_coordinate();
         std::pair<int, int> enpassant_taken_piece_idx = get_grid_indexes(c);
         std::shared_ptr<Piece> enpassant_taken_piece
             = this->grid[enpassant_taken_piece_idx.first]
                         [enpassant_taken_piece_idx.second];
-        this->delete_piece(enpassant_taken_piece);
+        this->destroy_piece(enpassant_taken_piece);
     } else if (this->is_valid_castle(start, end)) {
         Coordinate rook_coord;
         std::pair<int, int> d;
@@ -313,7 +313,7 @@ std::string Board::make_move(
             = Coordinate(new_rook_idx.first, new_rook_idx.second);
         std::shared_ptr<Piece> new_rook
             = this->create_piece(p->get_color(), new_rook_coord, PieceType::ROOK);
-        this->delete_piece(rook);
+        this->destroy_piece(rook);
         this->add_piece(new_rook);
     }
 
@@ -334,7 +334,7 @@ std::string Board::make_move(
     } else {
         new_p = this->create_piece(p->get_color(), end, p->get_piece_type());
     }
-    this->delete_piece(p);
+    this->destroy_piece(p);
     this->add_piece(new_p);
 
     /* if moved king, then revoke the possibility of a castle */
@@ -678,7 +678,7 @@ std::vector<std::vector<std::shared_ptr<Piece>>>& Board::get_grid()
 
 Color Board::get_active_color() { return this->active_color; }
 
-void Board::delete_piece(std::shared_ptr<Piece> p)
+void Board::destroy_piece(std::shared_ptr<Piece> p)
 {
     std::pair<int, int> idx = get_grid_indexes(p->get_coordinate());
     this->grid[idx.first][idx.second] = nullptr;
