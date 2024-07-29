@@ -1,9 +1,11 @@
-name: Tests
+name: Hourly Tests
 
 on:
-  pull_request:
+  push:
     branches:
       - main
+  schedule:
+    - cron: '0 * * * *'
 
 jobs:
   docker:
@@ -14,12 +16,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Start Script
-        run: |
-          cd scripts
-          ./start.sh
+        run: ./scripts/start.sh
 
       - name: Run Tests in Docker Container
-        run: docker exec chess /bin/bash -c "./scripts/test.sh"
+        run: docker exec chess /bin/bash -c "./scripts/test.sh --valgrind"
 
       - name: Stop containers
         if: always()
