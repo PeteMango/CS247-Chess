@@ -222,8 +222,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     std::set<Coordinate> ally_attack_after;
     this->get_threatened_squares_by_color(ally_attack_after, p->get_color());
 
-    if (ally_attack_after.find(Coordinate { end_idx.first, end_idx.second })
-            != ally_attack_after.end()
+    if (enemy_attack_after.find(Coordinate { end_idx.first, end_idx.second })
+            != enemy_attack_after.end()
         and attacked) {
         escape = true;
     }
