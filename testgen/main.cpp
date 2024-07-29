@@ -319,6 +319,8 @@ void writeTestExpected(std::vector<int> ids)
 
     white_score = black_score = 0;
 
+    outfile << "graphics mode disabled\nstrict mode enabled";
+
     for (auto i : ids)
         outfile << generateSingleGameExpect(i);
 
