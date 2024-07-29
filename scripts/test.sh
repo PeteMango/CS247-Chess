@@ -4,4 +4,8 @@ make clean
 
 make
 
-./tests/run_tests.sh
+if [ "$1" == "--valgrind" ]; then
+	./tests/run_tests.sh --valgrind
+else
+	./tests/run_tests.sh
+fi
