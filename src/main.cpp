@@ -10,13 +10,13 @@
 int main(int argc, char* argv[])
 {
     bool debug_mode = false;
-    bool graphics_mode = false;
+    bool graphics_mode = true;
     for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];
         if (arg == "--debug" || arg == "-d") {
             debug_mode = true;
-        } else if (arg == "--graphics" || arg == "-g") {
-            graphics_mode = true;
+        } else if (arg == "--no-graphics" || arg == "-ng") {
+            graphics_mode = false;
         }
     }
     if (debug_mode) {
