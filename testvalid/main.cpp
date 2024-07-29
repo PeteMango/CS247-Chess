@@ -187,7 +187,7 @@ void generateSingleGameExpect(int i)
 
         boardGOOD.makeMove(m);
         if (!NormBoard->is_valid_move(a, b)) {
-            std::cout << "BADDDD\n";
+            std::cerr << "BADDDD\n";
         }
         NormChess->make_move(a, b, NormPieceMap[promo]);
     }
@@ -205,7 +205,6 @@ void writeTestExpected(std::vector<int> ids)
 
 int main()
 {
-    // std::cout << "ASD";
     std::vector<int> stalemates, checkmates, resign;
     getDataFromDatabase();
 
@@ -229,3 +228,4 @@ int main()
 
     writeTestExpected({ checkmates[0] });
 }
+

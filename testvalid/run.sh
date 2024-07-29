@@ -3,7 +3,7 @@
 make
 
 if [ $? -eq 0 ]; then
-    ./validmoves
+    ./testmoves
 else
     echo "Compilation failed"
 fi
