@@ -30,9 +30,10 @@ void Pawn::get_valid_moves(std::set<Coordinate>& s)
         std::pair<int, int> start = get_grid_indexes(this->location);
         start = add_pairs(start, i);
 
+        auto board = this->board.lock();
         if (coordinate_in_bounds(start)
-            and this->board->get_grid()[start.first][start.second]
-            and this->board->get_grid()[start.first][start.second]->get_color()
+            and board->get_grid()[start.first][start.second]
+            and board->get_grid()[start.first][start.second]->get_color()
                 != this->color) {
             s.insert(Coordinate { start.first, start.second });
         }
@@ -42,8 +43,9 @@ void Pawn::get_valid_moves(std::set<Coordinate>& s)
         std::pair<int, int> start = get_grid_indexes(this->location);
         start = add_pairs(start, i);
 
+        auto board = this->board.lock();
         if (coordinate_in_bounds(start)
-            and !this->board->get_grid()[start.first][start.second]) {
+            and !board->get_grid()[start.first][start.second]) {
             s.insert(Coordinate { start.first, start.second });
         }
     }

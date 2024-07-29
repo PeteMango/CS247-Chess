@@ -15,8 +15,8 @@ King::King(
 bool King::in_check()
 {
     std::set<Coordinate> attacked;
-    this->board->get_threatened_squares_by_color(
-        attacked, toggle_color(this->color));
+    auto board = this->board.lock();
+    board->get_threatened_squares_by_color(attacked, toggle_color(this->color));
 
     /* cannot move into a spot that would result in a check */
     if (attacked.find(this->location) != attacked.end()) {
@@ -27,7 +27,8 @@ bool King::in_check()
 bool King::in_checkmate()
 {
     std::set<Coordinate> s;
-    this->board->get_threatened_squares_by_color(s, toggle_color(this->color));
+    auto board = this->board.lock();
+    board->get_threatened_squares_by_color(s, toggle_color(this->color));
     if (s.find(this->location) == s.end()) {
         return false;
     }
@@ -40,7 +41,7 @@ bool King::in_checkmate()
         }
         // make the move
         Coordinate move = Coordinate(cur_idx.first, cur_idx.second);
-        if (this->board->is_valid_move(cur, move).valid) {
+        if (board->is_valid_move(cur, move).valid) {
             return false;
         }
     }

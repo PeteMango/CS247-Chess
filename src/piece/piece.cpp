@@ -41,7 +41,8 @@ void Piece::multiple_moves(
             s.insert(Coordinate { start.first, start.second });
 
             /* has a piece here, so stop searching */
-            if (this->board->get_grid()[start.first][start.second]) {
+            auto board = this->board.lock();
+            if (board->get_grid()[start.first][start.second]) {
                 break;
             }
 
@@ -80,9 +81,10 @@ void Piece::filter_moves(std::set<Coordinate>& s)
         std::pair<int, int> index
             = get_grid_indexes(c); /* filter out the piece that coordinates that
                                       already has an allied piece */
-        if (!this->board->get_grid()[index.first][index.second]
-            or (this->board->get_grid()[index.first][index.second]
-                and this->board->get_grid()[index.first][index.second]->get_color()
+        auto board = this->board.lock();
+        if (!board->get_grid()[index.first][index.second]
+            or (board->get_grid()[index.first][index.second]
+                and board->get_grid()[index.first][index.second]->get_color()
                     != this->color)) {
             good.insert(c);
         }

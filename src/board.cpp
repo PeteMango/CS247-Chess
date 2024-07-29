@@ -262,6 +262,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 std::string Board::make_move(
     Coordinate start, Coordinate end, PromotionType promotion)
 {
+    auto game = this->game.lock();
     std::pair<int, int> starting_idx = get_grid_indexes(start);
     std::pair<int, int> ending_idx = get_grid_indexes(end);
     std::shared_ptr<Piece> p = this->grid[starting_idx.first][starting_idx.second];
@@ -364,17 +365,17 @@ std::string Board::make_move(
         status = DisplayStatus::CHECKMATE;
         // winner
         color = toggle_color(this->active_color);
-        this->game->end_game(color_to_result(color));
+        game->end_game(color_to_result(color));
     } else if (this->is_stalemate((this->active_color))) {
         status = DisplayStatus::STALEMATE;
-        this->game->end_game(Result::DRAW);
+        game->end_game(Result::DRAW);
     } else if (this->is_check((this->active_color))) {
         status = DisplayStatus::CHECK;
         // color in check
         color = (this->active_color);
     }
-    this->game->get_chess()->notify_displays();
-    this->game->get_chess()->notify_status(status, color);
+    game->get_chess()->notify_displays();
+    game->get_chess()->notify_status(status, color);
 
     /* serialize board */
     return this->serialize();

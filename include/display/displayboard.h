@@ -8,7 +8,7 @@ class Chess;
 
 class DisplayBoard {
 protected:
-    std::shared_ptr<Chess> chess;
+    std::weak_ptr<Chess> chess;
 
 public:
     DisplayBoard(std::shared_ptr<Chess> chess);

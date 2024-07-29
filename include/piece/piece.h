@@ -15,7 +15,7 @@ protected:
     Color color;
     Coordinate location;
     PieceType type;
-    std::shared_ptr<Board> board;
+    std::weak_ptr<Board> board;
     std::vector<std::pair<int, int>> directions;
 
 public:

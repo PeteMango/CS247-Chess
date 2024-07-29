@@ -36,10 +36,11 @@ Result Game::get_result() { return this->result; }
 
 void Game::resign()
 {
+    auto chess = this->chess.lock();
     Color winner = toggle_color(this->get_board()->get_active_color());
     this->end_game(color_to_result(winner));
-    this->chess->notify_displays();
-    this->chess->notify_status(DisplayStatus::RESIGN, winner);
+    chess->notify_displays();
+    chess->notify_status(DisplayStatus::RESIGN, winner);
 }
 
 void Game::make_move(Coordinate start, Coordinate end, PromotionType promotion)
@@ -78,7 +79,8 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
                 PieceType p = string_to_piecetype(piece);
                 this->board->place_piece(color, coord, p);
 
-                this->chess->notify_displays();
+                auto chess = this->chess.lock();
+                chess->notify_displays();
             } else if (cmd == "-") {
                 std::string coordinate;
                 ss >> coordinate;
@@ -87,7 +89,8 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
                 }
                 Coordinate coord(coordinate);
                 this->board->remove_piece(coord);
-                this->chess->notify_displays();
+                auto chess = this->chess.lock();
+                chess->notify_displays();
             } else if (cmd == "=") {
                 std::string col;
                 ss >> col;
@@ -130,4 +133,8 @@ void Game::end_game(Result result)
     this->result = result;
 }
 
-std::shared_ptr<Chess> Game::get_chess() { return this->chess; }
+std::shared_ptr<Chess> Game::get_chess()
+{
+    auto chess = this->chess.lock();
+    return chess;
+}
