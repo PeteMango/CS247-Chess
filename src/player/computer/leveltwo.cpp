@@ -1,4 +1,5 @@
 #include "player/computer/leveltwo.h"
+#include <algorithm> // For std::set_union and std::inserter
 
 LevelTwo::LevelTwo(std::shared_ptr<Game> game, Color color)
     : Computer(game, color)
@@ -11,31 +12,22 @@ void LevelTwo::move()
 {
     std::shared_ptr<Board> grid = this->game->get_board();
 
-    std::set<std::pair<Coordinate, Coordinate>> possible_moves;
+    std::set<std::pair<Coordinate, Coordinate>> possible_moves, better_moves;
     grid->get_all_valid_moves(possible_moves, this->color);
 
-    std::set<std::pair<Coordinate, Coordinate>> better_moves;
+    /* check for better moves than random */
     for (std::pair<Coordinate, Coordinate> p : possible_moves) {
-        if (this->game->get_board()->is_valid_move(p.first, p.second).check
-            or this->game->get_board()->is_valid_move(p.first, p.second).capture) {
+        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+        if (mf.escapes or mf.check or mf.capture) {
             better_moves.insert(p);
         }
     }
 
-    if (better_moves.empty()) {
-        int index
-            = this->random_number(0, possible_moves.size(), possible_moves.size());
-
-        auto it = possible_moves.begin();
-        std::advance(it, index);
-
-        this->game->make_move(it->first, it->second, PromotionType::QUEEN);
-        return;
+    /* if there are superior moves, execute them */
+    if (!better_moves.empty()) {
+        return this->execute_move(better_moves);
     }
-    int index = this->random_number(0, better_moves.size(), better_moves.size());
 
-    auto it = better_moves.begin();
-    std::advance(it, index);
-
-    this->game->make_move(it->first, it->second, PromotionType::QUEEN);
+    /* execute any moves */
+    return this->execute_move(possible_moves);
 }

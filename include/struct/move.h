@@ -11,11 +11,13 @@ struct MoveFlags {
     bool valid;
     bool check;
     bool capture;
+    bool escapes;
 
-    MoveFlags(bool valid, bool check, bool capture)
-        : valid(valid)
-        , check(check)
-        , capture(capture)
+    MoveFlags(bool valid, bool check, bool capture, bool escapes)
+        : valid { valid }
+        , check { check }
+        , capture { capture }
+        , escapes { escapes }
     {
     }
 };

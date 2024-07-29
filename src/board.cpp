@@ -160,27 +160,34 @@ Board::Board(std::shared_ptr<Game> game, const std::string& fen)
 MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start);
+
+    /* incorrect starting square */
     if (this->grid[start_idx.first][start_idx.second] == nullptr) {
-        return MoveFlags { false, false, false };
+        return MoveFlags { false, false, false, false };
     }
+
+    /* starting square has incorrect piece */
     std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
     if (p->get_color() != this->active_color) {
-        return MoveFlags { false, false, false };
+        return MoveFlags { false, false, false, false };
     }
-    bool valid_enpassant = this->is_valid_enpassant(start, end);
-    bool valid_castle = this->is_valid_castle(start, end);
+
+    /* check if enpassants or castle is possible */
+    bool valid_enpassant = this->is_valid_enpassant(start, end),
+         valid_castle = this->is_valid_castle(start, end);
+
+    /* invalid move, castle and enpassant */
     if (!p->is_valid_move(end) and !valid_castle and !valid_enpassant) {
-        return MoveFlags { false, false, false };
+        return MoveFlags { false, false, false, false };
     }
-    /* check for checks */
+
     std::pair<int, int> end_idx = get_grid_indexes(end);
     std::shared_ptr<Piece> new_p
         = this->create_piece(p->get_color(), end, p->get_piece_type());
-    std::set<Coordinate> s;
+
     std::shared_ptr<Piece> taken_piece = nullptr;
 
     bool capture = false;
-
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
         capture = true;
@@ -193,32 +200,54 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         this->delete_piece(taken_piece);
     }
 
+    bool attacked = false, escape = false;
+    std::set<Coordinate> ally_attack_before;
+    this->get_threatened_squares_by_color(ally_attack_before, p->get_color());
+    if (ally_attack_before.find(Coordinate { start_idx.first, start_idx.second })
+        != ally_attack_before.end()) {
+        attacked = true;
+    }
+
     /* make the actual move */
     this->delete_piece(p);
     this->add_piece(new_p);
 
+    std::set<Coordinate> enemy_attack_after;
+
     /* getting the squares that we are threatened by */
-    this->get_threatened_squares_by_color(s, toggle_color(p->get_color()));
+    this->get_threatened_squares_by_color(
+        enemy_attack_after, toggle_color(p->get_color()));
 
-    std::set<Coordinate> enemy;
-    this->get_threatened_squares_by_color(enemy, p->get_color());
+    std::set<Coordinate> ally_attack_after;
+    this->get_threatened_squares_by_color(ally_attack_after, p->get_color());
 
-    /* check if making the move makes the game state invalid */
+    if (ally_attack_after.find(Coordinate { end_idx.first, end_idx.second })
+            != ally_attack_after.end()
+        and attacked) {
+        escape = true;
+    }
+
+    /* check if ally king is in check after making the move */
     bool invalid = false;
     if (p->get_color() == Color::WHITE and this->white_king
-        and s.find(this->white_king->get_coordinate()) != s.end()) {
+        and enemy_attack_after.find(this->white_king->get_coordinate())
+            != enemy_attack_after.end()) {
         invalid = true;
     } else if (p->get_color() == Color::BLACK and this->black_king
-        and s.find(this->black_king->get_coordinate()) != s.end()) {
+        and enemy_attack_after.find(this->black_king->get_coordinate())
+            != enemy_attack_after.end()) {
         invalid = true;
     }
 
+    /* check if our move checks the enemy king */
     bool check = false;
     if (p->get_color() == Color::WHITE and this->black_king
-        and enemy.find(this->black_king->get_coordinate()) != enemy.end()) {
+        and ally_attack_after.find(this->black_king->get_coordinate())
+            != ally_attack_after.end()) {
         check = true;
     } else if (p->get_color() == Color::BLACK and this->white_king
-        and enemy.find(this->white_king->get_coordinate()) != enemy.end()) {
+        and ally_attack_after.find(this->white_king->get_coordinate())
+            != ally_attack_after.end()) {
         check = true;
     }
 
@@ -229,10 +258,11 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         this->add_piece(taken_piece);
     }
 
+    /* return flags */
     if (invalid) {
-        return MoveFlags { false, false, false };
+        return MoveFlags { false, false, false, false };
     }
-    return MoveFlags { true, check, capture };
+    return MoveFlags { true, check, capture, escape };
 }
 
 std::string Board::make_move(
