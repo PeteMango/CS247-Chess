@@ -17,8 +17,6 @@ class xwindow {
 public:
     xwindow();
     ~xwindow();
-    xwindow(const xwindow&) = delete;
-    xwindow& operator=(const xwindow&) = delete;
 
     enum { White = 0, Black, Red, Green, Blue };
     std::vector<std::vector<char>> rendered_board;
