@@ -8,16 +8,24 @@
 class Piece;
 
 struct MoveFlags {
-    bool valid;
-    bool check;
-    bool capture;
-    bool escapes;
+    bool valid, check, capture, attacked_before, attacked_after;
 
-    MoveFlags(bool valid, bool check, bool capture, bool escapes)
+    MoveFlags(bool valid, bool check, bool capture, bool attacked_before,
+        bool attacked_after)
         : valid { valid }
         , check { check }
         , capture { capture }
-        , escapes { escapes }
+        , attacked_before { attacked_before }
+        , attacked_after { attacked_after }
+    {
+    }
+
+    MoveFlags(bool invalid)
+        : valid { false }
+        , check { false }
+        , capture { false }
+        , attacked_before { false }
+        , attacked_after { false }
     {
     }
 };

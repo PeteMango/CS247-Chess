@@ -11,7 +11,7 @@ void LevelThree::move()
 {
     std::shared_ptr<Board> grid = this->game->get_board();
 
-    std::set<std::pair<Coordinate, Coordinate>> possible_moves, better_moves;
+    std::set<std::pair<Coordinate, Coordinate>> possible_moves;
     grid->get_all_valid_moves(possible_moves, this->color);
 
     std::set<std::pair<Coordinate, Coordinate>> check, capture, escape;
@@ -25,11 +25,8 @@ void LevelThree::move()
         if (mf.capture) {
             capture.insert(p);
         }
-        if (mf.escapes) {
+        if (mf.attacked_before and !mf.attacked_after) {
             escape.insert(p);
-        }
-        if (mf.check or mf.capture or mf.escapes) {
-            better_moves.insert(p);
         }
     }
 
@@ -68,12 +65,18 @@ void LevelThree::move()
         return this->execute_move(capture_escape);
     }
 
-    /* moves that only does 1/3 */
-    if (!better_moves.empty()) {
-        return this->execute_move(better_moves);
+    /* finally, do moves that satisfiy 1/3, in this order s*/
+    if (!check.empty()) {
+        return this->execute_move(check);
+    }
+    if (!capture.empty()) {
+        return this->execute_move(capture);
+    }
+    if (!escape.empty()) {
+        return this->execute_move(escape);
     }
 
-    /* return any moves */
+    /* return any moves possible */
     return this->execute_move(possible_moves);
 }
 
