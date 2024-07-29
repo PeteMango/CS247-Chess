@@ -20,6 +20,7 @@
 #include <iostream>
 #include <map>
 #include <random>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -158,6 +159,36 @@ void findValidMove(chess::Board& board, chess::Movelist& move_list, chess::Move&
     }
 }
 
+void convertFromNormMove(
+    std::pair<Coordinate, Coordinate>& s, std::string& a, std::string& b)
+{
+    a = s.first.column + std::to_string(s.first.row);
+    b = s.second.column + std::to_string(s.first.row);
+}
+
+bool findValidNormMove(
+    chess::Movelist& move_list, chess::Move& m, std::string a, std::string b)
+{
+    m = chess::Move::make<chess::Move::NORMAL>(posMap[a], posMap[b]);
+    if (move_list.find(m) != -1)
+        return true;
+
+    m = chess::Move::make<chess::Move::ENPASSANT>(posMap[a], posMap[b]);
+    if (move_list.find(m) != -1)
+        return true;
+
+    if (b[0] > a[0])
+        b[0] = (char)((int)b[0] + 1);
+    else
+        b[0] = (char)((int)b[0] - 2);
+
+    m = chess::Move::make<chess::Move::CASTLING>(posMap[a], posMap[b]);
+    if (move_list.find(m) != -1)
+        return true;
+
+    return false;
+}
+
 void generateSingleGameExpect(int i)
 {
     std::vector<std::string>& move = moves[i];
@@ -166,11 +197,22 @@ void generateSingleGameExpect(int i)
     std::string termination = terminations[i];
     std::string result = results[i];
 
-    chess::Move m;
+    chess::Move m, normMoveGOOD;
     chess::Movelist move_list;
 
-    std::string a, b;
+    std::string a, b, normA, normB;
     char promo;
+
+    std::set<std::pair<Coordinate, Coordinate>> s;
+
+    std::string filename = "ERROR.out";
+
+    std::ofstream outfile;
+    outfile.open(filename);
+    if (!outfile) {
+        std::cerr << "Error: Could not open the file " << filename << std::endl;
+        return;
+    }
 
     for (int j = 0; j < move.size(); j++) {
         chess::movegen::legalmoves<chess::movegen::MoveGenType::ALL>(
@@ -185,12 +227,36 @@ void generateSingleGameExpect(int i)
 
         findValidMove(boardGOOD, move_list, m, move[j], j);
 
-        boardGOOD.makeMove(m);
-        if (!NormBoard->is_valid_move(a, b)) {
-            std::cerr << "BADDDD\n";
-        }
+        NormBoard->get_all_valid_moves(
+            s, (j % 2 == 0 ? Color::WHITE : Color::BLACK));
+
+        if (move[j].length() != 5)
+            for (auto NormMove : s) {
+                convertFromNormMove(NormMove, normA, normB);
+                bool good = findValidNormMove(move_list, normMoveGOOD, normA, normB);
+                if (!good) {
+                    if (!NormBoard->is_valid_move(normA, normB))
+                        continue;
+
+                    std::cout << "\n" << i << " " << j << "\n";
+                    std::cout << normA << " " << normB << "\n";
+                    // std::cout << NormMove.first.column << "\n";
+                    // std::cout << NormMove.second.column << "\n";
+
+                    // return;
+                }
+            }
+        // if (j == 1)
+        //     return;
+
+        // if (!NormBoard->is_valid_move(a, b)) {
+        //     std::cerr << "BADDDD\n";
+        // }
         NormChess->make_move(a, b, NormPieceMap[promo]);
+        boardGOOD.makeMove(m);
+        // return;
     }
+    outfile.close();
 }
 
 void writeTestExpected(std::vector<int> ids)
@@ -219,13 +285,18 @@ int main()
             checkmates.push_back(i);
         else if (terminations[i] == "FIVEFOLD_REPETITION")
             resign.push_back(i);
+        NormChess = createChess(false);
+        NormChess->start_game(PlayerType::HUMAN, PlayerType::HUMAN);
+        NormGame = NormChess->get_last_game();
+        NormBoard = NormGame->get_board();
+        writeTestExpected({ i });
     }
 
-    NormChess = createChess(false);
-    NormChess->start_game(PlayerType::HUMAN, PlayerType::HUMAN);
-    NormGame = NormChess->get_last_game();
-    NormBoard = NormGame->get_board();
+    // NormChess = createChess(false);
+    // NormChess->start_game(PlayerType::HUMAN, PlayerType::HUMAN);
+    // NormGame = NormChess->get_last_game();
+    // NormBoard = NormGame->get_board();
 
-    writeTestExpected({ checkmates[0] });
+    // writeTestExpected({ checkmates[0] });
 }
 
