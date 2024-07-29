@@ -4,5 +4,4 @@ make clean
 
 make
 
-./tests/run_tests.sh
-
+./tests/run_tests.sh --no-graphics
