@@ -247,28 +247,28 @@ void generateSingleGameExpect(int i)
                 }
             }
 
-            // for (auto GOODmove : move_list) {
-            //     chess::Square fromGOOD = GOODmove.from();
-            //     chess::Square toGOOD = GOODmove.to();
-            //     std::string GOODa = reversedPosMap[fromGOOD.sq];
-            //     std::string GOODb = reversedPosMap[toGOOD.sq];
+            for (auto GOODmove : move_list) {
+                chess::Square fromGOOD = GOODmove.from();
+                chess::Square toGOOD = GOODmove.to();
+                std::string GOODa = reversedPosMap[fromGOOD.sq];
+                std::string GOODb = reversedPosMap[toGOOD.sq];
 
-            //     if (GOODmove.typeOf() == chess::Move::CASTLING) {
+                if (GOODmove.typeOf() == chess::Move::CASTLING) {
 
-            //         if (GOODb[0] > GOODa[0])
-            //             GOODb[0] = (char)((int)GOODb[0] - 1);
-            //         else
-            //             GOODb[0] = (char)((int)GOODb[0] + 2);
-            //     }
+                    if (GOODb[0] > GOODa[0])
+                        GOODb[0] = (char)((int)GOODb[0] - 1);
+                    else
+                        GOODb[0] = (char)((int)GOODb[0] + 2);
+                }
 
-            //     if (!NormBoard->is_valid_move(GOODa, GOODb).valid) {
+                if (!NormBoard->is_valid_move(GOODa, GOODb).valid) {
 
-            //         std::cout << "\n" << i << " " << j << "\n";
-            //         std::cout << GOODa << " " << GOODb << "\n";
+                    std::cout << "\n" << i << " " << j << "\n";
+                    std::cout << GOODa << " " << GOODb << "\n";
 
-            //         return;
-            //     }
-            // }
+                    return;
+                }
+            }
             
         }
         // if (j == 1)
