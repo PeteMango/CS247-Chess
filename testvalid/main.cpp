@@ -240,10 +240,6 @@ void generateSingleGameExpect(int i)
 
                     outfile << "\n" << i << " " << j << "\n";
                     outfile << normA << " " << normB << "\n";
-                    // std::cout << NormMove.first.column << "\n";
-                    // std::cout << NormMove.second.column << "\n";
-
-                    // return;
                 }
             }
 
@@ -262,20 +258,12 @@ void generateSingleGameExpect(int i)
                 if (!NormBoard->is_valid_move(GOODa, GOODb).valid) {
                     outfile << "\n" << i << " " << j << "\n";
                     outfile << GOODa << " " << GOODb << "\n";
-
-                    return;
                 }
             }
         }
-        // if (j == 1)
-        //     return;
 
-        // if (!NormBoard->is_valid_move(a, b)) {
-        //     std::cerr << "BADDDD\n";
-        // }
         NormChess->make_move(a, b, NormPieceMap[promo]);
         boardGOOD.makeMove(m);
-        // return;
     }
     outfile.close();
 }
