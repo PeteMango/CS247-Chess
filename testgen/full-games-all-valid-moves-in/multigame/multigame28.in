@@ -4,10 +4,17 @@ move e2 e4
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 =======
 =======
+=======
+=======
+=======
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
+>>>>>>> adc3f45bce34c69b1e41c0331fa232dbe5f37564
 move e7 e5
 move g1 f3
 move b8 c6
@@ -264,6 +271,7 @@ move g5 d5
 move d6 d5
 game human human
 move e2 e4
+<<<<<<< HEAD
 >>>>>>> 91da449 (fix)
 move c7 c5
 move g1 f3
@@ -837,6 +845,12 @@ move d6 d5
 game human human
 move e2 e4
 >>>>>>> 91da449 (fix)
+=======
+<<<<<<< HEAD
+>>>>>>> 91da449 (fix)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
+>>>>>>> adc3f45bce34c69b1e41c0331fa232dbe5f37564
 move c7 c5
 move g1 f3
 move d7 d6
@@ -1722,7 +1736,10 @@ resign
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> adc3f45bce34c69b1e41c0331fa232dbe5f37564
