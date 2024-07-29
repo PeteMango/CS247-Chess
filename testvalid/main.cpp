@@ -271,7 +271,6 @@ void writeTestExpected(std::vector<int> ids)
 
 int main()
 {
-    // std::cout << "ASD";
     std::vector<int> stalemates, checkmates, resign;
     getDataFromDatabase();
 
