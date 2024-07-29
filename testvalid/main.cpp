@@ -238,8 +238,8 @@ void generateSingleGameExpect(int i)
                     if (!NormBoard->is_valid_move(normA, normB).valid)
                         continue;
 
-                    std::cout << "\n" << i << " " << j << "\n";
-                    std::cout << normA << " " << normB << "\n";
+                    outfile << "\n" << i << " " << j << "\n";
+                    outfile << normA << " " << normB << "\n";
                     // std::cout << NormMove.first.column << "\n";
                     // std::cout << NormMove.second.column << "\n";
 
@@ -253,23 +253,19 @@ void generateSingleGameExpect(int i)
                 std::string GOODa = reversedPosMap[fromGOOD.sq];
                 std::string GOODb = reversedPosMap[toGOOD.sq];
 
-                if (GOODmove.typeOf() == chess::Move::CASTLING) {
-
+                if (GOODmove.typeOf() == chess::Move::CASTLING)
                     if (GOODb[0] > GOODa[0])
                         GOODb[0] = (char)((int)GOODb[0] - 1);
                     else
                         GOODb[0] = (char)((int)GOODb[0] + 2);
-                }
 
                 if (!NormBoard->is_valid_move(GOODa, GOODb).valid) {
-
-                    std::cout << "\n" << i << " " << j << "\n";
-                    std::cout << GOODa << " " << GOODb << "\n";
+                    outfile << "\n" << i << " " << j << "\n";
+                    outfile << GOODa << " " << GOODb << "\n";
 
                     return;
                 }
             }
-            
         }
         // if (j == 1)
         //     return;
