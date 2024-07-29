@@ -856,7 +856,6 @@ bool Board::is_valid_castle(Coordinate start, Coordinate end)
             return false;
         }
     }
-    std::cout << "allowing castle from " << start << " " << end << std::endl;
     return true;
 }
 
