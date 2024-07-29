@@ -168,7 +168,6 @@ void writeTestInput(std::vector<int> ids)
         std::cerr << "Error: Could not open the file " << filename << std::endl;
         return;
     }
-    infile << "graphics mode disabled\nstrict mode enabled\n";
 
     for (auto i : ids)
         infile << generateIn(i);
@@ -317,6 +316,8 @@ void writeTestExpected(std::vector<int> ids)
         std::cerr << "Error: Could not open the file " << filename << std::endl;
         return;
     }
+
+    outfile << "graphics mode disabled\nstrict mode enabled\n";
 
     white_score = black_score = 0;
 
