@@ -103,7 +103,7 @@ void getDataFromDatabase()
 
     std::string offset_url = "0";
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 10; i++)
         fetchURLchunk(dataset, offset_url), offset_url[0]++;
 
     for (int i = 0; i < dataset.size(); i++)
@@ -230,12 +230,12 @@ void generateSingleGameExpect(int i)
         NormBoard->get_all_valid_moves(
             s, (j % 2 == 0 ? Color::WHITE : Color::BLACK));
 
-        if (move[j].length() != 5)
+        if (move[j].length() != 5) {
             for (auto NormMove : s) {
                 convertFromNormMove(NormMove, normA, normB);
                 bool good = findValidNormMove(move_list, normMoveGOOD, normA, normB);
                 if (!good) {
-                    if (!NormBoard->is_valid_move(normA, normB))
+                    if (!NormBoard->is_valid_move(normA, normB).valid)
                         continue;
 
                     std::cout << "\n" << i << " " << j << "\n";
@@ -246,6 +246,31 @@ void generateSingleGameExpect(int i)
                     // return;
                 }
             }
+
+            // for (auto GOODmove : move_list) {
+            //     chess::Square fromGOOD = GOODmove.from();
+            //     chess::Square toGOOD = GOODmove.to();
+            //     std::string GOODa = reversedPosMap[fromGOOD.sq];
+            //     std::string GOODb = reversedPosMap[toGOOD.sq];
+
+            //     if (GOODmove.typeOf() == chess::Move::CASTLING) {
+
+            //         if (GOODb[0] > GOODa[0])
+            //             GOODb[0] = (char)((int)GOODb[0] - 1);
+            //         else
+            //             GOODb[0] = (char)((int)GOODb[0] + 2);
+            //     }
+
+            //     if (!NormBoard->is_valid_move(GOODa, GOODb).valid) {
+
+            //         std::cout << "\n" << i << " " << j << "\n";
+            //         std::cout << GOODa << " " << GOODb << "\n";
+
+            //         return;
+            //     }
+            // }
+            
+        }
         // if (j == 1)
         //     return;
 
@@ -275,16 +300,16 @@ int main()
     getDataFromDatabase();
 
     for (int i = 0; i < moves.size(); i++) {
-        if (terminations[i] != "STALEMATE" && terminations[i] != "CHECKMATE"
-            && terminations[i] != "FIVEFOLD_REPETITION")
-            continue;
+        // if (terminations[i] != "STALEMATE" && terminations[i] != "CHECKMATE"
+        //     && terminations[i] != "FIVEFOLD_REPETITION")
+        //     continue;
 
-        if (terminations[i] == "STALEMATE")
-            stalemates.push_back(i);
-        else if (terminations[i] == "CHECKMATE")
-            checkmates.push_back(i);
-        else if (terminations[i] == "FIVEFOLD_REPETITION")
-            resign.push_back(i);
+        // if (terminations[i] == "STALEMATE")
+        //     stalemates.push_back(i);
+        // else if (terminations[i] == "CHECKMATE")
+        //     checkmates.push_back(i);
+        // else if (terminations[i] == "FIVEFOLD_REPETITION")
+        //     resign.push_back(i);
         NormChess = createChess(false);
         NormChess->start_game(PlayerType::HUMAN, PlayerType::HUMAN);
         NormGame = NormChess->get_last_game();
