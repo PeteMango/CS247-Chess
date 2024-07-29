@@ -202,7 +202,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 
     bool attacked = false, escape = false;
     std::set<Coordinate> enemy_attacking_before;
-    this->get_threatened_squares_by_color(enemy_attacking_before, p->get_color());
+    this->get_threatened_squares_by_color(
+        enemy_attacking_before, toggle_color(p->get_color()));
     if (enemy_attacking_before.find(Coordinate { start_idx.first, start_idx.second })
         != enemy_attacking_before.end()) {
         attacked = true;
