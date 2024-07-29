@@ -37,6 +37,8 @@ void Game::resign() { throw std::invalid_argument("unimplemented"); }
 
 void Game::make_move(Coordinate start, Coordinate end, PromotionType promotion)
 {
+    std::cout << "moving: " << start.column << start.row << " " << end.column
+              << end.row << std::endl;
     std::string move = this->board->make_move(start, end, promotion);
     this->moves.push_back(move);
 }

@@ -187,18 +187,35 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         = this->create_piece(p->get_color(), end, p->get_piece_type());
     std::shared_ptr<Piece> taken_piece = nullptr;
 
+    int value = 0;
+
     bool capture = false;
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
+
+        value += this->piece_weight[taken_piece->get_piece_type()];
+
         capture = true;
         this->delete_piece(taken_piece);
     } else if (valid_enpassant) {
         std::pair<int, int> taken_piece_idx
             = get_grid_indexes(this->get_enpassant_taken_piece_coordinate());
         taken_piece = this->grid[taken_piece_idx.first][taken_piece_idx.second];
+
+        value += this->piece_weight[taken_piece->get_piece_type()];
+
         capture = true;
         this->delete_piece(taken_piece);
     }
+
+    std::set<Coordinate> protected_before;
+    this->get_protected_squares_by_color(protected_before, this->active_color);
+
+    // for (const Coordinate& c : protected_before) {
+    //     std::pair<int, int> idx = get_grid_indexes(c);
+    //     value -= this->piece_weight[this->grid[idx.first][idx.second]
+    //                                     ->get_piece_type()];
+    // }
 
     std::set<Coordinate> ally_attack_before, enemy_attack_before;
     this->get_threatened_squares_by_color(ally_attack_before, this->active_color);
@@ -208,9 +225,13 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     bool attacked_before = (enemy_attack_before.find(p->get_coordinate())
         != enemy_attack_before.end());
 
+    int positional_value_before = this->evaluate_position(this->active_color);
+
     /* make the actual move */
     this->delete_piece(p);
     this->add_piece(new_p);
+
+    int positional_value_after = this->evaluate_position(this->active_color);
 
     std::set<Coordinate> ally_attack_after, enemy_attack_after;
     this->get_threatened_squares_by_color(ally_attack_after, this->active_color);
@@ -220,6 +241,19 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     bool attacked_after
         = enemy_attack_after.find(Coordinate { end_idx.first, end_idx.second })
         != enemy_attack_after.end();
+
+    // if (attacked_after) {
+    //     value -= this->piece_weight[p->get_piece_type()];
+    // }
+
+    std::set<Coordinate> protected_after;
+    this->get_protected_squares_by_color(protected_after, this->active_color);
+
+    for (const Coordinate& c : protected_after) {
+        std::pair<int, int> idx = get_grid_indexes(c);
+        value += this->piece_weight[this->grid[idx.first][idx.second]
+                                        ->get_piece_type()];
+    }
 
     /* check if ally king is in check after making the move */
     bool invalid = false;
@@ -256,7 +290,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     if (invalid) {
         return MoveFlags { false };
     }
-    return MoveFlags { true, check, capture, attacked_before, attacked_after };
+    return MoveFlags { true, check, capture, attacked_before, attacked_after,
+        value };
 }
 
 std::string Board::make_move(
@@ -391,6 +426,36 @@ void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
         for (auto it = this->black_pieces.begin(); it != this->black_pieces.end();
              ++it) {
             (*it)->get_threatened_squares(s);
+        }
+    }
+}
+
+void Board::get_protected_squares_by_color(std::set<Coordinate>& s, Color c)
+{
+    std::set<Coordinate> temp;
+    if (c == Color::WHITE) {
+        for (auto it = this->white_pieces.begin(); it != this->white_pieces.end();
+             ++it) {
+            (*it)->get_threatened_squares(temp);
+        }
+        for (const Coordinate& c : temp) {
+            std::pair<int, int> idx = get_grid_indexes(c);
+            if (this->grid[idx.first][idx.second]
+                and this->grid[idx.first][idx.second]->get_color() == Color::WHITE) {
+                s.insert(c);
+            }
+        }
+    } else {
+        for (auto it = this->black_pieces.begin(); it != this->black_pieces.end();
+             ++it) {
+            (*it)->get_threatened_squares(temp);
+        }
+        for (const Coordinate& c : temp) {
+            std::pair<int, int> idx = get_grid_indexes(c);
+            if (this->grid[idx.first][idx.second]
+                and this->grid[idx.first][idx.second]->get_color() == Color::BLACK) {
+                s.insert(c);
+            }
         }
     }
 }
@@ -951,84 +1016,80 @@ std::set<std::shared_ptr<Piece>> Board::get_pieces(Color c)
 int Board::evaluate_position(Color toplay)
 {
     int position_value = 0;
-    std::set<std::shared_ptr<Piece>> ally = this->get_pieces(this->active_color),
-                                     enemy
+
+    // Get ally and enemy pieces
+    std::set<std::shared_ptr<Piece>> ally = this->get_pieces(this->active_color);
+    std::set<std::shared_ptr<Piece>> enemy
         = this->get_pieces(toggle_color(this->active_color));
 
-    for (std::shared_ptr<Piece> p : ally) {
+    // Evaluate ally pieces
+    for (const auto& p : ally) {
         if (p->get_piece_type() == PieceType::KING)
             continue;
-        position_value += this->piece_weight[p->get_piece_type()];
-    }
-    for (std::shared_ptr<Piece> p : enemy) {
-        if (p->get_piece_type() == PieceType::KING)
-            continue;
-        position_value -= this->piece_weight[p->get_piece_type()];
+        position_value += this->piece_weight[p->get_piece_type()]
+            + this->piece_activity(p->get_coordinate());
     }
 
-    /* next move can capture pieces as well */
+    // Evaluate enemy pieces
+    for (const auto& p : enemy) {
+        if (p->get_piece_type() == PieceType::KING)
+            continue;
+        position_value -= this->piece_weight[p->get_piece_type()]
+            + this->piece_activity(p->get_coordinate());
+    }
+
+    // Evaluate threatened squares for next move
     std::set<Coordinate> under_attack;
     this->get_threatened_squares_by_color(under_attack, toplay);
+
     int max_value = 0;
-    for (const Coordinate& c : under_attack) {
-        std::pair<int, int> grid_idx = get_grid_indexes(c);
-        if (!this->grid[grid_idx.first][grid_idx.second]) {
+    for (const auto& c : under_attack) {
+        auto grid_idx = get_grid_indexes(c);
+        auto piece = this->grid[grid_idx.first][grid_idx.second];
+
+        if (!piece || piece->get_color() != toggle_color(toplay))
             continue;
-        }
-        if (this->grid[grid_idx.first][grid_idx.second]->get_color()
-            == toggle_color(toplay)) {
-            max_value = std::max(max_value,
-                this->piece_weight[this->grid[grid_idx.first][grid_idx.second]
-                                       ->get_piece_type()]);
-        }
+
+        int piece_value
+            = this->piece_weight[piece->get_piece_type()] + this->piece_activity(c);
+        max_value = std::max(max_value, piece_value);
     }
 
-    /* pre-move */
-    if (toplay == this->active_color) {
-        position_value += max_value;
-    }
-    /* post move */
-    else {
-        position_value -= max_value;
-    }
+    // Adjust position value based on the next move
+    position_value += (toplay == this->active_color) ? max_value : -max_value;
 
     return position_value;
 }
 
-int Board::piece_activity()
+int Board::piece_activity(Coordinate c)
 {
-    /*
-        - number of legal moves
-        - pieces in center
-        - control over center (d4, d5, e4, e5)
-    */
-    int piece_activity = 0, piece_position = 0;
-    std::set<std::shared_ptr<Piece>> ally = this->get_pieces(this->active_color),
-                                     enemy
-        = this->get_pieces(toggle_color(this->active_color));
+    auto idx = get_grid_indexes(c);
+    auto p = this->grid[idx.first][idx.second];
 
-    /* count number of possible moves for ally pieces */
-    for (std::shared_ptr<Piece> p : ally) {
-        std::set<Coordinate> moves;
-        p->get_valid_moves(moves);
+    std::set<Coordinate> moves;
+    p->get_threatened_squares(moves);
 
-        for (const Coordinate& c : moves) {
-            if (is_valid_move(p->get_coordinate(), c).valid) {
-                piece_activity++;
-            }
+    int num_threatened = 0;
+    for (const auto& move : moves) {
+        // Increment more for central control
+        if (move.row >= '4' && move.row <= '5' && move.column >= 'd'
+            && move.column <= 'e') {
+            num_threatened += 2;
+        } else {
+            num_threatened += 1;
         }
     }
 
-    /* subtract by the piece activity of the enemey */
-    for (std::shared_ptr<Piece> p : enemy) {
-        std::set<Coordinate> moves;
-        p->get_valid_moves(moves);
-
-        for (const Coordinate& c : moves) {
-            if (is_valid_move(p->get_coordinate(), c).valid) {
-                piece_activity--;
-            }
-        }
+    int position_score = 0;
+    if (p->get_piece_type() == PieceType::PAWN) {
+        position_score = (p->get_color() == Color::WHITE)
+            ? p->get_coordinate().row - 2
+            : 7 - p->get_coordinate().row;
+    } else {
+        position_score = (p->get_color() == Color::WHITE)
+            ? 7 - p->get_coordinate().row
+            : p->get_coordinate().row - 2;
     }
+
+    return num_threatened + position_score;
 }
-

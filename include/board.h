@@ -16,7 +16,6 @@ class Game;
 class Board : public std::enable_shared_from_this<Board> {
     /* core */
     std::vector<std::vector<std::shared_ptr<Piece>>> grid;
-    std::shared_ptr<Game> game;
     Color active_color;
 
     /* enpassant */
@@ -28,6 +27,9 @@ class Board : public std::enable_shared_from_this<Board> {
 
     /* move clocks */
     int halfmove_clock, fullmove_clock;
+
+    /* game pointer */
+    std::shared_ptr<Game> game;
 
     /* pieces */
     std::set<std::shared_ptr<Piece>> white_pieces;
@@ -41,16 +43,10 @@ class Board : public std::enable_shared_from_this<Board> {
     std::string serialize();
 
     /* board for bot4 */
-    // clang-format off
-    std::map<PieceType, int> piece_weight = {
-        { PieceType::PAWN, 100 },
-        { PieceType::KNIGHT, 300 },
-        { PieceType::BISHOP, 350 },
-        { PieceType::ROOK, 500 },
-        { PieceType::QUEEN, 900 },
-        { PieceType::KING, 100000 }
-    };
-    // clang-format on
+    std::map<PieceType, int> piece_weight
+        = { { PieceType::PAWN, 100 }, { PieceType::KNIGHT, 300 },
+              { PieceType::BISHOP, 350 }, { PieceType::ROOK, 500 },
+              { PieceType::QUEEN, 900 }, { PieceType::KING, 100000 } };
 
 public:
     /* board creation */
@@ -78,6 +74,7 @@ public:
     void delete_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
     void get_threatened_squares_by_color(std::set<Coordinate>& s, Color c);
+    void get_protected_squares_by_color(std::set<Coordinate>& s, Color c);
     Coordinate get_enpassant_coordinate();
 
     /* special moves check */
@@ -107,9 +104,30 @@ public:
 
     /* bot logic */
     int evaluate_position(Color toplay);
-    int piece_activity();
+    int piece_activity(Coordinate c);
     int pawn_structure();
     int king_safety();
+
+    int white_weight[8][8] = {
+        { 1, 1, 0, 1, 1, 1, 0, 1 },
+        { 1, 2, 3, 4, 4, 3, 2, 1 },
+        { 3, 4, 5, 6, 6, 5, 4, 3 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 10, 10, 10, 10, 10, 10, 10, 10 },
+    };
+    int black_weight[8][8] = {
+        { 10, 10, 10, 10, 10, 10, 10, 10 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 5, 6, 7, 8, 8, 7, 6, 5 },
+        { 3, 4, 5, 6, 6, 5, 4, 3 },
+        { 1, 2, 3, 4, 4, 3, 2, 1 },
+        { 1, 1, 0, 1, 1, 1, 0, 1 },
+    };
 };
 
 #endif

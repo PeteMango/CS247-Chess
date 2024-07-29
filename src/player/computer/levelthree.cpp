@@ -58,11 +58,11 @@ void LevelThree::move()
     if (!check_escape.empty()) {
         return this->execute_move(check_escape);
     }
-    if (!check_capture.empty()) {
-        return this->execute_move(check_capture);
-    }
     if (!capture_escape.empty()) {
         return this->execute_move(capture_escape);
+    }
+    if (!check_capture.empty()) {
+        return this->execute_move(check_capture);
     }
 
     /* finally, do moves that satisfiy 1/3, in this order s*/

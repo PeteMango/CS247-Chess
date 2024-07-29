@@ -6,6 +6,7 @@
 #include "player.h"
 #include "struct/coordinate.h"
 #include "struct/move.h"
+#include "util.h"
 #include <algorithm>
 #include <iterator>
 #include <random>
@@ -20,5 +21,6 @@ public:
     ~Computer();
     void move() override;
     void execute_move(std::set<std::pair<Coordinate, Coordinate>> moves);
+    void execute_best_move(std::set<std::pair<Coordinate, Coordinate>> moves);
 };
 #endif
