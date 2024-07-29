@@ -33,7 +33,13 @@ bool Game::is_game_started() { return this->is_started; }
 
 Result Game::get_result() { return this->result; }
 
-void Game::resign() { throw std::invalid_argument("unimplemented"); }
+void Game::resign()
+{
+    Color winner = toggle_color(this->get_board()->get_active_color());
+    this->end_game(color_to_result(winner));
+    this->chess->notify_displays();
+    this->chess->notify_status(DisplayStatus::RESIGN, winner);
+}
 
 void Game::make_move(Coordinate start, Coordinate end, PromotionType promotion)
 {
@@ -46,6 +52,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
     std::string line;
     Color color = Color::WHITE;
     while (true) {
+        // TODO: catch here
         std::getline(in, line);
         if (in.eof()) {
             is_eof_given = true;
@@ -89,7 +96,7 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
             Color c = string_to_color(col);
             color = c;
         } else if (cmd == "done") {
-            this->board->verify_board();
+            this->board->verify_setup();
             break;
         } else {
             std::invalid_argument("invalid setup command");

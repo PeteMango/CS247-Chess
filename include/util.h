@@ -36,8 +36,6 @@ bool validate_piece(std::string piece);
 
 bool validate_color(std::string color);
 
-bool validate_setup();
-
 PromotionType string_to_promotiontype(std::string promotion);
 
 PieceType string_to_piecetype(std::string piece);
@@ -61,7 +59,5 @@ PieceType PromotionTypeToPieceType(PromotionType pt);
 Result color_to_result(Color c);
 
 Color toggle_color(Color c);
-
-void debug(std::string s);
 
 #endif

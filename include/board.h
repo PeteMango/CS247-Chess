@@ -41,7 +41,7 @@ public:
     // board setup helpers
     void place_piece(Color color, Coordinate square, PieceType type);
     void remove_piece(Coordinate square);
-    void verify_board();
+    void verify_setup();
     void setup_default_board();
     void clean_board();
 

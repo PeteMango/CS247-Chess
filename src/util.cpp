@@ -1,5 +1,4 @@
 #include "util.h"
-#include "globals.h"
 #include <iostream>
 
 const std::unordered_map<PromotionType, std::string> PromotionTypeToString = {
@@ -93,8 +92,6 @@ bool validate_color(std::string color)
     return StringToColor.find(color) != StringToColor.end();
 }
 
-bool validate_setup() { throw std::logic_error("not implemented"); }
-
 PromotionType string_to_promotiontype(std::string promotion)
 {
     return StringToPromotionType.at(promotion);
@@ -143,7 +140,7 @@ PieceType PromotionTypeToPieceType(PromotionType pt)
     case PromotionType::KNIGHT:
         return PieceType::KNIGHT;
     default:
-        throw std::logic_error("not possible");
+        throw std::runtime_error("promotiontype must be a subset of piecetype");
     }
 }
 
@@ -155,9 +152,3 @@ Color toggle_color(Color c)
     return Color::WHITE;
 }
 
-void debug(std::string s)
-{
-    if (DEBUG) {
-        std::cout << s;
-    }
-}

@@ -19,5 +19,5 @@ void LevelOne::move()
     if (!possible_moves.empty()) {
         return this->execute_move(possible_moves);
     }
-    throw std::runtime_error("should have possible moves");
+    throw std::runtime_error("level one computer not returning any possible moves");
 }
