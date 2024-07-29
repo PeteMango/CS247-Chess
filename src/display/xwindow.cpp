@@ -49,8 +49,7 @@ xwindow::xwindow()
     // Make window non-resizeable.
     XSizeHints hints;
     hints.flags = (USPosition | PSize | PMinSize | PMaxSize);
-    hints.height = hints.base_height = hints.min_height = hints.max_height
-        = height;
+    hints.height = hints.base_height = hints.min_height = hints.max_height = height;
     hints.width = hints.base_width = hints.min_width = hints.max_width = width;
     XSetNormalHints(d, w, &hints);
 
@@ -80,28 +79,29 @@ void xwindow::drawPiece(int col, int row, char piece)
     if (col >= 0 && row >= 0 && rendered_board[col][row] == piece)
         return;
 
-    int color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
-    if (rendered_board[col][row] != ']' && col >= 0 && row >= 0)
-        fillGrid(col, row, color);
+    if (col != -1 && row != -1) {
+        int color = (row + col) % 2 == 0 ? xwindow::Green : xwindow::White;
+        if (rendered_board[col][row] != ']' && col >= 0 && row >= 0)
+            fillGrid(col, row, color);
 
-    rendered_board[col][row] = piece;
-
+        rendered_board[col][row] = piece;
+    }
     int x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
     int y = (7 - row) * SQUARE_SIZE + SQUARE_SIZE / 2 + STRING_OFFSET;
 
     const char* draw = &piece;
 
-    Font font;
-
-    if (col == -1 || row == -1)
-        font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*");
-    else if (islower(piece)) {
-        font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*");
-    } else {
-        font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*");
-    }
-
-    XSetFont(d, gc, font);
+    /* Font font; */
+    /**/
+    /* if (col == -1 || row == -1) */
+    /*     font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*"); */
+    /* else if (islower(piece)) { */
+    /*     font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*"); */
+    /* } else { */
+    /*     font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*"); */
+    /* } */
+    /**/
+    /* XSetFont(d, gc, font); */
     XDrawString(d, w, gc, x, y, draw, 1);
-    XUnloadFont(d, font);
+    /* XUnloadFont(d, font); */
 }
