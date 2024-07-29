@@ -1,5 +1,6 @@
 game human human
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 move e2 e4
 <<<<<<< HEAD
@@ -97,6 +98,8 @@ move d8 f8
 resign
 game human human
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move e2 e4
 =======
 >>>>>>> 91da449 (fix)
@@ -260,8 +263,11 @@ move f2 f6
 game human human
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move e2 e4
 move c7 c6
 move d2 d4
@@ -357,10 +363,13 @@ move d8 f8
 resign
 game human human
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move d2 d4
 move g8 f6
 move c2 c4

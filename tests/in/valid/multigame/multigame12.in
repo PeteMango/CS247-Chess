@@ -182,6 +182,7 @@ game human human
 move e2 e4
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 move e7 e5
@@ -670,6 +671,8 @@ move e7 h7
 game human human
 move e2 e4
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move e7 e5
 move g1 f3
 move b8 c6
@@ -1151,5 +1154,8 @@ move g7 g8
 move c2 g6
 move g8 h8
 move e7 h7
+<<<<<<< HEAD
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699

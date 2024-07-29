@@ -11,11 +11,14 @@
 8 rnbqkbnr
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 7 pppp_ppp
 6  _ _ _ _
 5 _ _ p _ 
 =======
 =======
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 7 pppp_ppp
 6  _ _ _ _
 5 _ _ p _ 
@@ -4939,11 +4942,17 @@ Black wins!
 
   abcdefgh
 8 rnbqkbnr
+<<<<<<< HEAD
 >>>>>>> 91da449 (fix)
 7 pp_ppppp
 6  _p_ _ _
 5 _ _ _ _ 
 >>>>>>> 47519ea (update tests)
+=======
+7 pp_ppppp
+6  _p_ _ _
+5 _ _ _ _ 
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 4  _ _P_ _
 3 _ _ _ _ 
 2 PPPP PPP
@@ -4951,6 +4960,7 @@ Black wins!
 
   abcdefgh
 8 rnbqkbnr
+<<<<<<< HEAD
 <<<<<<< HEAD
 7 pppp_ppp
 6  _ _ _ _
@@ -7248,6 +7258,8 @@ White is in check.
 2  _ _ _R_
 1 _k_ _ _ 
 =======
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 7 pp_ppppp
 6  _p_ _ _
 5 _ _ _ _ 
@@ -8353,12 +8365,16 @@ Black is in check.
 3 _ _ _ _ 
 2  _ _ KP_
 1 r _ _ _ 
+<<<<<<< HEAD
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 
   abcdefgh
 8  _ _ _ _
 7 _ _ _ _ 
 6  _ _ _ _
+<<<<<<< HEAD
 <<<<<<< HEAD
 5 _ _ _ _ 
 4  _r_ _ _
@@ -8366,6 +8382,8 @@ Black is in check.
 2  _ _ _R_
 1 _k_ _ _ 
 =======
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 5 _R_ kp_ 
 4  _ _ p _
 3 _ _ _ _ 
@@ -8462,13 +8480,17 @@ Black is in check.
 3 _ _R_K_ 
 2  _ _ _P_
 1 _ _ _r_ 
+<<<<<<< HEAD
 >>>>>>> 47519ea (update tests)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 
   abcdefgh
 White is in check.
 8  _ _ _ _
 7 _ _ _ _ 
 6  _ _ _ _
+<<<<<<< HEAD
 <<<<<<< HEAD
 5 _ _ _ _ 
 4  _K_ _ _
@@ -8479,6 +8501,8 @@ White is in check.
   abcdefgh
 Stalemate!
 =======
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 5 _ _ _pk 
 4  _ _ p _
 3 _ _R_ _ 
@@ -10776,6 +10800,7 @@ White is in check.
 
   abcdefgh
 Checkmate! Black wins!
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 47519ea (update tests)
 8 rnbqkbnr
@@ -19187,6 +19212,8 @@ Stalemate!
 >>>>>>> 47519ea (update tests)
 =======
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 Final Score:
 White: 0.5
 Black: 2.5

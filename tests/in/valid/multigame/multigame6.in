@@ -1,6 +1,9 @@
 game human human
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move g1 f3
 move d7 d5
 move g2 g3
@@ -336,6 +339,7 @@ move h3 h2
 move d2 d3
 resign
 game human human
+<<<<<<< HEAD
 =======
 >>>>>>> 47519ea (update tests)
 move e2 e4
@@ -962,6 +966,8 @@ move h3 h2
 move d2 d3
 resign
 game human human
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move e2 e4
 move c7 c5
 move g1 f3

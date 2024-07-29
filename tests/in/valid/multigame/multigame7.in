@@ -1,8 +1,11 @@
 game human human
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move g1 f3
 move g8 f6
 move c2 c4
@@ -208,7 +211,10 @@ move f5 e5
 move f3 e3
 resign
 game human human
+<<<<<<< HEAD
 >>>>>>> 91da449 (fix)
+=======
+>>>>>>> 767d50dc92fe828b0f95e9a6a257a71205ff6699
 move c2 c4
 move g7 g6
 move b1 c3
