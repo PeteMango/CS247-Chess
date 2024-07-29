@@ -25,10 +25,10 @@ void LevelThree::move()
         if (mf.capture) {
             capture.insert(p);
         }
-        if (mf.escapes) {
+        if (mf.attacked_before and !mf.attacked_after) {
             escape.insert(p);
         }
-        if (mf.check or mf.capture or mf.escapes) {
+        if (mf.check or mf.capture or (mf.attacked_after and !mf.attacked_after)) {
             better_moves.insert(p);
         }
     }
@@ -68,9 +68,14 @@ void LevelThree::move()
         return this->execute_move(capture_escape);
     }
 
-    /* moves that only does 1/3 */
-    if (!better_moves.empty()) {
-        return this->execute_move(better_moves);
+    if (!check.empty()) {
+        return this->execute_move(check);
+    }
+    if (!capture.empty()) {
+        return this->execute_move(capture);
+    }
+    if (!escape.empty()) {
+        return this->execute_move(escape);
     }
 
     /* return any moves */

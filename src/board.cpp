@@ -160,17 +160,18 @@ Board::Board(std::shared_ptr<Game> game, const std::string& fen)
 
 MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 {
-    std::pair<int, int> start_idx = get_grid_indexes(start);
+    std::pair<int, int> start_idx = get_grid_indexes(start),
+                        end_idx = get_grid_indexes(end);
 
-    /* incorrect starting square */
+    /* starting square cannot be empty */
     if (this->grid[start_idx.first][start_idx.second] == nullptr) {
-        return MoveFlags { false, false, false, false };
+        return MoveFlags { false };
     }
 
     /* starting square has incorrect piece */
     std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
     if (p->get_color() != this->active_color) {
-        return MoveFlags { false, false, false, false };
+        return MoveFlags { false };
     }
 
     /* check if enpassants or castle is possible */
@@ -179,13 +180,11 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 
     /* invalid move, castle and enpassant */
     if (!p->is_valid_move(end) and !valid_castle and !valid_enpassant) {
-        return MoveFlags { false, false, false, false };
+        return MoveFlags { false };
     }
 
-    std::pair<int, int> end_idx = get_grid_indexes(end);
     std::shared_ptr<Piece> new_p
         = this->create_piece(p->get_color(), end, p->get_piece_type());
-
     std::shared_ptr<Piece> taken_piece = nullptr;
 
     bool capture = false;
@@ -201,33 +200,26 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         this->delete_piece(taken_piece);
     }
 
-    bool attacked = false, escape = false;
-    std::set<Coordinate> enemy_attacking_before;
+    std::set<Coordinate> ally_attack_before, enemy_attack_before;
+    this->get_threatened_squares_by_color(ally_attack_before, this->active_color);
     this->get_threatened_squares_by_color(
-        enemy_attacking_before, toggle_color(p->get_color()));
-    if (enemy_attacking_before.find(Coordinate { start_idx.first, start_idx.second })
-        != enemy_attacking_before.end()) {
-        attacked = true;
-    }
+        enemy_attack_before, toggle_color(this->active_color));
+
+    bool attacked_before = (enemy_attack_before.find(p->get_coordinate())
+        != enemy_attack_before.end());
 
     /* make the actual move */
     this->delete_piece(p);
     this->add_piece(new_p);
 
-    std::set<Coordinate> enemy_attack_after;
-
-    /* getting the squares that we are threatened by */
+    std::set<Coordinate> ally_attack_after, enemy_attack_after;
+    this->get_threatened_squares_by_color(ally_attack_after, this->active_color);
     this->get_threatened_squares_by_color(
-        enemy_attack_after, toggle_color(p->get_color()));
+        enemy_attack_after, toggle_color(this->active_color));
 
-    std::set<Coordinate> ally_attack_after;
-    this->get_threatened_squares_by_color(ally_attack_after, p->get_color());
-
-    if (enemy_attack_after.find(Coordinate { end_idx.first, end_idx.second })
-            != enemy_attack_after.end()
-        and attacked) {
-        escape = true;
-    }
+    bool attacked_after
+        = enemy_attack_after.find(Coordinate { end_idx.first, end_idx.second })
+        != enemy_attack_after.end();
 
     /* check if ally king is in check after making the move */
     bool invalid = false;
@@ -262,9 +254,9 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 
     /* return flags */
     if (invalid) {
-        return MoveFlags { false, false, false, false };
+        return MoveFlags { false };
     }
-    return MoveFlags { true, check, capture, escape };
+    return MoveFlags { true, check, capture, attacked_before, attacked_after };
 }
 
 std::string Board::make_move(
