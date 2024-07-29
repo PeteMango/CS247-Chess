@@ -9,6 +9,7 @@
 #include "chess.h"
 #include "enum.h"
 #include "game.h"
+#include "piece/piece.h"
 #include <iostream>
 #include <memory>
 #include <stdexcept>
@@ -277,6 +278,18 @@ std::string Board::make_move(
     if (this->grid[ending_idx.first][ending_idx.second] != nullptr) {
         std::shared_ptr<Piece> taken
             = this->grid[ending_idx.first][ending_idx.second];
+        if (taken->get_piece_type() == PieceType::ROOK) {
+            if (this->get_castle_rook(taken->get_color(), CastleSide::KINGSIDE)
+                == taken->get_coordinate()) {
+                this->castle_rights[taken->get_color()][CastleSide::KINGSIDE]
+                    = false;
+            } else if (this->get_castle_rook(
+                           taken->get_color(), CastleSide::QUEENSIDE)
+                == taken->get_coordinate()) {
+                this->castle_rights[taken->get_color()][CastleSide::QUEENSIDE]
+                    = false;
+            }
+        }
         this->delete_piece(taken);
     } else if (this->is_valid_enpassant(start, end)) {
         Coordinate c = this->get_enpassant_taken_piece_coordinate();
@@ -372,7 +385,6 @@ std::string Board::make_move(
     this->game->get_chess()->notify_status(status, color);
 
     /* serialize board */
-    // std::cout << "fen: " << this->serialize() << std::endl;
     return this->serialize();
 }
 
@@ -837,7 +849,7 @@ bool Board::is_valid_castle(Coordinate start, Coordinate end)
     }
     // queenside
     if (start.column > end.column) {
-        d = { 0, 1 };
+        d = { 0, -1 };
         std::pair<int, int> cur = get_grid_indexes(end);
         cur = add_pairs(cur, d);
         if (this->grid[cur.first][cur.second] != nullptr) {

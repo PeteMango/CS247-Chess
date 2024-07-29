@@ -1,6 +1,7 @@
 #ifndef COORDINATE_H
 #define COORDINATE_H
 
+#include <iostream>
 #include <string>
 
 struct Coordinate {
@@ -13,5 +14,7 @@ struct Coordinate {
     bool operator<(const Coordinate& other) const;
     bool operator==(const Coordinate& other) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Coordinate& coord);
 
 #endif

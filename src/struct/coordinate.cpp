@@ -38,3 +38,9 @@ bool Coordinate::operator==(const Coordinate& other) const
 {
     return row == other.row && column == other.column;
 }
+
+std::ostream& operator<<(std::ostream& os, const Coordinate& coord)
+{
+    os << coord.column << coord.row;
+    return os;
+}
