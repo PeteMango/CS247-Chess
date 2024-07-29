@@ -4,7 +4,8 @@ BASE_DIR="tests"
 OUT_DIR="$BASE_DIR/out"
 IN_DIR="$BASE_DIR/in/valid"
 EXP_DIR="$BASE_DIR/expect/valid"
-EXECUTABLE="out/chess"
+EXECUTABLE="./out/chess"
+FLAGS="--no-graphics"
 
 total=0
 passed=0
@@ -34,7 +35,7 @@ run_test() {
 		expected_file="$EXPECTED_DIR/$filename.expect"
 		diff_file="$DIFF_DIR/$filename.diff"
 
-		if ! "$EXECUTABLE" <"$input_file" >"$output_file"; then
+		if ! "$EXECUTABLE" $FLAGS <"$input_file" >"$output_file"; then
 			echo "Executable CRASHED on $filename"
 			crashed+=("$filename")
 			((crash++))

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 EXECUTABLE="./out/chess"
-MAX_MOVES=100
+MAX_MOVES=1000
 
 # Define the available levels
 # levels=("computer1" "computer2" "computer3" "computer4")
-levels=("computer1")
+levels=("computer1", "computer2")
 
 # Function to run the game with provided flags
 run_game() {
