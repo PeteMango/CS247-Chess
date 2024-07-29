@@ -1,6 +1,7 @@
 #include "../include/game.h"
 #include "../include/util.h"
 #include "board.h"
+#include "globals.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -52,7 +53,6 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
     std::string line;
     Color color = Color::WHITE;
     while (true) {
-        // TODO: catch here
         try {
             std::getline(in, line);
             if (in.eof()) {
@@ -100,16 +100,16 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
                 this->board->verify_setup();
                 break;
             } else {
-                std::invalid_argument("invalid setup command");
+                throw std::invalid_argument("invalid setup command");
             }
         } catch (const std::invalid_argument& e) {
-            /* if (strict_mode) { */
-            /*     throw; */
-            /* } else { */
-            /*     std::cerr << "Invalid Argument, please try again: " << e.what() */
-            /*               << std::endl; */
-            /*     continue; */
-            /* } */
+            if (STRICT) {
+                throw;
+            } else {
+                std::cerr << "Invalid Argument, please try again: " << e.what()
+                          << std::endl;
+                continue;
+            }
         } catch (const std::runtime_error& e) {
             std::cerr << "Runtime Error: " << e.what() << std::endl;
             throw;
