@@ -1,11 +1,7 @@
 #ifndef LEVELONE_H
 #define LEVELONE_H
 
-#include "board.h"
-#include "game.h"
 #include "player/computer.h"
-#include "struct/coordinate.h"
-#include <set>
 
 class LevelOne : public Computer {
 

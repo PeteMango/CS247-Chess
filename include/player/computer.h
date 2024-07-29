@@ -1,8 +1,15 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 
+#include "board.h"
+#include "game.h"
 #include "player.h"
+#include "struct/coordinate.h"
+#include "struct/move.h"
+#include <algorithm>
+#include <iterator>
 #include <random>
+#include <set>
 
 class Computer : public Player {
 protected:
@@ -12,5 +19,6 @@ public:
     Computer(std::shared_ptr<Game> game, Color color);
     ~Computer();
     void move() override;
+    void execute_move(std::set<std::pair<Coordinate, Coordinate>> moves);
 };
 #endif
