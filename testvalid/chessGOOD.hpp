@@ -413,7 +413,6 @@ class Square {
 
     [[nodiscard]] static constexpr int max() noexcept { return 64; }
 
-   private:
     underlying sq;
 };
 
