@@ -11,7 +11,7 @@ void LevelThree::move()
 {
     std::shared_ptr<Board> grid = this->game->get_board();
 
-    std::set<std::pair<Coordinate, Coordinate>> possible_moves, better_moves;
+    std::set<std::pair<Coordinate, Coordinate>> possible_moves;
     grid->get_all_valid_moves(possible_moves, this->color);
 
     std::set<std::pair<Coordinate, Coordinate>> check, capture, escape;
@@ -27,9 +27,6 @@ void LevelThree::move()
         }
         if (mf.attacked_before and !mf.attacked_after) {
             escape.insert(p);
-        }
-        if (mf.check or mf.capture or (mf.attacked_after and !mf.attacked_after)) {
-            better_moves.insert(p);
         }
     }
 
