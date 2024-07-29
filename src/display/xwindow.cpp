@@ -49,8 +49,7 @@ xwindow::xwindow()
     // Make window non-resizeable.
     XSizeHints hints;
     hints.flags = (USPosition | PSize | PMinSize | PMaxSize);
-    hints.height = hints.base_height = hints.min_height = hints.max_height
-        = height;
+    hints.height = hints.base_height = hints.min_height = hints.max_height = height;
     hints.width = hints.base_width = hints.min_width = hints.max_width = width;
     XSetNormalHints(d, w, &hints);
 
@@ -91,17 +90,17 @@ void xwindow::drawPiece(int col, int row, char piece)
 
     const char* draw = &piece;
 
-    Font font;
-
-    if (col == -1 || row == -1)
-        font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*");
-    else if (islower(piece)) {
-        font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*");
-    } else {
-        font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*");
-    }
-
-    XSetFont(d, gc, font);
+    /* Font font; */
+    /**/
+    /* if (col == -1 || row == -1) */
+    /*     font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*"); */
+    /* else if (islower(piece)) { */
+    /*     font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*"); */
+    /* } else { */
+    /*     font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*"); */
+    /* } */
+    /**/
+    /* XSetFont(d, gc, font); */
     XDrawString(d, w, gc, x, y, draw, 1);
-    XUnloadFont(d, font);
+    /* XUnloadFont(d, font); */
 }
