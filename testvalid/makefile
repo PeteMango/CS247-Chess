@@ -20,7 +20,7 @@ OBJ_FILES := $(SRC_FILES:.cpp=.o) $(TESTVALID_FILES:.cpp=.o)
 EXECUTABLE := testmoves
 
 # Compiler Flags
-CXXFLAGS := -I$(INCLUDE_DIR) -I$(TESTVALID_DIR) -std=c++17 -Wall
+CXXFLAGS := -I$(INCLUDE_DIR) -I$(TESTVALID_DIR) -std=c++17 -O3 -Wall
 
 # Linking Flags
 LDFLAGS := -lX11 -lcurl

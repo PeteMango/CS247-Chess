@@ -14,6 +14,7 @@ TextDisplay::TextDisplay(std::shared_ptr<Chess> chess)
 
 void TextDisplay::show()
 {
+    return;
     if (!this->chess->has_game()) {
         return;
     }
@@ -52,6 +53,7 @@ void TextDisplay::show()
 
 void TextDisplay::show_status(DisplayStatus s, Color c)
 {
+    return;
     if (!this->chess->has_game()) {
         return;
     }
@@ -82,6 +84,7 @@ void TextDisplay::show_results(int white_doubled_results, int black_doubled_resu
 
 void TextDisplay::display_doubled_number(int num)
 {
+    return;
     float res = num / 2.0f;
     if (num % 2 == 0) {
         std::cout << static_cast<int>(res);
