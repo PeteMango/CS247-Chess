@@ -947,3 +947,88 @@ std::set<std::shared_ptr<Piece>> Board::get_pieces(Color c)
     }
     return this->black_pieces;
 }
+
+int Board::evaluate_position(Color toplay)
+{
+    int position_value = 0;
+    std::set<std::shared_ptr<Piece>> ally = this->get_pieces(this->active_color),
+                                     enemy
+        = this->get_pieces(toggle_color(this->active_color));
+
+    for (std::shared_ptr<Piece> p : ally) {
+        if (p->get_piece_type() == PieceType::KING)
+            continue;
+        position_value += this->piece_weight[p->get_piece_type()];
+    }
+    for (std::shared_ptr<Piece> p : enemy) {
+        if (p->get_piece_type() == PieceType::KING)
+            continue;
+        position_value -= this->piece_weight[p->get_piece_type()];
+    }
+
+    /* next move can capture pieces as well */
+    std::set<Coordinate> under_attack;
+    this->get_threatened_squares_by_color(under_attack, toplay);
+    int max_value = 0;
+    for (const Coordinate& c : under_attack) {
+        std::pair<int, int> grid_idx = get_grid_indexes(c);
+        if (!this->grid[grid_idx.first][grid_idx.second]) {
+            continue;
+        }
+        if (this->grid[grid_idx.first][grid_idx.second]->get_color()
+            == toggle_color(toplay)) {
+            max_value = std::max(max_value,
+                this->piece_weight[this->grid[grid_idx.first][grid_idx.second]
+                                       ->get_piece_type()]);
+        }
+    }
+
+    /* pre-move */
+    if (toplay == this->active_color) {
+        position_value += max_value;
+    }
+    /* post move */
+    else {
+        position_value -= max_value;
+    }
+
+    return position_value;
+}
+
+int Board::piece_activity()
+{
+    /*
+        - number of legal moves
+        - pieces in center
+        - control over center (d4, d5, e4, e5)
+    */
+    int piece_activity = 0, piece_position = 0;
+    std::set<std::shared_ptr<Piece>> ally = this->get_pieces(this->active_color),
+                                     enemy
+        = this->get_pieces(toggle_color(this->active_color));
+
+    /* count number of possible moves for ally pieces */
+    for (std::shared_ptr<Piece> p : ally) {
+        std::set<Coordinate> moves;
+        p->get_valid_moves(moves);
+
+        for (const Coordinate& c : moves) {
+            if (is_valid_move(p->get_coordinate(), c).valid) {
+                piece_activity++;
+            }
+        }
+    }
+
+    /* subtract by the piece activity of the enemey */
+    for (std::shared_ptr<Piece> p : enemy) {
+        std::set<Coordinate> moves;
+        p->get_valid_moves(moves);
+
+        for (const Coordinate& c : moves) {
+            if (is_valid_move(p->get_coordinate(), c).valid) {
+                piece_activity--;
+            }
+        }
+    }
+}
+
