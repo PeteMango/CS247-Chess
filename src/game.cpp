@@ -53,53 +53,69 @@ void Game::setup_board(std::istream& in, bool& is_eof_given)
     Color color = Color::WHITE;
     while (true) {
         // TODO: catch here
-        std::getline(in, line);
-        if (in.eof()) {
-            is_eof_given = true;
-            break;
-        }
+        try {
+            std::getline(in, line);
+            if (in.eof()) {
+                is_eof_given = true;
+                break;
+            }
 
-        std::stringstream ss(line);
-        std::string cmd;
-        ss >> cmd;
+            std::stringstream ss(line);
+            std::string cmd;
+            ss >> cmd;
 
-        if (cmd == "+") {
-            std::string piece;
-            std::string coordinate;
-            ss >> piece >> coordinate;
-            if (!validate_piece(piece)) {
-                throw std::invalid_argument("invalid piece");
-            }
-            if (!validate_coordinate(coordinate)) {
-                throw std::invalid_argument("invalid coordinate");
-            }
-            Coordinate coord(coordinate);
-            PieceType p = string_to_piecetype(piece);
-            this->board->place_piece(color, coord, p);
+            if (cmd == "+") {
+                std::string piece;
+                std::string coordinate;
+                ss >> piece >> coordinate;
+                if (!validate_piece(piece)) {
+                    throw std::invalid_argument("invalid piece");
+                }
+                if (!validate_coordinate(coordinate)) {
+                    throw std::invalid_argument("invalid coordinate");
+                }
+                Coordinate coord(coordinate);
+                PieceType p = string_to_piecetype(piece);
+                this->board->place_piece(color, coord, p);
 
-            this->chess->notify_displays();
-        } else if (cmd == "-") {
-            std::string coordinate;
-            ss >> coordinate;
-            if (!validate_coordinate(coordinate)) {
-                throw std::invalid_argument("invalid coordinate");
+                this->chess->notify_displays();
+            } else if (cmd == "-") {
+                std::string coordinate;
+                ss >> coordinate;
+                if (!validate_coordinate(coordinate)) {
+                    throw std::invalid_argument("invalid coordinate");
+                }
+                Coordinate coord(coordinate);
+                this->board->remove_piece(coord);
+                this->chess->notify_displays();
+            } else if (cmd == "=") {
+                std::string col;
+                ss >> col;
+                if (!validate_color(col)) {
+                    throw std::invalid_argument("invalid color");
+                }
+                Color c = string_to_color(col);
+                color = c;
+            } else if (cmd == "done") {
+                this->board->verify_setup();
+                break;
+            } else {
+                std::invalid_argument("invalid setup command");
             }
-            Coordinate coord(coordinate);
-            this->board->remove_piece(coord);
-            this->chess->notify_displays();
-        } else if (cmd == "=") {
-            std::string col;
-            ss >> col;
-            if (!validate_color(col)) {
-                throw std::invalid_argument("invalid color");
-            }
-            Color c = string_to_color(col);
-            color = c;
-        } else if (cmd == "done") {
-            this->board->verify_setup();
-            break;
-        } else {
-            std::invalid_argument("invalid setup command");
+        } catch (const std::invalid_argument& e) {
+            /* if (strict_mode) { */
+            /*     throw; */
+            /* } else { */
+            /*     std::cerr << "Invalid Argument, please try again: " << e.what() */
+            /*               << std::endl; */
+            /*     continue; */
+            /* } */
+        } catch (const std::runtime_error& e) {
+            std::cerr << "Runtime Error: " << e.what() << std::endl;
+            throw;
+        } catch (...) {
+            std::cerr << "An unexpected error occurred." << std::endl;
+            throw;
         }
     }
 }

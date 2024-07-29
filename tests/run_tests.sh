@@ -5,7 +5,7 @@ OUT_DIR="$BASE_DIR/out"
 IN_DIR="$BASE_DIR/in/valid"
 EXP_DIR="$BASE_DIR/expect/valid"
 EXECUTABLE="./out/chess"
-FLAGS="--no-graphics --strict"
+FLAGS="--no-graphics"
 
 total=0
 passed=0

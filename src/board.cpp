@@ -395,8 +395,6 @@ void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
     }
 }
 
-void Board::setup_board(std::istream& in) { return; }
-
 void Board::toggle_active_color()
 {
     this->active_color = toggle_color(this->active_color);

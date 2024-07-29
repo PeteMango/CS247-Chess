@@ -34,7 +34,6 @@ public:
     Board(std::shared_ptr<Game> game, bool default_board = true);
     // deserialize
     Board(std::shared_ptr<Game> game, const std::string& fen);
-    void setup_board(std::istream& in);
     std::shared_ptr<Piece> create_piece(
         Color color, Coordinate square, PieceType type);
 

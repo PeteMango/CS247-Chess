@@ -1,6 +1,7 @@
 #include "../include/chess.h"
 #include "../include/util.h"
 #include "game.h"
+#include "globals.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -8,31 +9,32 @@
 
 int main(int argc, char* argv[])
 {
-    bool graphics_mode = true;
-    bool strict_mode = false;
     for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];
         if (arg == "--no-graphics" || arg == "-ng") {
-            graphics_mode = false;
-        } else if (arg == "--strict" || arg == "-s") {
-            strict_mode = true;
+            GRAPHICS = false;
+        } else if (arg == "--no-strict" || arg == "-ns") {
+            STRICT = false;
         }
     }
-    if (graphics_mode) {
+    if (GRAPHICS) {
         std::cout << "graphics mode enabled" << std::endl;
+    } else {
+        std::cout << "graphics mode disabled" << std::endl;
     }
-    if (!strict_mode) {
+    if (STRICT) {
+        std::cout << "strict mode enabled" << std::endl;
+    } else {
         std::cout << "strict mode disabled" << std::endl;
     }
 
-    std::shared_ptr<Chess> CHESS = createChess(graphics_mode);
+    std::shared_ptr<Chess> CHESS = createChess(GRAPHICS);
     std::string line;
 
     bool is_eof_given = false;
 
     while (true) {
         try {
-
             std::getline(std::cin, line);
             if (std::cin.eof() || is_eof_given) {
                 CHESS->get_scores();
@@ -133,7 +135,7 @@ int main(int argc, char* argv[])
                 throw std::invalid_argument("invalid input command");
             }
         } catch (const std::invalid_argument& e) {
-            if (strict_mode) {
+            if (STRICT) {
                 throw;
             } else {
                 std::cerr << "Invalid Argument, please try again: " << e.what()
