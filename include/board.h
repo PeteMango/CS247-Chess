@@ -48,7 +48,7 @@ public:
     MoveFlags is_valid_move(Coordinate start, Coordinate end);
     std::string make_move(Coordinate start, Coordinate end, PromotionType promotion);
     void add_piece(std::shared_ptr<Piece> p);
-    void delete_piece(std::shared_ptr<Piece> p);
+    void destroy_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
     void get_threatened_squares_by_color(std::set<Coordinate>& s, Color c);
     Coordinate get_enpassant_coordinate();
