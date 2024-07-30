@@ -9,7 +9,7 @@ enum class PromotionType { KNIGHT, BISHOP, ROOK, QUEEN };
 
 enum class CastleSide { KINGSIDE, QUEENSIDE };
 
-enum class PlayerType { HUMAN, LEVEL1, LEVEL2, LEVEL3, LEVEL4 };
+enum class PlayerType { HUMAN, LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5 };
 
 enum class Result { WHITE_WIN, BLACK_WIN, DRAW };
 
