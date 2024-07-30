@@ -298,13 +298,11 @@ MoveFlags Board::checkmate_valid_move(Coordinate start, Coordinate end, Color c)
         = this->create_piece(p->get_color(), end, p->get_piece_type());
     std::shared_ptr<Piece> taken_piece = nullptr;
 
-    bool capture = false;
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
         if (taken_piece->get_color() == p->get_color()) {
             return MoveFlags { false };
         }
-        capture = true;
         this->destroy_piece(taken_piece);
     }
 
