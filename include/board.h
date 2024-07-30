@@ -36,7 +36,7 @@ class Board : public std::enable_shared_from_this<Board> {
     //           { PieceType::BISHOP, 350 }, { PieceType::ROOK, 500 },
     //           { PieceType::QUEEN, 900 }, { PieceType::KING, 1000 } };
     std::map<PieceType, int> piece_weight = { { PieceType::PAWN, 1 },
-        { PieceType::KNIGHT, 3 }, { PieceType::BISHOP, 3 }, { PieceType::ROOK, 5 },
+        { PieceType::KNIGHT, 3 }, { PieceType::BISHOP, 4 }, { PieceType::ROOK, 5 },
         { PieceType::QUEEN, 9 }, { PieceType::KING, 1000 } };
 
 public:
@@ -87,6 +87,26 @@ public:
     bool is_check(Color c);
     bool is_stalemate(Color c);
     bool is_checkmate(Color c);
+    int white_weight[8][8] = {
+        { 1, 1, -1, 1, 1, 1, -1, 1 },
+        { 2, 2, 3, 4, 4, 3, 2, 2 },
+        { 3, 4, 6, 8, 8, 6, 4, 3 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 20, 20, 20, 20, 20, 20, 20, 20 },
+    };
+    int black_weight[8][8] = {
+        { 20, 20, 20, 20, 20, 20, 20, 20 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 5, 7, 10, 14, 14, 10, 7, 5 },
+        { 3, 4, 6, 8, 8, 6, 4, 3 },
+        { 2, 2, 3, 4, 4, 3, 2, 2 },
+        { 1, 1, -1, 1, 1, 1, -1, 1 },
+    };
 };
 
 #endif

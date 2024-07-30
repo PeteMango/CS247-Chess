@@ -91,17 +91,15 @@ void xwindow::drawPiece(int col, int row, char piece)
 
     const char* draw = &piece;
 
-    /* Font font; */
-    /**/
-    /* if (col == -1 || row == -1) */
-    /*     font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*"); */
-    /* else if (islower(piece)) { */
-    /*     font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*"); */
-    /* } else { */
-    /*     font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*"); */
-    /* } */
-    /**/
-    /* XSetFont(d, gc, font); */
+    Font font;
+    if (col == -1 || row == -1)
+        font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*");
+    else if (islower(piece)) {
+        font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*");
+    } else {
+        font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*");
+    }
+    XSetFont(d, gc, font);
     XDrawString(d, w, gc, x, y, draw, 1);
-    /* XUnloadFont(d, font); */
+    XUnloadFont(d, font);
 }
