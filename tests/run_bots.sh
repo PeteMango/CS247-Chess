@@ -21,7 +21,7 @@ run_game() {
 			# sleep 0.5
 			((move_count++))
 		done
-	} | $EXECUTABLE --no-graphics | while IFS= read -r line; do
+	} | $EXECUTABLE | while IFS= read -r line; do
 		echo "$line"
 		if [[ "$line" == *"Final Score"* ]] || [[ "$line" == *"Checkmate"* ]] || [[ "$line" == *"Stalemate"* ]]; then
 			final_score_found=1
