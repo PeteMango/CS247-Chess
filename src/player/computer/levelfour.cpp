@@ -32,11 +32,12 @@ void LevelFour::move()
             continue;
         }
         if (mf.is_checkmate) {
+            std::cout << "checkmates!!" << std::endl;
             std::set<std::pair<Coordinate, Coordinate>> temp;
             temp.insert(p);
             return this->execute_move(temp);
         }
-        if (mf.capture_value_difference >= 0) {
+        if (mf.capture_value_difference > 0) {
             good_captures.insert(p);
         }
         weight_difference_min
@@ -44,6 +45,10 @@ void LevelFour::move()
         weight_difference_max
             = std::max(weight_difference_max, mf.weight_difference);
         sum += mf.weight_difference;
+    }
+
+    if (possible_moves.size() == 0) {
+        throw std::runtime_error("should not be zero");
     }
 
     int mean = sum / possible_moves.size();
@@ -55,21 +60,24 @@ void LevelFour::move()
         if (mean <= mf.weight_difference) {
             good_moves.insert(p);
         }
-    }
-
-    for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
-        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
-        if (!mf.valid) {
-            continue;
-        }
         if (mf.good_check) {
             good_checks.insert(p);
         }
     }
 
-    std::set_intersection(good_captures.begin(), good_captures.end(),
-        good_checks.begin(), good_checks.end(),
-        std::inserter(good_captures_checks, good_captures_checks.begin()));
+    // for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
+    //     MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+    //     if (!mf.valid) {
+    //         continue;
+    //     }
+    //     if (mf.good_check) {
+    //         good_checks.insert(p);
+    //     }
+    // }
+
+    // std::set_intersection(good_captures.begin(), good_captures.end(),
+    //     good_checks.begin(), good_checks.end(),
+    //     std::inserter(good_captures_checks, good_captures_checks.begin()));
 
     // std::set_intersection(good_captures.begin(), good_captures.end(),
     //     good_moves.begin(), good_moves.end(),
@@ -89,9 +97,9 @@ void LevelFour::move()
     //     return this->execute_move(good_captures_moves_checks);
     // }
 
-    if (!good_captures_checks.empty()) {
-        return this->execute_move(good_captures_checks);
-    }
+    // if (!good_captures_checks.empty()) {
+    //     return this->execute_move(good_captures_checks);
+    // }
 
     // if (!good_captures_moves.empty()) {
     //     return this->execute_move(good_captures_moves);
@@ -100,6 +108,26 @@ void LevelFour::move()
     // if (!good_checks_moves.empty()) {
     //     return this->execute_move(good_checks_moves);
     // }
+
+    std::cout << "good captures: " << good_captures.size() << std::endl;
+    for (auto p : good_captures) {
+        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+        std::cout << p.first.column << p.first.row << " " << p.second.column
+                  << p.second.row << " " << mf.capture_value_difference << std::endl;
+    }
+
+    std::cout << "good checks: " << good_checks.size() << std::endl;
+    for (auto p : good_checks) {
+        std::cout << p.first.column << p.first.row << " " << p.second.column
+                  << p.second.row << " " << std::endl;
+    }
+
+    std::cout << "good moves: " << good_moves.size() << std::endl;
+    for (auto p : good_moves) {
+        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+        std::cout << p.first.column << p.first.row << " " << p.second.column
+                  << p.second.row << " " << mf.weight_difference << std::endl;
+    }
 
     if (!good_captures.empty()) {
         return this->execute_move(good_captures);
