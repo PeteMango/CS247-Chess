@@ -1,6 +1,6 @@
 #!/bin/bash
 
-EXECUTABLE="./out/chess"
+EXECUTABLE="./chess"
 MAX_MOVES=5000
 
 levels=("computer1" "computer2" "computer3" "computer4", "computer5")

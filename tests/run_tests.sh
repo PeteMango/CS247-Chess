@@ -4,7 +4,7 @@ BASE_DIR="tests"
 OUT_DIR="$BASE_DIR/out"
 IN_DIR="$BASE_DIR/in/valid"
 EXP_DIR="$BASE_DIR/expect/valid"
-EXECUTABLE="./out/chess"
+EXECUTABLE="./chess"
 FLAGS="--no-graphics"
 
 total=0
