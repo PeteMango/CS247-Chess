@@ -13,6 +13,7 @@ class xwindow {
     unsigned long colours[10];
     const int SQUARE_SIZE = 60;
     const int STRING_OFFSET = 8;
+    Font font;
 
 public:
     xwindow();
