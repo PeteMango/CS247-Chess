@@ -451,3 +451,8 @@ setup
 done
 game computer4 computer1
 move
+
+game human human
+move g1 f3
+move e7 e5
+move f2 f4
