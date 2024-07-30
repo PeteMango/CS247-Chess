@@ -82,23 +82,49 @@ void LevelFour::move()
         std::inserter(all, all.begin()));
 
     std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves;
+    /*
     moves.push_back(all);
     // all not including suicide captures
-    /* moves.push_back(check_escape_trade); */
-    /* moves.push_back(escape_trade); */
-    /* moves.push_back(check_trade); */
-    /* moves.push_back(check_escape); */
+    moves.push_back(check_escape_trade);
+    moves.push_back(escape_trade);
+    moves.push_back(check_trade);
+    moves.push_back(check_escape);
     // suicide captures
-    /* moves.push_back(capture_escape_trade); */
-    /* moves.push_back(check_capture_trade); */
-    /* moves.push_back(check_capture_escape); */
-    /* moves.push_back(capture_trade); */
-    /* moves.push_back(capture_escape); */
-    /* moves.push_back(check_capture); */
+    moves.push_back(capture_escape_trade);
+    moves.push_back(check_capture_trade);
+    moves.push_back(check_capture_escape);
+    moves.push_back(capture_trade);
+    moves.push_back(capture_escape);
+    moves.push_back(check_capture);
     moves.push_back(trade);
     moves.push_back(escape);
     moves.push_back(check);
     moves.push_back(capture);
+    moves.push_back(possible_moves);
+
+*/
+    // trade
+    moves.push_back(all);
+    moves.push_back(check_escape_trade);
+    moves.push_back(escape_trade);
+    moves.push_back(check_trade);
+    moves.push_back(capture_escape_trade);
+    moves.push_back(check_capture_trade);
+    moves.push_back(trade);
+
+    // escape
+    moves.push_back(check_capture_escape);
+    moves.push_back(capture_escape);
+    moves.push_back(escape);
+
+    // check
+    moves.push_back(check_capture);
+    moves.push_back(check);
+
+    // capture
+    moves.push_back(capture_trade);
+    moves.push_back(capture);
+
     moves.push_back(possible_moves);
     this->execute_moves_based_on_priority(moves);
 }

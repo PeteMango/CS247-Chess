@@ -30,5 +30,8 @@ void LevelTwo::move()
     }
 
     /* execute any moves */
-    return this->execute_move(possible_moves);
+    if (!possible_moves.empty()) {
+        return this->execute_move(possible_moves);
+    }
+    throw std::runtime_error("level two computer not returning any possible moves");
 }
