@@ -11,8 +11,9 @@ class xwindow {
     int s;
     GC gc;
     unsigned long colours[10];
-    const int SQUARE_SIZE = 60;
-    const int STRING_OFFSET = 8;
+    const int SQUARE_SIZE = 80;
+    const int STRING_OFFSET = SQUARE_SIZE / 10;
+    Font font;
 
 public:
     xwindow();
