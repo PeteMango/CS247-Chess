@@ -48,7 +48,8 @@ public:
     void clean_board();
 
     // make move helpers
-    MoveFlags is_valid_move(Coordinate start, Coordinate end);
+    MoveFlags is_valid_move(Coordinate start, Coordinate end, Color c);
+    MoveFlags new_valid_move(Coordinate start, Coordinate end, Color c);
     std::string make_move(Coordinate start, Coordinate end, PromotionType promotion);
     void add_piece(std::shared_ptr<Piece> p);
     void destroy_piece(std::shared_ptr<Piece> p);
