@@ -89,7 +89,7 @@ void Piece::filter_moves(std::set<Coordinate>& s)
             good.insert(c);
         }
     }
-    s = std::move(good);
+    s.insert(good.begin(), good.end());
 }
 
 void Piece::get_valid_moves(std::set<Coordinate>& s)

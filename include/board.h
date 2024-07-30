@@ -66,6 +66,8 @@ public:
     Coordinate get_castle_rook(Color c, CastleSide cs);
     void get_all_valid_moves(
         std::set<std::pair<Coordinate, Coordinate>>& s, Color c);
+    void new_get_all_valid_moves(
+        std::set<std::pair<Coordinate, Coordinate>>& s, Color c);
     std::set<std::shared_ptr<Piece>> get_pieces(Color c);
 
     std::vector<std::vector<std::shared_ptr<Piece>>>& get_grid();

@@ -315,10 +315,6 @@ MoveFlags Board::new_valid_move(Coordinate start, Coordinate end, Color c)
     std::set<Coordinate> enemy_attack_after;
     this->get_threatened_squares_by_color(enemy_attack_after, toggle_color(c));
 
-    bool attacked_after
-        = enemy_attack_after.find(Coordinate { end_idx.first, end_idx.second })
-        != enemy_attack_after.end();
-
     /* check if ally king is in check after making the move */
     bool invalid = false;
     if (p->get_color() == Color::WHITE and this->white_king
@@ -342,7 +338,7 @@ MoveFlags Board::new_valid_move(Coordinate start, Coordinate end, Color c)
     if (invalid) {
         return MoveFlags { false };
     }
-    return MoveFlags { true, false, capture, false, attacked_after, false, false };
+    return MoveFlags { true, false, false, false, false, false, false };
 }
 
 std::string Board::make_move(
@@ -533,7 +529,7 @@ bool Board::is_checkmate(Color c)
         return false;
     }
     std::set<std::pair<Coordinate, Coordinate>> s;
-    this->get_all_valid_moves(s, c);
+    this->new_get_all_valid_moves(s, c);
     for (auto move : s) {
         if (this->new_valid_move(move.first, move.second, c).valid) {
             return false;
@@ -583,6 +579,56 @@ void Board::get_all_valid_moves(
                 std::pair<int, int> new_idx = add_pairs(cur_idx, i);
                 Coordinate new_coord = Coordinate(new_idx.first, new_idx.second);
                 if (this->is_valid_move(cur, new_coord, c).valid) {
+                    std::pair<Coordinate, Coordinate> move
+                        = std::make_pair(cur, new_coord);
+                    s.insert(move);
+                }
+            }
+        }
+    }
+}
+
+void Board::new_get_all_valid_moves(
+    std::set<std::pair<Coordinate, Coordinate>>& s, Color c)
+{
+    std::set<std::shared_ptr<Piece>> p;
+    if (c == Color::WHITE) {
+        p.insert(this->white_pieces.begin(), this->white_pieces.end());
+    } else {
+        p.insert(this->black_pieces.begin(), this->black_pieces.end());
+    }
+    for (auto piece : p) {
+        std::set<Coordinate> s2;
+        piece->get_valid_moves(s2);
+        for (auto coord : s2) {
+            if (this->new_valid_move(piece->get_coordinate(), coord, c).valid) {
+                std::pair<Coordinate, Coordinate> move
+                    = std::make_pair(piece->get_coordinate(), coord);
+                s.insert(move);
+            }
+        }
+        // add en passasnt
+        if (piece->get_piece_type() == PieceType::PAWN) {
+            std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(piece);
+            for (auto square : pawn->get_captures()) {
+                Coordinate end = Coordinate(square.first, square.second);
+                if (this->new_valid_move(pawn->get_coordinate(), end, c).valid) {
+                    std::pair<Coordinate, Coordinate> move
+                        = std::make_pair(pawn->get_coordinate(), end);
+                    s.insert(move);
+                }
+            }
+
+        }
+        // add castle
+        else if (piece->get_piece_type() == PieceType::KING) {
+            std::vector<std::pair<int, int>> d = { { 0, 2 }, { 0, -2 } };
+            Coordinate cur = piece->get_coordinate();
+            std::pair<int, int> cur_idx = get_grid_indexes(cur);
+            for (auto i : d) {
+                std::pair<int, int> new_idx = add_pairs(cur_idx, i);
+                Coordinate new_coord = Coordinate(new_idx.first, new_idx.second);
+                if (this->new_valid_move(cur, new_coord, c).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(cur, new_coord);
                     s.insert(move);
