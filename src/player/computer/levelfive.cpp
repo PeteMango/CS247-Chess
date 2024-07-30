@@ -31,7 +31,7 @@ void LevelFive::move()
             temp.insert(p);
             return this->execute_move(temp);
         }
-        if (mf.attacked_before and mf.attacked_after) {
+        if (mf.attacked_before and !mf.attacked_after) {
             escape.insert(p);
         }
         if (mf.check and !mf.attacked_after) {
