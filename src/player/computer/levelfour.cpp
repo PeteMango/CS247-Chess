@@ -83,17 +83,17 @@ void LevelFour::move()
     std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves;
     moves.push_back(all);
     // all not including suicide captures
-    moves.push_back(check_escape_trade);
-    moves.push_back(escape_trade);
-    moves.push_back(check_trade);
-    moves.push_back(check_escape);
+    /* moves.push_back(check_escape_trade); */
+    /* moves.push_back(escape_trade); */
+    /* moves.push_back(check_trade); */
+    /* moves.push_back(check_escape); */
     // suicide captures
-    moves.push_back(capture_escape_trade);
-    moves.push_back(check_capture_trade);
-    moves.push_back(check_capture_escape);
-    moves.push_back(capture_trade);
-    moves.push_back(capture_escape);
-    moves.push_back(check_capture);
+    /* moves.push_back(capture_escape_trade); */
+    /* moves.push_back(check_capture_trade); */
+    /* moves.push_back(check_capture_escape); */
+    /* moves.push_back(capture_trade); */
+    /* moves.push_back(capture_escape); */
+    /* moves.push_back(check_capture); */
     moves.push_back(trade);
     moves.push_back(escape);
     moves.push_back(check);
