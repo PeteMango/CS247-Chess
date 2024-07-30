@@ -28,7 +28,7 @@ class Board : public std::enable_shared_from_this<Board> {
     std::shared_ptr<Piece> white_king;
     std::map<PieceType, int> piece_weights = { { PieceType::PAWN, 1 },
         { PieceType::KNIGHT, 3 }, { PieceType::BISHOP, 4 }, { PieceType::ROOK, 5 },
-        { PieceType::QUEEN, 9 }, { PieceType::KING, 1000 } };
+        { PieceType::QUEEN, 9 }, { PieceType::KING, 0 } };
     std::shared_ptr<Piece> black_king;
 
     std::string serialize();

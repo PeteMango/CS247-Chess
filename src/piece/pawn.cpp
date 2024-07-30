@@ -1,16 +1,20 @@
 #include "../../include/piece/pawn.h"
 #include "../../include/board.h"
+#include "util.h"
 
 Pawn::Pawn(
     Color color, Coordinate location, PieceType type, std::shared_ptr<Board> board)
     : Piece(color, location, type, board)
+    , can_double { true }
 {
     if (this->color == Color::WHITE) {
-        this->directions.insert(this->directions.end(), { { 1, 0 }, { 2, 0 } });
+        this->directions.insert(this->directions.end(), { { 1, 0 } });
         this->captures.insert(this->captures.end(), { { 1, 1 }, { 1, -1 } });
+        this->double_direction = std::make_pair(1, 0);
     } else {
-        this->directions.insert(this->directions.end(), { { -1, 0 }, { -2, 0 } });
+        this->directions.insert(this->directions.end(), { { -1, 0 } });
         this->captures.insert(this->captures.end(), { { -1, 1 }, { -1, -1 } });
+        this->double_direction = std::make_pair(-1, 0);
     }
 }
 
@@ -20,9 +24,7 @@ void Pawn::get_valid_moves(std::set<Coordinate>& s)
     // TODO: definitely fix
     if ((this->color == Color::WHITE and this->location.row != 2)
         or (this->color == Color::BLACK and this->location.row != 7)) {
-        if (this->directions.size() >= 2) {
-            this->directions.pop_back();
-        }
+        this->can_double = false;
     }
 
     /* handle captures */
@@ -46,6 +48,26 @@ void Pawn::get_valid_moves(std::set<Coordinate>& s)
         auto board = this->board.lock();
         if (coordinate_in_bounds(start)
             and !board->get_grid()[start.first][start.second]) {
+            s.insert(Coordinate { start.first, start.second });
+        }
+    }
+
+    if (this->can_double) {
+        std::pair<int, int> start = get_grid_indexes(this->location);
+        auto board = this->board.lock();
+        bool add = true;
+        for (int i = 0; i < 2; i++) {
+            start = add_pairs(start, this->double_direction);
+            if (!coordinate_in_bounds(start)) {
+                add = false;
+                break;
+            }
+            if (board->get_grid()[start.first][start.second]) {
+                add = false;
+                break;
+            }
+        }
+        if (add) {
             s.insert(Coordinate { start.first, start.second });
         }
     }
