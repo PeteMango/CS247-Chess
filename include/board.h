@@ -5,6 +5,7 @@
 #include "piece/piece.h"
 #include "struct/coordinate.h"
 #include "struct/move.h"
+#include <algorithm>
 #include <map>
 #include <set>
 #include <sstream>
@@ -30,6 +31,14 @@ class Board : public std::enable_shared_from_this<Board> {
 
     std::string serialize();
 
+    // std::map<PieceType, int> piece_weight
+    //     = { { PieceType::PAWN, 100 }, { PieceType::KNIGHT, 300 },
+    //           { PieceType::BISHOP, 350 }, { PieceType::ROOK, 500 },
+    //           { PieceType::QUEEN, 900 }, { PieceType::KING, 1000 } };
+    std::map<PieceType, int> piece_weight = { { PieceType::PAWN, 1 },
+        { PieceType::KNIGHT, 3 }, { PieceType::BISHOP, 3 }, { PieceType::ROOK, 5 },
+        { PieceType::QUEEN, 9 }, { PieceType::KING, 1000 } };
+
 public:
     Board(std::shared_ptr<Game> game, bool default_board = true);
     // deserialize
@@ -50,7 +59,12 @@ public:
     void add_piece(std::shared_ptr<Piece> p);
     void destroy_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
+
+    /* get threatened and protected squares */
     void get_threatened_squares_by_color(std::set<Coordinate>& s, Color c);
+    void get_protected_squares_by_color(std::set<Coordinate>& s, Color c);
+    int get_point_total(std::set<Coordinate>& s, Color c);
+
     Coordinate get_enpassant_coordinate();
     bool is_valid_enpassant(Coordinate start, Coordinate end);
     bool is_valid_castle(Coordinate start, Coordinate end);

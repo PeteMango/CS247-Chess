@@ -4,6 +4,7 @@
 #include "display/graphicsdisplay.h"
 #include "display/textdisplay.h"
 #include "game.h"
+#include "player/computer/levelfour.h"
 #include "player/computer/levelone.h"
 #include "player/computer/levelthree.h"
 #include "player/computer/leveltwo.h"
@@ -57,8 +58,7 @@ std::shared_ptr<Player> Chess::create_player(PlayerType type, Color color)
     case PlayerType::LEVEL3:
         return std::make_shared<LevelThree>(this->get_last_game(), color);
     case PlayerType::LEVEL4:
-        throw std::invalid_argument("not implemented");
-        return std::make_shared<Computer>(this->get_last_game(), color);
+        return std::make_shared<LevelFour>(this->get_last_game(), color);
     default:
         throw std::runtime_error("cant create a player that doesnt exist");
     }

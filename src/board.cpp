@@ -208,6 +208,14 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     bool attacked_before = (enemy_attack_before.find(p->get_coordinate())
         != enemy_attack_before.end());
 
+    std::set<Coordinate> protected_squares_before;
+    this->get_protected_squares_by_color(
+        protected_squares_before, this->active_color);
+    int protected_score_before
+        = this->get_point_total(protected_squares_before, this->active_color);
+    int attacking_score_before = this->get_point_total(
+        ally_attack_before, toggle_color(this->active_color));
+
     /* make the actual move */
     this->destroy_piece(p);
     this->add_piece(new_p);
@@ -216,6 +224,20 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     this->get_threatened_squares_by_color(ally_attack_after, this->active_color);
     this->get_threatened_squares_by_color(
         enemy_attack_after, toggle_color(this->active_color));
+
+    std::set<Coordinate> protected_squares_after;
+    this->get_protected_squares_by_color(
+        protected_squares_after, this->active_color);
+    int protected_score_after
+        = this->get_point_total(protected_squares_after, this->active_color);
+    int attacking_score_after
+        = this->get_point_total(ally_attack_after, toggle_color(this->active_color));
+
+    /* compute the score difference */
+    int score_difference = (protected_score_after - protected_score_before)
+        + (attacking_score_after - attacking_score_before);
+    int protected_diff = protected_score_after - protected_score_before;
+    int attacked_diff = attacking_score_after - attacking_score_before;
 
     bool attacked_after
         = enemy_attack_after.find(Coordinate { end_idx.first, end_idx.second })
@@ -256,7 +278,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     if (invalid) {
         return MoveFlags { false };
     }
-    return MoveFlags { true, check, capture, attacked_before, attacked_after };
+    return MoveFlags { true, check, capture, attacked_before, attacked_after,
+        score_difference, protected_diff, attacked_diff };
 }
 
 std::string Board::make_move(
@@ -394,6 +417,44 @@ void Board::get_threatened_squares_by_color(std::set<Coordinate>& s, Color c)
             (*it)->get_threatened_squares(s);
         }
     }
+}
+
+void Board::get_protected_squares_by_color(std::set<Coordinate>& s, Color c)
+{
+    /* all squares threatened by ally and enemy */
+    std::set<Coordinate> ally_protect, enemy_attack, temp;
+    this->get_threatened_squares_by_color(ally_protect, c);
+    this->get_threatened_squares_by_color(enemy_attack, toggle_color(c));
+
+    /* all the protected squares */
+    std::set_intersection(ally_protect.begin(), ally_protect.end(),
+        enemy_attack.begin(), enemy_attack.end(), std::inserter(temp, temp.begin()));
+
+    for (const Coordinate& c : temp) {
+        std::pair<int, int> idx = get_grid_indexes(c);
+        if (this->grid[idx.first][idx.second]) {
+            s.insert(c);
+        }
+    }
+}
+
+int Board::get_point_total(std::set<Coordinate>& s, Color color)
+{
+    if (s.empty()) {
+        return 0;
+    }
+    int score = 0;
+    for (const Coordinate& c : s) {
+        std::pair<int, int> idx = get_grid_indexes(c);
+        if (!this->grid[idx.first][idx.second]) {
+            continue;
+        }
+        if (this->grid[idx.first][idx.second]->get_color() == color) {
+            score += this->piece_weight[this->grid[idx.first][idx.second]
+                                            ->get_piece_type()];
+        }
+    }
+    return score;
 }
 
 void Board::toggle_active_color()

@@ -1,4 +1,5 @@
 #include "player/computer/levelthree.h"
+#include <algorithm>
 
 LevelThree::LevelThree(std::shared_ptr<Game> game, Color color)
     : Computer(game, color)
@@ -34,19 +35,19 @@ void LevelThree::move()
         capture_escape, all;
 
     /* moves that checks and captures */
-    std::set_union(check.begin(), check.end(), capture.begin(), capture.end(),
+    std::set_intersection(check.begin(), check.end(), capture.begin(), capture.end(),
         std::inserter(check_capture, check_capture.begin()));
 
     /* moves that checks and escapes */
-    std::set_union(check.begin(), check.end(), escape.begin(), escape.end(),
+    std::set_intersection(check.begin(), check.end(), escape.begin(), escape.end(),
         std::inserter(check_escape, check_escape.begin()));
 
     /* moves that captures and escapes */
-    std::set_union(capture.begin(), capture.end(), escape.begin(), escape.end(),
-        std::inserter(capture_escape, capture_escape.begin()));
+    std::set_intersection(capture.begin(), capture.end(), escape.begin(),
+        escape.end(), std::inserter(capture_escape, capture_escape.begin()));
 
     /* moves that do all three */
-    std::set_union(check_capture.begin(), check_capture.end(), escape.begin(),
+    std::set_intersection(check_capture.begin(), check_capture.end(), escape.begin(),
         escape.end(), std::inserter(all, all.begin()));
 
     /* priority to moves that does 3/3 */
