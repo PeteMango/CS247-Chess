@@ -5,6 +5,8 @@
 
 class Pawn : public Piece {
     std::vector<std::pair<int, int>> captures;
+    bool can_double;
+    std::pair<int, int> double_direction;
 
 public:
     Pawn(Color color, Coordinate location, PieceType type,

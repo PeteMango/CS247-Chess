@@ -288,3 +288,171 @@ move g5 d8
 move e1 e2
 move e8 f8
 move a8 d8
+
+setup
++ K c3
++ Q b8
+= black
++ K a1
+done
+game computer4 computer4
+move
+
+setup
++ K e1
++ P e4
+= black
++ K e8
++ P d5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ P e4
+= black
++ K e8
++ N d5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ P e4
+= black
++ K e8
++ B d5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ P e4
+= black
++ K e8
++ R d5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ P e4
+= black
++ K e8
++ Q d5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ N e4
+= black
++ K e8
++ P c5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ N e4
+= black
++ K e8
++ N c5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ N e4
+= black
++ K e8
++ B c5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ N e4
+= black
++ K e8
++ R c5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ N e4
+= black
++ K e8
++ Q c5
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ B e4
+= black
++ K h8
++ P c6
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ B e4
+= black
++ K h8
++ N c6
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ B e4
+= black
++ K h8
++ B c6
+done
+game computer4 computer1
+move
+
+setup
++ K e1
++ B e4
+= black
++ K h8
++ R c6
+done
+game computer4 computer1
+move
+
+
+
+
+
+setup
++ K e1
++ Q e4
+= black
++ K h8
++ P d5
+done
+game computer4 computer1
+move
+
+game human human
+move g1 f3
+move e7 e5
+move f2 f4
