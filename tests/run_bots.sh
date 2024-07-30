@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EXECUTABLE="./out/chess"
-MAX_MOVES=1000
+MAX_MOVES=5000
 
 # Define the available levels
 levels=("computer1" "computer2" "computer3" "computer4", "computer5")
@@ -18,10 +18,10 @@ run_game() {
 		echo "game $flag1 $flag2"
 		while [[ $final_score_found -eq 0 && $move_count -lt $MAX_MOVES ]]; do
 			echo "move"
-			sleep 0.5
+			# sleep 0.5
 			((move_count++))
 		done
-	} | $EXECUTABLE | while IFS= read -r line; do
+	} | $EXECUTABLE --no-graphics | while IFS= read -r line; do
 		echo "$line"
 		if [[ "$line" == *"Final Score"* ]] || [[ "$line" == *"Checkmate"* ]] || [[ "$line" == *"Stalemate"* ]]; then
 			final_score_found=1

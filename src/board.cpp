@@ -189,6 +189,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end, Color c)
 
     bool capture = false;
     bool good_trade = false;
+    int gain = 0;
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
         if (taken_piece->get_color() == p->get_color()) {
@@ -198,6 +199,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end, Color c)
         if (this->piece_weights[taken_piece->get_piece_type()]
             >= this->piece_weights[p->get_piece_type()]) {
             good_trade = true;
+            gain = this->piece_weights[taken_piece->get_piece_type()]
+                - this->piece_weights[p->get_piece_type()];
         }
         this->destroy_piece(taken_piece);
     } else if (valid_enpassant) {
@@ -270,7 +273,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end, Color c)
         return MoveFlags { false };
     }
     return MoveFlags { true, check, capture, attacked_before, attacked_after,
-        good_trade, is_checkmate };
+        good_trade, is_checkmate, gain };
 }
 
 MoveFlags Board::checkmate_valid_move(Coordinate start, Coordinate end, Color c)
@@ -336,7 +339,7 @@ MoveFlags Board::checkmate_valid_move(Coordinate start, Coordinate end, Color c)
     if (invalid) {
         return MoveFlags { false };
     }
-    return MoveFlags { true, false, false, false, false, false, false };
+    return MoveFlags { true, false, false, false, false, false, false, 0 };
 }
 
 std::string Board::make_move(

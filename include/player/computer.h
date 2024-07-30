@@ -21,6 +21,6 @@ public:
     void move() override;
     void execute_moves_based_on_priority(
         std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves);
-    void execute_move(std::set<std::pair<Coordinate, Coordinate>> moves);
+    void execute_move(std::set<std::pair<Coordinate, Coordinate>>& moves);
 };
 #endif

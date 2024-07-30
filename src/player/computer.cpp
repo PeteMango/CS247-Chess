@@ -18,7 +18,7 @@ void Computer::execute_moves_based_on_priority(
     }
     throw std::runtime_error("computer not returning any possible moves");
 }
-void Computer::execute_move(std::set<std::pair<Coordinate, Coordinate>> moves)
+void Computer::execute_move(std::set<std::pair<Coordinate, Coordinate>>& moves)
 {
     int index = this->random_number(0, moves.size(), moves.size());
 
