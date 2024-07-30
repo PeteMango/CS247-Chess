@@ -1,1 +1,1 @@
-zip -r chess.zip 
+zip chess.zip

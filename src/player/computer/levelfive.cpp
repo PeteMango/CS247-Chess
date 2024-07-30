@@ -18,7 +18,7 @@ void LevelFive::move()
 
     /* only good capture */
     std::set<std::pair<Coordinate, Coordinate>> capture, check, escape, good_trade,
-        not_sucidial;
+        not_suicidial;
 
     /* check for better moves than random */
     for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
@@ -42,7 +42,7 @@ void LevelFive::move()
             capture.insert(p);
         }
         if (!mf.attacked_after) {
-            not_sucidial.insert(p);
+            not_suicidial.insert(p);
         }
         if (mf.good_trade) {
             good_trade.insert(p);
@@ -161,8 +161,8 @@ void LevelFive::move()
         }
     }
 
-    if (!not_sucidial.empty()) {
-        return this->execute_move(not_sucidial);
+    if (!not_suicidial.empty()) {
+        return this->execute_move(not_suicidial);
     }
 
     return this->execute_move(possible_moves);
