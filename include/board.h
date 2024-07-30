@@ -26,8 +26,6 @@ class Board : public std::enable_shared_from_this<Board> {
     // helper fields
     std::set<std::shared_ptr<Piece>> white_pieces;
     std::set<std::shared_ptr<Piece>> black_pieces;
-    std::shared_ptr<Piece> white_king;
-    std::shared_ptr<Piece> black_king;
 
     std::string serialize();
 
@@ -54,8 +52,8 @@ public:
     void clean_board();
 
     // make move helpers
-    MoveFlags is_valid_move(Coordinate start, Coordinate end);
-    std::string make_move(Coordinate start, Coordinate end, PromotionType promotion);
+    MoveFlags is_valid_move(Coordinate start, Coordinate end, Color c);
+    std::string make_move(Coordinate start, Coordinate end, PromotionType promotion, Color c);
     void add_piece(std::shared_ptr<Piece> p);
     void destroy_piece(std::shared_ptr<Piece> p);
     bool is_promotion(Coordinate start, Coordinate end);
@@ -83,6 +81,9 @@ public:
     void toggle_active_color();
     void increment_halfmove_clock();
     void increment_fullmove_clock();
+
+    std::shared_ptr<Piece> white_king;
+    std::shared_ptr<Piece> black_king;
 
     bool is_check(Color c);
     bool is_stalemate(Color c);

@@ -13,7 +13,7 @@ void LevelFour::move()
     std::shared_ptr<Board> grid = this->game->get_board();
 
     std::set<std::pair<Coordinate, Coordinate>> possible_moves;
-    grid->get_all_valid_moves(possible_moves, this->color);
+    // grid->get_all_valid_moves(possible_moves, this->color);
 
     std::set<std::pair<Coordinate, Coordinate>> good_captures;
     std::set<std::pair<Coordinate, Coordinate>> good_checks;
@@ -26,44 +26,57 @@ void LevelFour::move()
     int weight_difference_min = INT_MAX;
     int weight_difference_max = INT_MIN;
     int sum = 0;
-    for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
-        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
-        if (!mf.valid) {
-            continue;
-        }
-        if (mf.is_checkmate) {
-            std::cout << "checkmates!!" << std::endl;
-            std::set<std::pair<Coordinate, Coordinate>> temp;
-            temp.insert(p);
-            return this->execute_move(temp);
-        }
-        if (mf.capture_value_difference > 0) {
-            good_captures.insert(p);
-        }
-        weight_difference_min
-            = std::min(weight_difference_min, mf.weight_difference);
-        weight_difference_max
-            = std::max(weight_difference_max, mf.weight_difference);
-        sum += mf.weight_difference;
-    }
+    // MoveFlags mvf = this->game->get_board()->is_valid_move(
+    //     Coordinate { "b8" }, Coordinate { "b1" }, this->color);
 
-    if (possible_moves.size() == 0) {
-        throw std::runtime_error("should not be zero");
-    }
+    // std::cout << (mvf.is_checkmate ? "yes checkmate!!!" : "no") << std::endl;
+    std::set<std::pair<Coordinate, Coordinate>> temp;
+    temp.insert(std::make_pair(Coordinate { "b8" }, Coordinate { "b1" }));
+    return this->execute_move(temp);
 
-    int mean = sum / possible_moves.size();
-    for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
-        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
-        if (!mf.valid) {
-            continue;
-        }
-        if (mean <= mf.weight_difference) {
-            good_moves.insert(p);
-        }
-        if (mf.good_check) {
-            good_checks.insert(p);
-        }
-    }
+    // for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
+    //     MoveFlags mf
+    //         = this->game->get_board()->is_valid_move(p.first, p.second,
+    //         this->color);
+    //     std::cout << p.first.column << p.first.row << " -> " << p.second.column
+    //               << p.second.row << " " << mf.is_checkmate << std::endl;
+    //     if (!mf.valid) {
+    //         continue;
+    //     }
+    //     if (mf.is_checkmate) {
+    //         std::set<std::pair<Coordinate, Coordinate>> temp;
+    //         temp.insert(p);
+    //         // return this->execute_move(temp);
+    //     }
+    //     if (mf.capture_value_difference > 0) {
+    //         good_captures.insert(p);
+    //     }
+    //     weight_difference_min
+    //         = std::min(weight_difference_min, mf.weight_difference);
+    //     weight_difference_max
+    //         = std::max(weight_difference_max, mf.weight_difference);
+    //     sum += mf.weight_difference;
+    // }
+
+    // if (possible_moves.size() == 0) {
+    //     throw std::runtime_error("should not be zero");
+    // }
+
+    // int mean = sum / possible_moves.size();
+    // for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
+    //     MoveFlags mf
+    //         = this->game->get_board()->is_valid_move(p.first, p.second,
+    //         this->color);
+    //     if (!mf.valid) {
+    //         continue;
+    //     }
+    //     if (mean <= mf.weight_difference) {
+    //         good_moves.insert(p);
+    //     }
+    //     if (mf.good_check) {
+    //         good_checks.insert(p);
+    //     }
+    // }
 
     // for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
     //     MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
@@ -111,7 +124,8 @@ void LevelFour::move()
 
     std::cout << "good captures: " << good_captures.size() << std::endl;
     for (auto p : good_captures) {
-        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+        MoveFlags mf
+            = this->game->get_board()->is_valid_move(p.first, p.second, this->color);
         std::cout << p.first.column << p.first.row << " " << p.second.column
                   << p.second.row << " " << mf.capture_value_difference << std::endl;
     }
@@ -124,7 +138,8 @@ void LevelFour::move()
 
     std::cout << "good moves: " << good_moves.size() << std::endl;
     for (auto p : good_moves) {
-        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+        MoveFlags mf
+            = this->game->get_board()->is_valid_move(p.first, p.second, this->color);
         std::cout << p.first.column << p.first.row << " " << p.second.column
                   << p.second.row << " " << mf.weight_difference << std::endl;
     }

@@ -158,7 +158,7 @@ Board::Board(std::shared_ptr<Game> game, const std::string& fen)
     fenStream >> this->halfmove_clock >> this->fullmove_clock;
 }
 
-MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
+MoveFlags Board::is_valid_move(Coordinate start, Coordinate end, Color c)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start),
                         end_idx = get_grid_indexes(end);
@@ -170,7 +170,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 
     /* starting square has incorrect piece */
     std::shared_ptr<Piece> p = grid[start_idx.first][start_idx.second];
-    if (p->get_color() != this->active_color) {
+    if (p->get_color() != c) {
         return MoveFlags { false };
     }
 
@@ -184,7 +184,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     }
 
     int weight_difference = 0;
-    if (p->get_color() == Color::WHITE) {
+    if (c == Color::WHITE) {
         if (p->get_piece_type() == PieceType::KING and this->halfmove_clock < 30) {
             weight_difference = -(this->white_weight[end_idx.first][end_idx.second]
                 - this->white_weight[start_idx.first][start_idx.second]);
@@ -205,8 +205,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         weight_difference = 0;
     }
 
-    std::shared_ptr<Piece> new_p
-        = this->create_piece(p->get_color(), end, p->get_piece_type());
+    std::shared_ptr<Piece> new_p = this->create_piece(c, end, p->get_piece_type());
     std::shared_ptr<Piece> taken_piece = nullptr;
 
     bool capture = false;
@@ -225,39 +224,36 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     }
 
     std::set<Coordinate> ally_attack_before, enemy_attack_before;
-    this->get_threatened_squares_by_color(ally_attack_before, this->active_color);
-    this->get_threatened_squares_by_color(
-        enemy_attack_before, toggle_color(this->active_color));
+    this->get_threatened_squares_by_color(ally_attack_before, c);
+    this->get_threatened_squares_by_color(enemy_attack_before, toggle_color(c));
 
     bool attacked_before = (enemy_attack_before.find(p->get_coordinate())
         != enemy_attack_before.end());
 
     std::set<Coordinate> protected_squares_before;
-    this->get_protected_squares_by_color(
-        protected_squares_before, this->active_color);
-    int protected_score_before
-        = this->get_point_total(protected_squares_before, this->active_color);
-    int attacking_score_before = this->get_point_total(
-        ally_attack_before, toggle_color(this->active_color));
+    this->get_protected_squares_by_color(protected_squares_before, c);
+    int protected_score_before = this->get_point_total(protected_squares_before, c);
+    int attacking_score_before
+        = this->get_point_total(ally_attack_before, toggle_color(c));
 
     /* make the actual move */
     this->destroy_piece(p);
     this->add_piece(new_p);
 
     bool is_checkmate = false;
-    if (this->is_checkmate(toggle_color(p->get_color())) {
+    if (this->is_checkmate(toggle_color(c))) {
         is_checkmate = true;
     }
+
     std::set<Coordinate> ally_attack_after, enemy_attack_after;
-    this->get_threatened_squares_by_color(ally_attack_after, this->active_color);
-    this->get_threatened_squares_by_color(
-        enemy_attack_after, toggle_color(this->active_color));
+    this->get_threatened_squares_by_color(ally_attack_after, c);
+    this->get_threatened_squares_by_color(enemy_attack_after, toggle_color(c));
 
     int max_value_attacked = 0;
-    for (const Coordinate& c : enemy_attack_after) {
-        std::pair<int, int> idx = get_grid_indexes(c);
+    for (const Coordinate& coord : enemy_attack_after) {
+        std::pair<int, int> idx = get_grid_indexes(coord);
         if (this->grid[idx.first][idx.second]
-            and this->grid[idx.first][idx.second]->get_color() == p->get_color()) {
+            and this->grid[idx.first][idx.second]->get_color() == c) {
             max_value_attacked = std::max(max_value_attacked,
                 this->piece_weight[this->grid[idx.first][idx.second]
                                        ->get_piece_type()]);
@@ -266,12 +262,10 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     int capture_value_difference = capture_value - max_value_attacked;
 
     std::set<Coordinate> protected_squares_after;
-    this->get_protected_squares_by_color(
-        protected_squares_after, this->active_color);
-    int protected_score_after
-        = this->get_point_total(protected_squares_after, this->active_color);
+    this->get_protected_squares_by_color(protected_squares_after, c);
+    int protected_score_after = this->get_point_total(protected_squares_after, c);
     int attacking_score_after
-        = this->get_point_total(ally_attack_after, toggle_color(this->active_color));
+        = this->get_point_total(ally_attack_after, toggle_color(c));
 
     /* compute the score difference */
     int protected_diff = protected_score_after - protected_score_before;
@@ -283,11 +277,11 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 
     /* check if ally king is in check after making the move */
     bool invalid = false;
-    if (p->get_color() == Color::WHITE and this->white_king
+    if (c == Color::WHITE and this->white_king
         and enemy_attack_after.find(this->white_king->get_coordinate())
             != enemy_attack_after.end()) {
         invalid = true;
-    } else if (p->get_color() == Color::BLACK and this->black_king
+    } else if (c == Color::BLACK and this->black_king
         and enemy_attack_after.find(this->black_king->get_coordinate())
             != enemy_attack_after.end()) {
         invalid = true;
@@ -295,11 +289,11 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 
     /* check if our move checks the enemy king */
     bool check = false;
-    if (p->get_color() == Color::WHITE and this->black_king
+    if (c == Color::WHITE and this->black_king
         and ally_attack_after.find(this->black_king->get_coordinate())
             != ally_attack_after.end()) {
         check = true;
-    } else if (p->get_color() == Color::BLACK and this->white_king
+    } else if (c == Color::BLACK and this->white_king
         and ally_attack_after.find(this->white_king->get_coordinate())
             != ally_attack_after.end()) {
         check = true;
@@ -329,7 +323,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
 }
 
 std::string Board::make_move(
-    Coordinate start, Coordinate end, PromotionType promotion)
+    Coordinate start, Coordinate end, PromotionType promotion, Color c)
 {
     auto game = this->game.lock();
     std::pair<int, int> starting_idx = get_grid_indexes(start);
@@ -337,63 +331,63 @@ std::string Board::make_move(
     std::shared_ptr<Piece> p = this->grid[starting_idx.first][starting_idx.second];
 
     /* capture */
-    if (this->grid[ending_idx.first][ending_idx.second] != nullptr) {
-        std::shared_ptr<Piece> taken
-            = this->grid[ending_idx.first][ending_idx.second];
-        if (taken->get_piece_type() == PieceType::ROOK) {
-            if (this->get_castle_rook(taken->get_color(), CastleSide::KINGSIDE)
-                == taken->get_coordinate()) {
-                this->castle_rights[taken->get_color()][CastleSide::KINGSIDE]
-                    = false;
-            } else if (this->get_castle_rook(
-                           taken->get_color(), CastleSide::QUEENSIDE)
-                == taken->get_coordinate()) {
-                this->castle_rights[taken->get_color()][CastleSide::QUEENSIDE]
-                    = false;
-            }
-        }
-        this->destroy_piece(taken);
-    } else if (this->is_valid_enpassant(start, end)) {
-        Coordinate c = this->get_enpassant_taken_piece_coordinate();
-        std::pair<int, int> enpassant_taken_piece_idx = get_grid_indexes(c);
-        std::shared_ptr<Piece> enpassant_taken_piece
-            = this->grid[enpassant_taken_piece_idx.first]
-                        [enpassant_taken_piece_idx.second];
-        this->destroy_piece(enpassant_taken_piece);
-    } else if (this->is_valid_castle(start, end)) {
-        Coordinate rook_coord;
-        std::pair<int, int> d;
-        /* kingside */
-        if (start.column < end.column) {
-            rook_coord = this->get_castle_rook(p->get_color(), CastleSide::KINGSIDE);
-            d = { 0, -2 };
-        }
-        /* queenside */
-        else {
-            rook_coord
-                = this->get_castle_rook(p->get_color(), CastleSide::QUEENSIDE);
-            d = { 0, 3 };
-        }
-        std::pair<int, int> rook_idx = get_grid_indexes(rook_coord);
-        std::shared_ptr<Piece> rook = this->grid[rook_idx.first][rook_idx.second];
+    // if (this->grid[ending_idx.first][ending_idx.second] != nullptr) {
+    //     std::shared_ptr<Piece> taken
+    //         = this->grid[ending_idx.first][ending_idx.second];
+    //     if (taken->get_piece_type() == PieceType::ROOK) {
+    //         if (this->get_castle_rook(taken->get_color(), CastleSide::KINGSIDE)
+    //             == taken->get_coordinate()) {
+    //             this->castle_rights[taken->get_color()][CastleSide::KINGSIDE]
+    //                 = false;
+    //         } else if (this->get_castle_rook(
+    //                        taken->get_color(), CastleSide::QUEENSIDE)
+    //             == taken->get_coordinate()) {
+    //             this->castle_rights[taken->get_color()][CastleSide::QUEENSIDE]
+    //                 = false;
+    //         }
+    //     }
+    //     this->destroy_piece(taken);
+    // } else if (this->is_valid_enpassant(start, end)) {
+    //     Coordinate c = this->get_enpassant_taken_piece_coordinate();
+    //     std::pair<int, int> enpassant_taken_piece_idx = get_grid_indexes(c);
+    //     std::shared_ptr<Piece> enpassant_taken_piece
+    //         = this->grid[enpassant_taken_piece_idx.first]
+    //                     [enpassant_taken_piece_idx.second];
+    //     this->destroy_piece(enpassant_taken_piece);
+    // } else if (this->is_valid_castle(start, end)) {
+    //     Coordinate rook_coord;
+    //     std::pair<int, int> d;
+    //     /* kingside */
+    //     if (start.column < end.column) {
+    //         rook_coord = this->get_castle_rook(p->get_color(),
+    //         CastleSide::KINGSIDE); d = { 0, -2 };
+    //     }
+    //     /* queenside */
+    //     else {
+    //         rook_coord
+    //             = this->get_castle_rook(p->get_color(), CastleSide::QUEENSIDE);
+    //         d = { 0, 3 };
+    //     }
+    //     std::pair<int, int> rook_idx = get_grid_indexes(rook_coord);
+    //     std::shared_ptr<Piece> rook = this->grid[rook_idx.first][rook_idx.second];
 
-        std::pair<int, int> new_rook_idx = add_pairs(rook_idx, d);
-        Coordinate new_rook_coord
-            = Coordinate(new_rook_idx.first, new_rook_idx.second);
-        std::shared_ptr<Piece> new_rook
-            = this->create_piece(p->get_color(), new_rook_coord, PieceType::ROOK);
-        this->destroy_piece(rook);
-        this->add_piece(new_rook);
-    }
+    //     std::pair<int, int> new_rook_idx = add_pairs(rook_idx, d);
+    //     Coordinate new_rook_coord
+    //         = Coordinate(new_rook_idx.first, new_rook_idx.second);
+    //     std::shared_ptr<Piece> new_rook
+    //         = this->create_piece(p->get_color(), new_rook_coord, PieceType::ROOK);
+    //     this->destroy_piece(rook);
+    //     this->add_piece(new_rook);
+    // }
 
-    /* if its a double move it can be an en-passant */
-    if (this->is_double_pawn_move(start, end)) {
-        std::shared_ptr<Coordinate> enpassant
-            = this->get_enpassant_square_coordinate(end);
-        this->add_enpassant_target(enpassant);
-    } else {
-        this->add_enpassant_target(nullptr);
-    }
+    // /* if its a double move it can be an en-passant */
+    // if (this->is_double_pawn_move(start, end)) {
+    //     std::shared_ptr<Coordinate> enpassant
+    //         = this->get_enpassant_square_coordinate(end);
+    //     this->add_enpassant_target(enpassant);
+    // } else {
+    //     this->add_enpassant_target(nullptr);
+    // }
 
     /* check promotion */
     std::shared_ptr<Piece> new_p = nullptr;
@@ -403,6 +397,7 @@ std::string Board::make_move(
     } else {
         new_p = this->create_piece(p->get_color(), end, p->get_piece_type());
     }
+
     this->destroy_piece(p);
     this->add_piece(new_p);
 
@@ -430,15 +425,15 @@ std::string Board::make_move(
 
     DisplayStatus status = DisplayStatus::NONE;
     Color color = this->active_color;
-    if (this->is_checkmate((this->active_color))) {
+    if (this->is_checkmate(c)) {
         status = DisplayStatus::CHECKMATE;
         // winner
-        color = toggle_color(this->active_color);
+        color = toggle_color(c);
         game->end_game(color_to_result(color));
-    } else if (this->is_stalemate((this->active_color))) {
+    } else if (this->is_stalemate(c)) {
         status = DisplayStatus::STALEMATE;
         game->end_game(Result::DRAW);
-    } else if (this->is_check((this->active_color))) {
+    } else if (this->is_check(c)) {
         status = DisplayStatus::CHECK;
         // color in check
         color = (this->active_color);
@@ -557,7 +552,7 @@ bool Board::is_checkmate(Color c)
     std::set<std::pair<Coordinate, Coordinate>> s;
     this->get_all_valid_moves(s, c);
     for (auto move : s) {
-        if (this->is_valid_move(move.first, move.second).valid) {
+        if (this->is_valid_move(move.first, move.second, king->get_color()).valid) {
             return false;
         }
     }
@@ -577,7 +572,7 @@ void Board::get_all_valid_moves(
         std::set<Coordinate> s2;
         piece->get_valid_moves(s2);
         for (auto coord : s2) {
-            if (this->is_valid_move(piece->get_coordinate(), coord).valid) {
+            if (this->is_valid_move(piece->get_coordinate(), coord, c).valid) {
                 std::pair<Coordinate, Coordinate> move
                     = std::make_pair(piece->get_coordinate(), coord);
                 s.insert(move);
@@ -588,7 +583,7 @@ void Board::get_all_valid_moves(
             std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(piece);
             for (auto square : pawn->get_captures()) {
                 Coordinate end = Coordinate(square.first, square.second);
-                if (this->is_valid_move(pawn->get_coordinate(), end).valid) {
+                if (this->is_valid_move(pawn->get_coordinate(), end, c).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(pawn->get_coordinate(), end);
                     s.insert(move);
@@ -604,7 +599,7 @@ void Board::get_all_valid_moves(
             for (auto i : d) {
                 std::pair<int, int> new_idx = add_pairs(cur_idx, i);
                 Coordinate new_coord = Coordinate(new_idx.first, new_idx.second);
-                if (this->is_valid_move(cur, new_coord).valid) {
+                if (this->is_valid_move(cur, new_coord, c).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(cur, new_coord);
                     s.insert(move);
