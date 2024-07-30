@@ -273,7 +273,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end, Color c)
         good_trade, is_checkmate };
 }
 
-MoveFlags Board::new_valid_move(Coordinate start, Coordinate end, Color c)
+MoveFlags Board::checkmate_valid_move(Coordinate start, Coordinate end, Color c)
 {
     std::pair<int, int> start_idx = get_grid_indexes(start),
                         end_idx = get_grid_indexes(end);
@@ -529,9 +529,9 @@ bool Board::is_checkmate(Color c)
         return false;
     }
     std::set<std::pair<Coordinate, Coordinate>> s;
-    this->new_get_all_valid_moves(s, c);
+    this->checkmate_get_all_valid_moves(s, c);
     for (auto move : s) {
-        if (this->new_valid_move(move.first, move.second, c).valid) {
+        if (this->checkmate_valid_move(move.first, move.second, c).valid) {
             return false;
         }
     }
@@ -588,7 +588,7 @@ void Board::get_all_valid_moves(
     }
 }
 
-void Board::new_get_all_valid_moves(
+void Board::checkmate_get_all_valid_moves(
     std::set<std::pair<Coordinate, Coordinate>>& s, Color c)
 {
     std::set<std::shared_ptr<Piece>> p;
@@ -601,7 +601,8 @@ void Board::new_get_all_valid_moves(
         std::set<Coordinate> s2;
         piece->get_valid_moves(s2);
         for (auto coord : s2) {
-            if (this->new_valid_move(piece->get_coordinate(), coord, c).valid) {
+            if (this->checkmate_valid_move(piece->get_coordinate(), coord, c)
+                    .valid) {
                 std::pair<Coordinate, Coordinate> move
                     = std::make_pair(piece->get_coordinate(), coord);
                 s.insert(move);
@@ -612,7 +613,8 @@ void Board::new_get_all_valid_moves(
             std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(piece);
             for (auto square : pawn->get_captures()) {
                 Coordinate end = Coordinate(square.first, square.second);
-                if (this->new_valid_move(pawn->get_coordinate(), end, c).valid) {
+                if (this->checkmate_valid_move(pawn->get_coordinate(), end, c)
+                        .valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(pawn->get_coordinate(), end);
                     s.insert(move);
@@ -628,7 +630,7 @@ void Board::new_get_all_valid_moves(
             for (auto i : d) {
                 std::pair<int, int> new_idx = add_pairs(cur_idx, i);
                 Coordinate new_coord = Coordinate(new_idx.first, new_idx.second);
-                if (this->new_valid_move(cur, new_coord, c).valid) {
+                if (this->checkmate_valid_move(cur, new_coord, c).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(cur, new_coord);
                     s.insert(move);
