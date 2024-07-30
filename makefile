@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -g -Iinclude 
 LDFLAGS = -lX11
-EXEC = out/chess
+EXEC = chess
 SRC_DIR = src
 BUILD_DIR = build
 OUT_DIR = out

@@ -4,7 +4,7 @@ BASE_DIR="tests"
 OUT_DIR="$BASE_DIR/out"
 IN_DIR="$BASE_DIR/in/valid"
 EXP_DIR="$BASE_DIR/expect/valid"
-EXECUTABLE="./out/chess"
+EXECUTABLE="./chess"
 FLAGS="--no-graphics"
 
 total=0
@@ -65,7 +65,6 @@ run_test() {
 				crashed+=("$filename")
 				((crash++))
 				exit 1
-				# continue
 			fi
 
 			if diff "$expected_file" "$output_file" >"$diff_file"; then
