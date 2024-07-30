@@ -21,7 +21,8 @@ void LevelFour::move()
 
     /* check for better moves than random */
     for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
-        MoveFlags mf = this->game->get_board()->is_valid_move(p.first, p.second);
+        MoveFlags mf
+            = this->game->get_board()->is_valid_move(p.first, p.second, this->color);
         if (!mf.valid) {
             continue;
         }

@@ -46,6 +46,7 @@ void Game::resign()
 void Game::make_move(Coordinate start, Coordinate end, PromotionType promotion)
 {
     std::string move = this->board->make_move(start, end, promotion);
+
     this->moves.push_back(move);
 }
 
