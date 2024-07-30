@@ -65,7 +65,6 @@ run_test() {
 				crashed+=("$filename")
 				((crash++))
 				exit 1
-				# continue
 			fi
 
 			if diff "$expected_file" "$output_file" >"$diff_file"; then
