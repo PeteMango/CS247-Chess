@@ -1,0 +1,13 @@
+# show that it will do double moves
+setup
++ P e2
+= black
++ P e7
+done
+game computer1 computer1
+move
+
+
+# play the game
+game computer1 computer1
+move

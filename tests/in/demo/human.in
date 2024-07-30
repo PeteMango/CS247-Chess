@@ -1,0 +1,138 @@
+./out/chess --ng --ns
+# show double moves
+game human human
+move e2 e4
+move e7 e5
+move g1 f3
+move d7 d5
+# try f2 f4
+
+# show castling kingside
+game human human
+move e2 e4
+move e7 e5
+move c2 c3
+move c7 c6
+move d1 b3
+move d8 b6
+move f1 a6
+move f8 a3
+move b3 a3
+move b6 a6
+move g1 f3
+move g8 f6
+# try e1 g1
+move d2 d3
+# try e8 g8
+move d7 d6
+move e1 g1
+move e8 g8
+
+# show castling queenside
+game human human
+move c2 c3
+move c7 c6
+move b1 a3
+move b8 a6
+move d2 d4
+move d7 d5
+move c1 f4
+move c8 f5
+move d1 d3
+move d8 d6
+move d3 b5
+move d6 b4
+move b5 a5
+move b4 a4
+# try e1 c1
+move b2 b3
+# try e8 c8
+move b7 b6
+move e1 c1
+move e8 c8
+
+# show enpassant
+game human human
+move g2 g4
+move b7 b5
+move g4 g5
+move b5 b4
+move c2 c4
+move b4 c3
+move d2 c3
+move f7 f5
+move g5 f6
+move e7 f6
+move f2 f4
+move c7 c5
+move f4 f5
+move c5 c4
+move b2 b4
+move c4 b3
+move a2 b3
+move g7 g5
+move f5 g6
+move h7 g6
+move c3 c4
+move f6 f5
+move c4 c5
+move f5 f4
+move e2 e4
+move d7 d5
+move b3 b4
+move g6 g5
+# try c5 d6
+move h2 h3
+# try f4 e3
+
+# show pawn moves
+game human human
+# try e2 d3
+# try e2 f3
+move e2 e4
+move f7 f5
+# try e4 e6
+# try e4 d5
+move e4 f5
+move e7 e6
+# try f5 g6
+move f5 e6
+move d7 d5
+move c2 c4
+# try d5 d3
+# try d5 e4
+move d5 c4
+move d2 d3
+# try c4 b3
+move c4 d3
+
+# show king moves
+setup
++ K d1
++ R a4
++ R b6
++ Q h4
++ B h6
+= black
++ K f5
++ R c7
++ R e8
+done
+game human human
+# try d1 c1
+# try d1 c2
+# try d1 e1
+# try d1 e2
+move d1 d2
+# try f5 e6
+# try f5 e4
+# try f5 f6
+# try f5 f4
+# try f5 g6
+# try f5 g4
+move f5 e5
+move d2 e2
+move e5 d5
+move h4 e4
+move d5 c5
+move h6 e3
