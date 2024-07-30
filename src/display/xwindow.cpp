@@ -3,16 +3,32 @@
 #include <X11/Xutil.h>
 #include <cstdlib>
 #include <iostream>
+#include <string.h>
 #include <string>
 #include <unistd.h>
+#include <unordered_map>
+
+// Include XBM data for each piece
+#include "display/piecebitmaps/black_bishop.XBM"
+#include "display/piecebitmaps/black_king.XBM"
+#include "display/piecebitmaps/black_knight.XBM"
+#include "display/piecebitmaps/black_pawn.XBM"
+#include "display/piecebitmaps/black_queen.XBM"
+#include "display/piecebitmaps/black_rook.XBM"
+#include "display/piecebitmaps/white_bishop.XBM"
+#include "display/piecebitmaps/white_king.XBM"
+#include "display/piecebitmaps/white_knight.XBM"
+#include "display/piecebitmaps/white_pawn.XBM"
+#include "display/piecebitmaps/white_queen.XBM"
+#include "display/piecebitmaps/white_rook.XBM"
 
 using namespace std;
 
 xwindow::xwindow()
     : rendered_board { 8, std::vector<char>(8, ']') }
 {
-    int width = SQUARE_SIZE * 9;
-    int height = SQUARE_SIZE * 9;
+    int width = SQUARE_SIZE * 8;
+    int height = SQUARE_SIZE * 8;
 
     d = XOpenDisplay(NULL);
     if (d == NULL) {
@@ -25,9 +41,7 @@ xwindow::xwindow()
     XSelectInput(d, w, ExposureMask | KeyPressMask);
     XMapRaised(d, w);
 
-    Pixmap pix
-        = XCreatePixmap(d, w, width, height, DefaultDepth(d, DefaultScreen(d)));
-    gc = XCreateGC(d, pix, 0, (XGCValues*)0);
+    gc = XCreateGC(d, w, 0, (XGCValues*)0);
 
     XFlush(d);
     XFlush(d);
@@ -35,7 +49,7 @@ xwindow::xwindow()
     // Set up colours.
     XColor xcolour;
     Colormap cmap;
-    char color_vals[7][10] = { "white", "black", "red", "#006400", "blue" };
+    char color_vals[5][10] = { "white", "black", "red", "#006400", "blue" };
 
     cmap = DefaultColormap(d, DefaultScreen(d));
     for (int i = 0; i < 5; ++i) {
@@ -55,10 +69,6 @@ xwindow::xwindow()
     XSetNormalHints(d, w, &hints);
 
     XSynchronize(d, True);
-
-    font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*");
-
-    XSetFont(d, gc, font);
 
     usleep(1000);
 }
@@ -96,19 +106,53 @@ void xwindow::drawPiece(int col, int row, char piece)
 
     const char* draw = &piece;
 
-    // if (col == -1 || row == -1)
-    //     font = XLoadFont(d, "-*-helvetica-*-r-*-*-24-*-*-*-*-*-*-*");
-    // else if (islower(piece))
-    //     font = XLoadFont(d, "-*-courier-*-r-*-*-24-*-*-*-*-*-*-*");
-    // else
-    //     font = XLoadFont(d, "-*-lucida-*-r-*-*-24-*-*-*-*-*-*-*");
-
-    // if (font) {
-        // XSetFont(d, gc, font);
+    if (col == -1 || row == -1) {
         XDrawString(d, w, gc, x, y, draw, 1);
-        // XUnloadFont(d, font);
-    // }
+        return;
+    }
+
+    struct xbm_data {
+        unsigned const char* bits;
+        unsigned int width;
+        unsigned int height;
+    };
+
+    std::unordered_map<char, xbm_data> xbmPieces = {
+        { 'K', { white_king_bits, white_king_width, white_king_height } },
+        { 'Q', { white_queen_bits, white_queen_width, white_queen_height } },
+        { 'R', { white_rook_bits, white_rook_width, white_rook_height } },
+        { 'B', { white_bishop_bits, white_bishop_width, white_bishop_height } },
+        { 'N', { white_knight_bits, white_knight_width, white_knight_height } },
+        { 'P', { white_pawn_bits, white_pawn_width, white_pawn_height } },
+        { 'k', { black_king_bits, black_king_width, black_king_height } },
+        { 'q', { black_queen_bits, black_queen_width, black_queen_height } },
+        { 'r', { black_rook_bits, black_rook_width, black_rook_height } },
+        { 'b', { black_bishop_bits, black_bishop_width, black_bishop_height } },
+        { 'n', { black_knight_bits, black_knight_width, black_knight_height } },
+        { 'p', { black_pawn_bits, black_pawn_width, black_pawn_height } }
+    };
+
+    xbm_data it = xbmPieces[piece];
+
+    Pixmap pixmap
+        = XCreateBitmapFromData(d, w, (char*)it.bits, it.width, it.height);
+
+    if (pixmap == None) {
+        std::cerr << "Failed to create pixmap for piece: " << piece
+                  << std::endl;
+        return;
+    }
+    XSetForeground(d, gc, colours[White]);
+    XSetBackground(d, gc, colours[Black]);
+    
+    // Debugging info
+    std::cout << "Drawing piece " << piece << " at col: " << col
+              << ", row: " << row << ", x: " << x << ", y: " << y << std::endl;
+
+    XCopyPlane(d, pixmap, w, gc, 0, 0, it.width, it.height, x, y, 1);
+    XFreePixmap(d, pixmap);
 }
+
 //  valgrind --leak-check=yes ./out/chess
 /*
 game human human
