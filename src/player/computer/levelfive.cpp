@@ -14,4 +14,8 @@ void LevelFive::move()
     /* get all valid moves */
     std::set<std::pair<Coordinate, Coordinate>> possible_moves;
     grid->get_all_valid_moves(possible_moves, this->color);
+
+    std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves;
+    moves.push_back(possible_moves);
+    this->execute_moves_based_on_priority(moves);
 }
