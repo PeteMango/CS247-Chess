@@ -245,7 +245,7 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     this->add_piece(new_p);
 
     bool is_checkmate = false;
-    if (this->is_checkmate(toggle_color(p->get_color()))) {
+    if (this->is_checkmate(toggle_color(p->get_color())) {
         is_checkmate = true;
     }
     std::set<Coordinate> ally_attack_after, enemy_attack_after;
