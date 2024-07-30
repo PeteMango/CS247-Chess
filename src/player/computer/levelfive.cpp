@@ -17,7 +17,8 @@ void LevelFive::move()
     // TODO: add piece weights (good trades)
 
     /* only good capture */
-    std::set<std::pair<Coordinate, Coordinate>> capture, check, escape, good_trade;
+    std::set<std::pair<Coordinate, Coordinate>> capture, check, escape, good_trade,
+        not_sucidial;
 
     /* check for better moves than random */
     for (const std::pair<Coordinate, Coordinate>& p : possible_moves) {
@@ -39,6 +40,9 @@ void LevelFive::move()
         }
         if (mf.capture and !mf.attacked_after) {
             capture.insert(p);
+        }
+        if (!mf.attacked_after) {
+            not_sucidial.insert(p);
         }
         if (mf.good_trade) {
             good_trade.insert(p);
@@ -66,6 +70,23 @@ void LevelFive::move()
         }
         return this->execute_move(to_execute);
     }
+    if (!capture.empty()) {
+        int max_gain = -100;
+        for (const std::pair<Coordinate, Coordinate>& p : capture) {
+            MoveFlags mf = this->game->get_board()->is_valid_move(
+                p.first, p.second, this->color);
+            max_gain = std::max(max_gain, mf.gain);
+        }
+        std::set<std::pair<Coordinate, Coordinate>> to_execute;
+        for (const std::pair<Coordinate, Coordinate>& p : capture) {
+            MoveFlags mf = this->game->get_board()->is_valid_move(
+                p.first, p.second, this->color);
+            if (mf.gain == max_gain) {
+                to_execute.insert(p);
+            }
+        }
+        return this->execute_move(to_execute);
+    }
     if (!good_trade.empty()) {
         int max_gain = -100;
         for (const std::pair<Coordinate, Coordinate>& p : good_trade) {
@@ -84,38 +105,64 @@ void LevelFive::move()
         return this->execute_move(to_execute);
     }
 
-    if (!capture.empty()) {
-        int max_gain = -100;
-        for (const std::pair<Coordinate, Coordinate>& p : capture) {
-            MoveFlags mf = this->game->get_board()->is_valid_move(
-                p.first, p.second, this->color);
-            max_gain = std::max(max_gain, mf.gain);
-        }
-        std::set<std::pair<Coordinate, Coordinate>> to_execute;
-        for (const std::pair<Coordinate, Coordinate>& p : capture) {
-            MoveFlags mf = this->game->get_board()->is_valid_move(
-                p.first, p.second, this->color);
-            if (mf.gain == max_gain) {
-                to_execute.insert(p);
-            }
-        }
-        return this->execute_move(to_execute);
-    }
-
-    if (this->game->get_board()->get_pieces(this->color).size() > 3) {
+    if (this->game->get_board()->get_pieces(this->color).size() < 5) {
         if (!check.empty()) {
             return this->execute_move(check);
         }
         if (!escape.empty()) {
-            return this->execute_move(escape);
+            int max_worth = -1;
+            for (const std::pair<Coordinate, Coordinate>& p : escape) {
+                std::pair<int, int> idx = get_grid_indexes(p.first);
+                max_worth = std::max(max_worth,
+                    this->game->get_board()
+                        ->piece_weights[this->game->get_board()
+                                            ->get_grid()[idx.first][idx.second]
+                                            ->get_piece_type()]);
+            }
+            std::set<std::pair<Coordinate, Coordinate>> to_execute;
+            for (const std::pair<Coordinate, Coordinate>& p : escape) {
+                std::pair<int, int> idx = get_grid_indexes(p.first);
+                if (this->game->get_board()
+                        ->piece_weights[this->game->get_board()
+                                            ->get_grid()[idx.first][idx.second]
+                                            ->get_piece_type()]
+                    == max_worth) {
+                    to_execute.insert(p);
+                }
+            }
+            return this->execute_move(to_execute);
         }
     } else {
         if (!escape.empty()) {
-            return this->execute_move(escape);
+            int max_worth = -1;
+            for (const std::pair<Coordinate, Coordinate>& p : escape) {
+                std::pair<int, int> idx = get_grid_indexes(p.first);
+                max_worth = std::max(max_worth,
+                    this->game->get_board()
+                        ->piece_weights[this->game->get_board()
+                                            ->get_grid()[idx.first][idx.second]
+                                            ->get_piece_type()]);
+            }
+            std::set<std::pair<Coordinate, Coordinate>> to_execute;
+            for (const std::pair<Coordinate, Coordinate>& p : escape) {
+                std::pair<int, int> idx = get_grid_indexes(p.first);
+                if (this->game->get_board()
+                        ->piece_weights[this->game->get_board()
+                                            ->get_grid()[idx.first][idx.second]
+                                            ->get_piece_type()]
+                    == max_worth) {
+                    to_execute.insert(p);
+                }
+            }
+            return this->execute_move(to_execute);
         }
         if (!check.empty()) {
             return this->execute_move(check);
         }
+    }
+
+    if (!not_sucidial.empty()) {
+        return this->execute_move(not_sucidial);
     }
 
     return this->execute_move(possible_moves);
