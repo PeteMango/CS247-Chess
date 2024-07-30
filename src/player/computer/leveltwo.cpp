@@ -24,14 +24,10 @@ void LevelTwo::move()
         }
     }
 
-    /* if there are superior moves, execute them */
-    if (!better_moves.empty()) {
-        return this->execute_move(better_moves);
-    }
+    /* prioritizes better moves over possible moves */
+    std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves;
+    moves.push_back(better_moves);
+    moves.push_back(possible_moves);
 
-    /* execute any moves */
-    if (!possible_moves.empty()) {
-        return this->execute_move(possible_moves);
-    }
-    throw std::runtime_error("level two computer not returning any possible moves");
+    return this->execute_moves_based_on_priority(moves);
 }
