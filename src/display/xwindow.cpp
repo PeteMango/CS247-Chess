@@ -161,6 +161,7 @@ void xwindow::drawPiece(int col, int row, char piece)
         XDrawString(d, w, gc, x, y, draw, 1);
         return;
     }
+
     XSetForeground(d, gc, colours[Black]);
     XSetBackground(d, gc, colours[White]);
 
