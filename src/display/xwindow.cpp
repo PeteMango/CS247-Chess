@@ -27,8 +27,9 @@ using namespace std;
 xwindow::xwindow()
     : rendered_board { 8, std::vector<char>(8, ']') }
 {
-    int width = SQUARE_SIZE * 8;
-    int height = SQUARE_SIZE * 8;
+
+    int width = SQUARE_SIZE * 9;
+    int height = SQUARE_SIZE * 9;
 
     d = XOpenDisplay(NULL);
     if (d == NULL) {
@@ -70,11 +71,16 @@ xwindow::xwindow()
 
     XSynchronize(d, True);
 
+    font = XLoadFont(
+        d, "-misc-fixed-medium-r-normal--20-200-75-75-c-100-koi8-r");
+    XSetFont(d, gc, font);
+
     usleep(1000);
 }
 
 xwindow::~xwindow()
 {
+    XUnloadFont(d, font);
     XFreeGC(d, gc);
     XCloseDisplay(d);
 }
@@ -101,8 +107,15 @@ void xwindow::drawPiece(int col, int row, char piece)
 
         rendered_board[col][row] = piece;
     }
-    int x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
-    int y = (7 - row) * SQUARE_SIZE + SQUARE_SIZE / 2 + STRING_OFFSET;
+    int x, y;
+
+    if (row == -1 || col == -1) {
+        x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
+        y = (7 - row) * SQUARE_SIZE + SQUARE_SIZE / 2 + STRING_OFFSET;
+    } else {
+        x = (col + 1) * SQUARE_SIZE + 10; // + SQUARE_SIZE / 2 - STRING_OFFSET;
+        y = (7 - row) * SQUARE_SIZE + 10; // + SQUARE_SIZE / 2 + STRING_OFFSET;
+    }
 
     const char* draw = &piece;
 
@@ -132,22 +145,28 @@ void xwindow::drawPiece(int col, int row, char piece)
         { 'p', { black_pawn_bits, black_pawn_width, black_pawn_height } }
     };
 
+
     xbm_data it = xbmPieces[piece];
 
     Pixmap pixmap
         = XCreateBitmapFromData(d, w, (char*)it.bits, it.width, it.height);
 
     if (pixmap == None) {
-        std::cerr << "Failed to create pixmap for piece: " << piece
-                  << std::endl;
+        // std::cerr << "Failed to create pixmap for piece: " << piece
+        //           << std::endl;
+
+        x = (col + 1) * SQUARE_SIZE + SQUARE_SIZE / 2 - STRING_OFFSET;
+        y = (7 - row) * SQUARE_SIZE + SQUARE_SIZE / 2 + STRING_OFFSET;
+        const char* draw = &piece;
+        XDrawString(d, w, gc, x, y, draw, 1);
         return;
     }
     XSetForeground(d, gc, colours[White]);
     XSetBackground(d, gc, colours[Black]);
-    
-    // Debugging info
-    std::cout << "Drawing piece " << piece << " at col: " << col
-              << ", row: " << row << ", x: " << x << ", y: " << y << std::endl;
+
+    // std::cout << "Drawing piece " << piece << " at col: " << col
+    //           << ", row: " << row << ", x: " << x << ", y: " << y <<
+    //           std::endl;
 
     XCopyPlane(d, pixmap, w, gc, 0, 0, it.width, it.height, x, y, 1);
     XFreePixmap(d, pixmap);
