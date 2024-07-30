@@ -18,6 +18,7 @@ run_game() {
 		echo "game $flag1 $flag2"
 		while [[ $final_score_found -eq 0 && $move_count -lt $MAX_MOVES ]]; do
 			echo "move"
+			sleep 0.5
 			((move_count++))
 		done
 	} | $EXECUTABLE | while IFS= read -r line; do
