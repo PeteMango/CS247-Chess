@@ -161,8 +161,8 @@ void xwindow::drawPiece(int col, int row, char piece)
         XDrawString(d, w, gc, x, y, draw, 1);
         return;
     }
-    XSetForeground(d, gc, colours[White]);
-    XSetBackground(d, gc, colours[Black]);
+    XSetForeground(d, gc, colours[Black]);
+    XSetBackground(d, gc, colours[White]);
 
     // std::cout << "Drawing piece " << piece << " at col: " << col
     //           << ", row: " << row << ", x: " << x << ", y: " << y <<
