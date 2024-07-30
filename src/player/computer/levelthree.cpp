@@ -54,34 +54,20 @@ void LevelThree::move()
     std::set_intersection(check_capture.begin(), check_capture.end(), escape.begin(),
         escape.end(), std::inserter(all, all.begin()));
 
-    /* priority to moves that does 3/3 */
-    if (!all.empty()) {
-        return this->execute_move(all);
-    }
+    std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves;
+    moves.push_back(all);
+    /* escape */
+    moves.push_back(capture_escape);
+    moves.push_back(check_escape);
+    moves.push_back(escape);
 
-    /* next in line is moves that do 2/3 */
-    if (!check_escape.empty()) {
-        return this->execute_move(check_escape);
-    }
-    if (!check_capture.empty()) {
-        return this->execute_move(check_capture);
-    }
-    if (!capture_escape.empty()) {
-        return this->execute_move(capture_escape);
-    }
+    /* capture */
+    moves.push_back(check_capture);
+    moves.push_back(capture);
 
-    /* finally, do moves that satisfiy 1/3, in this order s*/
-    if (!check.empty()) {
-        return this->execute_move(check);
-    }
-    if (!capture.empty()) {
-        return this->execute_move(capture);
-    }
-    if (!escape.empty()) {
-        return this->execute_move(escape);
-    }
-
-    /* return any moves possible */
-    return this->execute_move(possible_moves);
+    /* check */
+    moves.push_back(check);
+    moves.push_back(possible_moves);
+    this->execute_moves_based_on_priority(moves);
 }
 

@@ -1,12 +1,10 @@
 #!/bin/bash
 
-EXECUTABLE="./out/chess"
-MAX_MOVES=1000
+EXECUTABLE="./chess"
+MAX_MOVES=5000
 
-# Define the available levels
 levels=("computer1" "computer2" "computer3" "computer4", "computer5")
 
-# Function to run the game with provided flags
 run_game() {
 	local flag1=$1
 	local flag2=$2
@@ -18,7 +16,7 @@ run_game() {
 		echo "game $flag1 $flag2"
 		while [[ $final_score_found -eq 0 && $move_count -lt $MAX_MOVES ]]; do
 			echo "move"
-			sleep 0.5
+			# sleep 0.5
 			((move_count++))
 		done
 	} | $EXECUTABLE | while IFS= read -r line; do
@@ -31,12 +29,9 @@ run_game() {
 
 }
 
-# Check the number of arguments
 if [[ $# -eq 2 ]]; then
-	# Run game with the provided flags
 	run_game "$1" "$2"
 elif [[ $# -eq 0 ]]; then
-	# Run game with every permutation of the flags
 	echo "Running with all permutations"
 	for flag1 in "${levels[@]}"; do
 		for flag2 in "${levels[@]}"; do
