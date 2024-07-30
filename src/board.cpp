@@ -305,8 +305,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
         check = true;
     }
     bool good_check = false;
-    if (enemy_attack_after.find(new_p->get_coordinate())
-        == enemy_attack_after.end()) {
+    if (enemy_attack_after.find(new_p->get_coordinate()) == enemy_attack_after.end()
+        && check) {
         good_check = true;
     }
 

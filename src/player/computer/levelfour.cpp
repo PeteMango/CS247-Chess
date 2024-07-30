@@ -71,34 +71,35 @@ void LevelFour::move()
         good_checks.begin(), good_checks.end(),
         std::inserter(good_captures_checks, good_captures_checks.begin()));
 
-    std::set_intersection(good_captures.begin(), good_captures.end(),
-        good_moves.begin(), good_moves.end(),
-        std::inserter(good_captures_moves, good_captures_moves.begin()));
+    // std::set_intersection(good_captures.begin(), good_captures.end(),
+    //     good_moves.begin(), good_moves.end(),
+    //     std::inserter(good_captures_moves, good_captures_moves.begin()));
 
-    std::set_intersection(good_checks.begin(), good_checks.end(), good_moves.begin(),
-        good_moves.end(),
-        std::inserter(good_checks_moves, good_checks_moves.begin()));
+    // std::set_intersection(good_checks.begin(), good_checks.end(),
+    // good_moves.begin(),
+    //     good_moves.end(),
+    //     std::inserter(good_checks_moves, good_checks_moves.begin()));
 
-    std::set_intersection(good_checks_moves.begin(), good_checks_moves.end(),
-        good_captures_moves.begin(), good_captures_moves.end(),
-        std::inserter(
-            good_captures_moves_checks, good_captures_moves_checks.begin()));
+    // std::set_intersection(good_checks_moves.begin(), good_checks_moves.end(),
+    //     good_captures_moves.begin(), good_captures_moves.end(),
+    //     std::inserter(
+    //         good_captures_moves_checks, good_captures_moves_checks.begin()));
 
-    if (!good_captures_moves_checks.empty()) {
-        return this->execute_move(good_captures_moves_checks);
-    }
+    // if (!good_captures_moves_checks.empty()) {
+    //     return this->execute_move(good_captures_moves_checks);
+    // }
 
     if (!good_captures_checks.empty()) {
         return this->execute_move(good_captures_checks);
     }
 
-    if (!good_captures_moves.empty()) {
-        return this->execute_move(good_captures_moves);
-    }
+    // if (!good_captures_moves.empty()) {
+    //     return this->execute_move(good_captures_moves);
+    // }
 
-    if (!good_checks_moves.empty()) {
-        return this->execute_move(good_checks_moves);
-    }
+    // if (!good_checks_moves.empty()) {
+    //     return this->execute_move(good_checks_moves);
+    // }
 
     if (!good_captures.empty()) {
         return this->execute_move(good_captures);
