@@ -188,9 +188,17 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     std::shared_ptr<Piece> taken_piece = nullptr;
 
     bool capture = false;
+    bool good_trade = false;
     if (this->grid[end_idx.first][end_idx.second] != nullptr) {
         taken_piece = this->grid[end_idx.first][end_idx.second];
+        if (taken_piece->get_color() == p->get_color()) {
+            return MoveFlags { false };
+        }
         capture = true;
+        if (this->piece_weights[taken_piece->get_piece_type()]
+            >= this->piece_weights[p->get_piece_type()]) {
+            good_trade = true;
+        }
         this->destroy_piece(taken_piece);
     } else if (valid_enpassant) {
         std::pair<int, int> taken_piece_idx
@@ -256,7 +264,8 @@ MoveFlags Board::is_valid_move(Coordinate start, Coordinate end)
     if (invalid) {
         return MoveFlags { false };
     }
-    return MoveFlags { true, check, capture, attacked_before, attacked_after };
+    return MoveFlags { true, check, capture, attacked_before, attacked_after,
+        good_trade };
 }
 
 std::string Board::make_move(

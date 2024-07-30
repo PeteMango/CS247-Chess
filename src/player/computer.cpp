@@ -7,6 +7,16 @@ Computer::Computer(std::shared_ptr<Game> game, Color color)
 
 void Computer::move() { }
 
+void Computer::execute_moves_based_on_priority(
+    std::vector<std::set<std::pair<Coordinate, Coordinate>>> moves)
+{
+    for (auto move : moves) {
+        if (!move.empty()) {
+            this->execute_move(move);
+            return;
+        }
+    }
+}
 void Computer::execute_move(std::set<std::pair<Coordinate, Coordinate>> moves)
 {
     int index = this->random_number(0, moves.size(), moves.size());
