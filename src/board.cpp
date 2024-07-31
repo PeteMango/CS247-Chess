@@ -562,7 +562,9 @@ void Board::get_all_valid_moves(
         if (piece->get_piece_type() == PieceType::PAWN) {
             std::shared_ptr<Pawn> pawn = std::dynamic_pointer_cast<Pawn>(piece);
             for (auto square : pawn->get_captures()) {
-                Coordinate end = Coordinate(square.first, square.second);
+                std::pair<int, int> end_idx
+                    = add_pairs(square, get_grid_indexes(pawn->get_coordinate()));
+                Coordinate end = Coordinate(end_idx.first, end_idx.second);
                 if (this->is_valid_move(pawn->get_coordinate(), end, c).valid) {
                     std::pair<Coordinate, Coordinate> move
                         = std::make_pair(pawn->get_coordinate(), end);
