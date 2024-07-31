@@ -1,0 +1,73 @@
+# prefers checkmate in 1, 
+setup
++ Q a7
++ K f6
++ R b1 
+= black
++ K h8
++ Q b5
++ R a3
++ N d4
+done
+game computer5 computer5
+move
+
+# checks and takes (highest take value)
+setup
++ Q a7
++ K f7
++ R b1 
+= black
++ K h8
++ Q b5
++ R a3
++ N d4
+done
+game computer5 computer5
+move
+
+# non suicidal capture of highest value
+setup
++ Q a7
++ K f7
++ R b1 
+= black
++ K h8
++ Q b5
++ R a3
++ B d3
+done
+game computer5 computer5
+move
+
+# suicidal captures that result in a net gain in value
+setup
++ Q c7
++ K f7
++ R b1 
+= black
++ K h8
++ Q b5
++ R a3
++ B d3
+done
+game computer5 computer5
+move
+
+# in endgame, non suicidal checks - highest value escaping moves - not in endgame, highest value escaping moves - non suicidal checks
+# endgame
+setup
++ Q c7
++ K f7
+= black
++ K h8
++ Q b5
++ R a3
++ B d3
+done
+game computer5 computer5
+move
+
+# non suicidal moves
+
+# possible moves

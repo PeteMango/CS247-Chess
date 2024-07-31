@@ -1,0 +1,56 @@
+# take more valuable pieces
+# escape
+# check
+# capture less valuable pieces
+
+# prefers to capture pieces of higher value than itself, avoiding capture, capturing moves and checks
+setup
++ K a2
++ N e5
++ P h3
+= black
++ K h8
++ P c6
++ R f3
+done
+game computer4 computer4
+move
+
+# prefers escaping because theres no valuable pieces
+setup
++ K a2
++ N e5
++ P h3
+= black
++ K h8
++ P c6
++ R g3
+done
+game computer4 computer4
+move
+
+# prefers checking because theres no valuable pieces and nothing attacked
+setup
++ K a2
++ N e5
++ P h4
+= black
++ K h8
++ P c6
++ R g3
+done
+game computer4 computer4
+move
+
+# prefers to take non bigger pieces because nothing else
+setup
++ K a2
++ N e5
++ P h4
+= black
++ K g8
++ P c6
++ R g3
+done
+game computer4 computer4
+move

@@ -1,0 +1,31 @@
+# prefers capturing and checks over random moves
+setup
++ K a2
++ N e4
+= black
++ B d6
++ K g8
+done
+game computer2 computer2
+move
+
+# show a position with only capturing moves
+setup
++ K a2
++ N e4
+= black
++ B d6
++ K h8
+done
+game computer2 computer2
+move
+
+# show a position with only checks
+setup
++ K a2
++ N e4
+= black
++ K g8
+done
+game computer2 computer2
+move

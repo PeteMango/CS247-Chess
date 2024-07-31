@@ -1,0 +1,40 @@
+# escape
+# capture
+# check
+
+
+# prefers avoiding capture, capturing moves and checks
+setup
++ K a2
++ P b2
++ N e6
+= black
++ K h5
++ N c4
++ R f8
+done
+game computer3 computer3
+move
+
+# show a position with only capturing moves
+setup
++ K a2
++ P b2
++ N e6
+= black
++ K h5
++ R f8
+done
+game computer3 computer3
+move
+
+# show a position with only checks
+setup
++ K a2
++ P b2
++ N e6
+= black
++ K h5
+done
+game computer3 computer3
+move
